@@ -1,4 +1,3 @@
-import _ from "lodash";
 // long/lat pair
 export type Coordinate = [number, number];
 

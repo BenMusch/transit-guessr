@@ -4,7 +4,6 @@ import type { MapboxStyle } from "react-map-gl";
 import Map, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapStyle from "./map_style";
-import _ from "lodash";
 
 import type { Station, Coordinate } from "./data/stations";
 
@@ -210,7 +209,7 @@ function ActiveGame(props: {
         {guessConfirmed && guess && turn !== 4 && (
           <button onClick={onContinue}>Continue</button>
         )}
-        {guessConfirmed && guess && turn == 4 && (
+        {guessConfirmed && guess && turn === 4 && (
           <button onClick={onGameOver}>See Results</button>
         )}
       </div>
