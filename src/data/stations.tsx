@@ -1,11 +1,66 @@
+import _ from "lodash";
 // long/lat pair
 export type Coordinate = [number, number];
 
 export type Station = {
   name: string;
-  // TODO: make this an enum with static list of stations
-  lines: string;
+  lines: Line[];
   coordinates: Coordinate[];
+};
+
+export type Line = {
+  name: string;
+  lineGroup:
+    | "yellow"
+    | "blue"
+    | "green"
+    | "orange"
+    | "silver"
+    | "grey"
+    | "red"
+    | "light-green"
+    | "purple"
+    | "brown";
+  express: boolean;
+};
+
+const LINES_BY_NAME: { [line: string]: Line } = {
+  // red
+  "1": { name: "1", express: false, lineGroup: "red" },
+  "2": { name: "2", express: false, lineGroup: "red" },
+  "3": { name: "3", express: false, lineGroup: "red" },
+  // green
+  "4": { name: "4", express: false, lineGroup: "green" },
+  "5": { name: "5", express: false, lineGroup: "green" },
+  "6": { name: "6", express: false, lineGroup: "green" },
+  "6 Express": { name: "6", express: true, lineGroup: "green" },
+  // blue
+  A: { name: "A", express: false, lineGroup: "blue" },
+  C: { name: "C", express: false, lineGroup: "blue" },
+  E: { name: "E", express: false, lineGroup: "blue" },
+  // orange
+  B: { name: "B", express: false, lineGroup: "orange" },
+  D: { name: "D", express: false, lineGroup: "orange" },
+  F: { name: "F", express: false, lineGroup: "orange" },
+  M: { name: "M", express: false, lineGroup: "orange" },
+  "F Express": { name: "F", express: true, lineGroup: "orange" },
+  // yellow
+  N: { name: "N", express: false, lineGroup: "yellow" },
+  Q: { name: "Q", express: false, lineGroup: "yellow" },
+  R: { name: "R", express: false, lineGroup: "yellow" },
+  W: { name: "W", express: false, lineGroup: "yellow" },
+  // purple
+  "7": { name: "7", express: false, lineGroup: "purple" },
+  "7 Express": { name: "7", express: true, lineGroup: "purple" },
+  // light green
+  G: { name: "G", express: false, lineGroup: "light-green" },
+  // grey
+  L: { name: "L", express: false, lineGroup: "grey" },
+  // brown
+  J: { name: "J", express: false, lineGroup: "brown" },
+  Z: { name: "Z", express: false, lineGroup: "brown" },
+  // silver
+  S: { name: "S", express: false, lineGroup: "silver" },
 };
 
 function parseCoordString(coordStr: string): Coordinate {
@@ -20,8 +75,13 @@ function parseCoordString(coordStr: string): Coordinate {
 function parseSingleStationJson(stationJson: StationJsonRow): Station {
   const [_a, _b, _c, _d, _e, _f, _g, _h, _i, _j, name, rawCoord, lines, _k] =
     stationJson;
+
+  const parsedLines = lines
+    .split("-")
+    .map((lineName) => LINES_BY_NAME[lineName]!);
+
   return {
-    lines,
+    lines: parsedLines,
     name,
     coordinates: [parseCoordString(rawCoord)],
   };

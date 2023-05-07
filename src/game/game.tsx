@@ -11,7 +11,12 @@ export function calculateScore(guess: Coordinate, station: Station): number {
   // TODO: update when we add compound stations
   const [actualLat, actualLong] = station.coordinates[0]!;
 
-  return Math.abs(guessLat - actualLat) + Math.abs(guessLong - actualLong);
+  const width = Math.abs(guessLat - actualLat);
+  const height = Math.abs(guessLong - actualLong);
+
+  const distance = Math.sqrt(width ** 2 + height ** 2);
+  console.log(distance);
+  return Math.round(Math.max(5000 - (distance * 900) ** 2, 0));
 }
 
 export type Game = {
