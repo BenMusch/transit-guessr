@@ -23,6 +23,17 @@ export default {
       interactive: true,
     },
     {
+      id: "landuse_park",
+      type: "fill",
+      source: "mapbox",
+      "source-layer": "landuse",
+      filter: ["==", "class", "park"],
+      paint: {
+        "fill-color": "#334155",
+      },
+      interactive: true,
+    },
+    {
       id: "water",
       type: "fill",
       source: "mapbox",

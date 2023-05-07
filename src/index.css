@@ -132,7 +132,7 @@ table {
 body {
   background-color: rgb(30 41 59);
   color: white;
-  font-family: "Arial";
+  font-family: "Arial", "Helvetica", sans-serif;
 }
 
 .inner-container {
@@ -151,7 +151,8 @@ body {
 
 .station-name {
   padding-top: 0.1em;
-  font-family: "Arial Black";
+  font-family: "Arial Black", "Helvetica", sans-serif;
+  font-weight: bolder;
   font-size: 2em;
   border-top: 0.1em solid white;
   margin-top: 0.25em;
@@ -163,7 +164,8 @@ body {
 }
 
 .station-line {
-  font-family: "Arial Black";
+  font-family: "Arial Black", "Helvetica", sans-serif;
+  font-weight: bolder;
   display: block;
   width: 1.5em;
   height: 1.5em;
@@ -308,7 +310,8 @@ button:disabled {
 
 .final-score {
   text-align: center;
-  font-family: "Arial Black";
+  font-family: "Arial Black", "Helvetica", sans-serif;
+  font-weight: bolder;
   font-size: 2em;
 }
 
