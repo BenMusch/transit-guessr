@@ -147,49 +147,50 @@ body {
   margin-top: 0.5em;
   margin-bottom: 1em;
   border-radius: 1em;
+}
 
-  .station-name {
-    padding-top: 0.1em;
-    font-family: "Arial Black";
-    font-size: 2em;
-    border-top: 0.1em solid white;
-    margin-top: 0.25em;
-    margin-bottom: 0.25em;
-  }
+.station-name {
+  padding-top: 0.1em;
+  font-family: "Arial Black";
+  font-size: 2em;
+  border-top: 0.1em solid white;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
 
-  .station-lines {
-    height: 1.75em;
-  }
+.station-lines {
+  height: 1.75em;
+}
 
-  .station-line {
-    font-family: "Arial Black";
-    display: block;
-    width: 1.5em;
-    height: 1.5em;
-    padding: 0.1em;
-    line-height: 1.5em;
-    float: left;
-    margin-right: 0.5em;
-    text-align: center;
+.station-line {
+  font-family: "Arial Black";
+  display: block;
+  width: 1.5em;
+  height: 1.5em;
+  padding: 0.1em;
+  line-height: 1.5em;
+  float: left;
+  margin-right: 0.5em;
+  text-align: center;
+}
 
-    &.local {
-      border-radius: 1em;
-    }
+.local {
+  border-radius: 1em;
+}
 
-    &.express {
-      transform: rotate(45deg);
-      width: 1.06em;
-      height: 1.06em;
-      margin-top: 0.22em;
-      .station-line-name {
-        transform: rotate(-45deg);
-        line-height: 1.06em;
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
+.express {
+  transform: rotate(45deg);
+  width: 1.06em;
+  height: 1.06em;
+  margin-top: 0.22em;
+}
+
+.express .station-line-name {
+  transform: rotate(-45deg);
+  line-height: 1.06em;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .yellow {
@@ -250,41 +251,41 @@ button {
   border-radius: 0.25em;
   font-weight: bold;
   border: none;
+}
 
-  &:hover {
-    background-color: #0369a1;
-  }
+button:hover {
+  background-color: #0369a1;
+}
 
-  &:disabled {
-    background-color: #082f49;
-    color: #ffffff70;
-  }
+button:disabled {
+  background-color: #082f49;
+  color: #ffffff70;
 }
 
 .stats {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   padding: 0.25em;
+}
 
-  .stat-container {
-    height: 1em;
-  }
+.stats .stat-container {
+  height: 1em;
+}
 
-  .stat-component {
-    display: block;
-    float: left;
-    margin-right: 0.5em;
+.stats .stat-component {
+  display: block;
+  float: left;
+  margin-right: 0.5em;
+}
 
-    .stat-component-name {
-      margin-right: 0.3em;
-      color: #ffffff70;
-    }
+.stats .stat-component-name {
+  margin-right: 0.3em;
+  color: #ffffff70;
+}
 
-    .stat-component-value {
-      margin-right: 0.5em;
-      color: #ffffffb8;
-    }
-  }
+.stats .stat-component-value {
+  margin-right: 0.5em;
+  color: #ffffffb8;
 }
 
 .score-overlay {
@@ -317,17 +318,17 @@ button {
   margin-top: 0.5em;
   margin-bottom: 1em;
   border-radius: 1em;
+}
 
-  .high-scores-heading {
-    text-weight: bold;
-    font-size: 1.5em;
-    text-align: center;
-    padding-bottom: 0.5em;
-    border-bottom: 1px solid #ffffff70;
-  }
+.high-scores-heading {
+  text-weight: bold;
+  font-size: 1.5em;
+  text-align: center;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #ffffff70;
+}
 
-  .high-score-row {
-    padding: 0.5em;
-    border-bottom: 1px solid #ffffff70;
-  }
+.high-score-row {
+  padding: 0.5em;
+  border-bottom: 1px solid #ffffff70;
 }
