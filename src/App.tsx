@@ -53,14 +53,14 @@ function WrappedMap(props: {
       initialViewState={{
         longitude: -73.875,
         latitude: 40.73065,
-        zoom: 9.5,
+        zoom: 9.25,
       }}
       maxZoom={12}
       minZoom={8.5}
       onClick={(e) => {
         onClick([e.lngLat.lng, e.lngLat.lat]);
       }}
-      style={{ width: 500, height: 500 }}
+      style={{ width: 500, height: 400 }}
       mapStyle={mapStyle as MapboxStyle}
     >
       {guessMarker && (

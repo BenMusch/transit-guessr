@@ -374,7 +374,8 @@ button:disabled {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
-  width: 450px;
+  width: 90%;
+  max-width: 450px;
   margin-left: auto;
   margin-right: auto;
   background-color: #64748b;
