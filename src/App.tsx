@@ -99,7 +99,7 @@ class App extends React.Component<
           </header>
 
           <div className="station-heading">
-            {/**<h1 className="station-name">{station.name}</h1>**/}
+            <h1 className="station-name">{station.name}</h1>
             <div className="station-lines">
               {station.lines.map((line) => {
                 return (
