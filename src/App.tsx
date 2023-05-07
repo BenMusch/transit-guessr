@@ -4,6 +4,7 @@ import type { MapboxStyle } from "react-map-gl";
 import Map, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapStyle from "./map_style";
+import _ from "lodash";
 
 import type { Station, Coordinate } from "./data/stations";
 
@@ -13,7 +14,10 @@ const HIGH_SCORES_KEY = "highScores";
 
 function getHighScores(): number[] {
   try {
-    return JSON.parse(localStorage.getItem(HIGH_SCORES_KEY) ?? "[]");
+    const highScores = JSON.parse(
+      localStorage.getItem(HIGH_SCORES_KEY) ?? "[]"
+    );
+    return highScores.map((score: string) => parseInt(score));
   } catch {
     console.error("high score load error");
     return [];
@@ -21,11 +25,12 @@ function getHighScores(): number[] {
 }
 
 function addHighScore(score: number): void {
-  const curScores = getHighScores();
-  curScores.push(score);
-  curScores.sort();
-  curScores.reverse();
-  localStorage.setItem(HIGH_SCORES_KEY, JSON.stringify(curScores.slice(0, 5)));
+  let curScores = [...getHighScores(), score];
+  let sortedScores = curScores.sort((a, b) => b - a);
+  localStorage.setItem(
+    HIGH_SCORES_KEY,
+    JSON.stringify(sortedScores.slice(0, 5))
+  );
 }
 
 function WrappedMap(props: {
@@ -40,7 +45,7 @@ function WrappedMap(props: {
       initialViewState={{
         longitude: -73.875,
         latitude: 40.73065,
-        zoom: 10,
+        zoom: 9.75,
       }}
       maxZoom={12}
       minZoom={9}
@@ -103,8 +108,8 @@ function GameplayMap(props: {
     <WrappedMap
       onClick={onClick}
       guessMarker={guess}
-      stationMarker={guessConfirmed ? station.coordinates[0]! : null}
-      guessScore={guessConfirmed ? guessScore : null}
+      stationMarker={guessConfirmed ? guessScore!.point : null}
+      guessScore={guessConfirmed ? guessScore!.score : null}
     />
   );
 }
@@ -161,7 +166,7 @@ function ActiveGame(props: {
   } = props;
   const station = game.stations[turn];
 
-  const curGuessScore = guess ? calculateScore(guess, station) : null;
+  const curGuessScore = guess ? calculateScore(guess, station).score : null;
 
   return (
     <>
