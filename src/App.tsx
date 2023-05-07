@@ -10,6 +10,7 @@ import type { Station, Coordinate } from "./data/stations";
 import { Game, calculateScore, makeGame } from "./game/game";
 
 const HIGH_SCORES_KEY = "highScores";
+const SEEN_INSTRUCTIONS_KEY = "seenInstructions";
 
 function getHighScores(): number[] {
   try {
@@ -30,6 +31,14 @@ function addHighScore(score: number): void {
     HIGH_SCORES_KEY,
     JSON.stringify(sortedScores.slice(0, 5))
   );
+}
+
+function markInstructionsSeen() {
+  localStorage.setItem(SEEN_INSTRUCTIONS_KEY, "1");
+}
+
+function hasSeenInstruction() {
+  return localStorage.getItem(SEEN_INSTRUCTIONS_KEY) !== null;
 }
 
 function WrappedMap(props: {
@@ -259,6 +268,31 @@ function ActiveGame(props: {
   );
 }
 
+function Instructions(props: { visible: boolean; onHide: () => void }) {
+  const { visible, onHide } = props;
+
+  if (!visible) {
+    return null;
+  }
+
+  return (
+    <div className="instructions-container">
+      <div className="instructions-content">
+        <h3>Instructions</h3>
+        <p>
+          Click on the map to guess where the displayed MTA stop is located.
+          There will be 5 rounds. Each round has a maximum score of 5000 points,
+          which are awarded based on how close your guess is to the actual
+          subway stop location.
+        </p>
+        <div className="buttons buttons-hide">
+          <button onClick={onHide}>Got It</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 class App extends React.Component<
   {},
   {
@@ -269,6 +303,7 @@ class App extends React.Component<
     guess: Coordinate | null;
     guessConfirmed: boolean;
     gameOver: boolean;
+    instructionsVisible: boolean;
   }
 > {
   constructor() {
@@ -281,6 +316,7 @@ class App extends React.Component<
       gameOver: false,
       turn: 0,
       score: 0,
+      instructionsVisible: !hasSeenInstruction(),
     };
   }
 
@@ -293,10 +329,18 @@ class App extends React.Component<
       guessConfirmed,
       guess,
       score,
+      instructionsVisible,
     } = this.state;
 
     return (
       <div className="main-container">
+        <Instructions
+          visible={instructionsVisible}
+          onHide={() => {
+            markInstructionsSeen();
+            this.setState({ instructionsVisible: false });
+          }}
+        />
         <div className="inner-container">
           {!gameOver && (
             <ActiveGame
