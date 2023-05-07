@@ -305,7 +305,8 @@ button:disabled {
 
 .final-score-container {
   height: 2em;
-  margin: 1.5em 0;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
 }
 
 .final-score {
@@ -334,4 +335,35 @@ button:disabled {
 .high-score-row {
   padding: 0.5em;
   border-bottom: 1px solid #ffffff70;
+}
+
+.guess-review-heading {
+  margin-top: 1em;
+  font-size: 1em;
+  height: 1.5em;
+}
+
+.turn-select-item,
+.turn-select-prefix {
+  border-radius: 0.25em;
+  display: block;
+  float: left;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0.25em;
+  color: #ffffffb8;
+}
+
+.turn-select-item {
+  margin-left: 0.25em;
+  color: #ffffff70;
+}
+
+.turn-select-item.active {
+  background-color: #64748b;
+  color: #ffffffb8;
+}
+
+.turn-select-item:hover {
+  color: #ffffffb8;
 }

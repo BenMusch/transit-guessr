@@ -113,13 +113,58 @@ function GameplayMap(props: {
   );
 }
 
-function GameReview(props: { score: number; onNewGame: () => void }) {
-  const { score, onNewGame } = props;
+function GameReview(props: {
+  station: Station;
+  guess: Coordinate;
+  score: number;
+  turn: number;
+  onNewGame: () => void;
+  onSelectTurn: (turn: number) => void;
+}) {
+  const { score, onNewGame, onSelectTurn, turn, guess, station } = props;
   const highScores = getHighScores();
+
+  const guessScore = calculateScore(guess, station);
+
   return (
     <>
       <div className="final-score-container">
         <h2 className="final-score">Score: {score}</h2>
+      </div>
+      <div className="buttons">
+        <button onClick={onNewGame}>Play Again</button>
+      </div>
+      <div className="guess-review">
+        <div className="guess-review-heading">
+          <div className="turn-select-prefix">
+            <span>Turn:</span>
+          </div>
+          {[0, 1, 2, 3, 4].map((curTurn) => {
+            return (
+              <div
+                className={`turn-select-item${
+                  curTurn === turn ? " active" : ""
+                }`}
+                onClick={() => onSelectTurn(curTurn)}
+                key={curTurn}
+              >
+                <span>{curTurn + 1}</span>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="guess-review">
+          <div className="guess-review-item">
+            <StationHeader station={station} />
+            <WrappedMap
+              guessMarker={guess}
+              stationMarker={guessScore.point}
+              onClick={(c) => {}}
+              guessScore={guessScore.score}
+            />
+          </div>
+        </div>
       </div>
 
       <div className="high-scores">
@@ -133,9 +178,6 @@ function GameReview(props: { score: number; onNewGame: () => void }) {
             </div>
           );
         })}
-      </div>
-      <div className="buttons">
-        <button onClick={onNewGame}>Play Again</button>
       </div>
     </>
   );
@@ -223,6 +265,7 @@ class App extends React.Component<
     score: number;
     game: Game;
     turn: number;
+    gameReviewSelectedTurn: number;
     guess: Coordinate | null;
     guessConfirmed: boolean;
     gameOver: boolean;
@@ -233,6 +276,7 @@ class App extends React.Component<
     this.state = {
       game: makeGame(),
       guess: null,
+      gameReviewSelectedTurn: 0,
       guessConfirmed: false,
       gameOver: false,
       turn: 0,
@@ -241,7 +285,15 @@ class App extends React.Component<
   }
 
   render() {
-    const { game, gameOver, turn, guessConfirmed, guess, score } = this.state;
+    const {
+      game,
+      gameOver,
+      turn,
+      gameReviewSelectedTurn,
+      guessConfirmed,
+      guess,
+      score,
+    } = this.state;
 
     return (
       <div className="main-container">
@@ -252,9 +304,12 @@ class App extends React.Component<
                 this.setState({ guess, guessConfirmed: false })
               }
               onGuessConfirmed={(guessScore) => {
+                let newGame = { ...game };
+                newGame.guesses[turn] = guess;
                 this.setState({
                   guessConfirmed: true,
                   score: guessScore + score,
+                  game: newGame,
                 });
               }}
               onContinue={() => {
@@ -280,7 +335,13 @@ class App extends React.Component<
 
           {gameOver && (
             <GameReview
+              guess={game.guesses[gameReviewSelectedTurn]!}
+              station={game.stations[gameReviewSelectedTurn]!}
+              turn={gameReviewSelectedTurn}
               score={score}
+              onSelectTurn={(turn) => {
+                this.setState({ gameReviewSelectedTurn: turn });
+              }}
               onNewGame={() => {
                 this.setState({
                   game: makeGame(),
