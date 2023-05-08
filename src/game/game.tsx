@@ -38,7 +38,7 @@ export function calculateScore(
     // 20,0000 meters = 0 points
     // normalize to be 5,000 max score
     let curScore = Math.round(
-      (5000 / 400000000) * Math.max((20000 - distance) ** 2, 0)
+      (5000 / 400000000) * (Math.max(20000 - distance, 0) ** 2)
     );
 
     if (curScore >= score) {
