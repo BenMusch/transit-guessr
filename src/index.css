@@ -404,3 +404,40 @@ button:disabled {
 .buttons-hide {
   padding: 0.25em;
 }
+
+.footer .info {
+    color: #64748b;
+    font-size: 0.75em;
+    max-width: 300px;
+}
+
+.info-link {
+    text-decoration: none;
+    color: #94a3b8;
+}
+
+.info-link:visited {
+    text-decoration: none;
+    color: #94a3b8;
+}
+
+.footer {
+    margin-top: 1em;
+    padding: 1em;
+}
+
+.bmc-btn {
+    min-width: 105px !important;
+    height: 30px !important;
+    font-size: 18px! important;
+    border-radius: 6px !important;
+    margin-bottom: 0.5em !important;
+}
+
+.bmc-btn-text {
+    margin-left: 4px !important;
+}
+
+.bmc-btn svg {
+    height: 16px !important;
+}
