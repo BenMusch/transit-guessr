@@ -256,7 +256,7 @@ button {
   margin-top: 0.5em;
 }
 
-.buttons:first-child {
+.buttons button:first-child {
   margin-top: 0;
 }
 
