@@ -7,31 +7,34 @@ import mapStyle from "./map_style";
 import { initializeApp } from "firebase/app";
 import { addDoc, getFirestore, collection } from "firebase/firestore/lite";
 import type { Station, Coordinate, Line } from "./data/stations";
+import type { FirebaseOptions, FirebaseApp } from "firebase/app";
 import { Game, calculateScore, makeGame } from "./game/game";
 
 const GUESSES_COLLECTION_NAME = "guesses";
 const SCORES_COLLECTION_NAME = "scores";
 
-const FIREBASE_CONFIG = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
-  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
-};
+declare global {
+  interface Window {
+    firebaseConfig?: FirebaseOptions; // error RIP
+  }
+}
 
-console.log(FIREBASE_CONFIG);
-
-const FIREBASE_APP = initializeApp(FIREBASE_CONFIG);
+let firebaseApp: FirebaseApp | undefined;
 
 const HIGH_SCORES_KEY = "highScores";
 const SEEN_INSTRUCTIONS_KEY = "seenInstructions";
 
 function tryToSaveFirebaseDoc(collectionName: string, doc: unknown) {
   try {
-    const dbRef = getFirestore(FIREBASE_APP);
+    if (!firebaseApp && window.firebaseConfig) {
+      firebaseApp = initializeApp(window.firebaseConfig);
+    }
+
+    if (!firebaseApp) {
+      return;
+    }
+
+    const dbRef = getFirestore(firebaseApp);
     const collectionRef = collection(dbRef, collectionName);
     addDoc(collectionRef, doc);
   } catch (err) {
