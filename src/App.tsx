@@ -32,15 +32,15 @@ function shareableGame(game: Game, score: number): string {
     const splitStationName = station.name.split("/")[0];
     const stationScore = calculateScore(guess!, station).score;
 
-    let stationScoreEmojis = _.repeat("⭐️", Math.ceil(stationScore / 1000));
+    const numStars = Math.ceil(stationScore / 1000);
+    let stationScoreEmojis =
+      _.repeat("⭐️", numStars) + _.repeat("◽️", 5 - numStars);
 
     if (stationScore > 4800) {
-      stationScoreEmojis += "✨";
-    } else if (stationScore === 0) {
-      stationScoreEmojis = "❌";
+      stationScoreEmojis = "🌟🌟🌟🌟🌟";
     }
 
-    return `${splitStationName} ${stationScoreEmojis}`;
+    return `${stationScoreEmojis} ${splitStationName}`;
   });
   return `
 ${score.toLocaleString()} / 25,000

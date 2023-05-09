@@ -2472,11 +2472,6 @@ export const STATIONS: Station[] = [
     ],
   },
   {
-    lines: [],
-    name: "Chambers St",
-    coordinates: [[-74.00858473570133, 40.714111000774025]],
-  },
-  {
     lines: [{ name: "G", express: false, lineGroup: "light-green" }],
     name: "Myrtle-Willoughby Aves",
     coordinates: [[-73.94906699890156, 40.69461899903765]],
