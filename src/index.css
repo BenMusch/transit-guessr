@@ -253,6 +253,11 @@ button {
   border-radius: 0.25em;
   font-weight: bold;
   border: none;
+  margin-top: 0.5em;
+}
+
+.buttons:first-child {
+  margin-top: 0;
 }
 
 button:hover {
@@ -406,38 +411,38 @@ button:disabled {
 }
 
 .footer .info {
-    color: #64748b;
-    font-size: 0.75em;
-    max-width: 300px;
+  color: #64748b;
+  font-size: 0.75em;
+  max-width: 300px;
 }
 
 .info-link {
-    text-decoration: none;
-    color: #94a3b8;
+  text-decoration: none;
+  color: #94a3b8;
 }
 
 .info-link:visited {
-    text-decoration: none;
-    color: #94a3b8;
+  text-decoration: none;
+  color: #94a3b8;
 }
 
 .footer {
-    margin-top: 1em;
-    padding: 1em;
+  margin-top: 1em;
+  padding: 1em;
 }
 
 .bmc-btn {
-    min-width: 105px !important;
-    height: 30px !important;
-    font-size: 18px! important;
-    border-radius: 6px !important;
-    margin-bottom: 0.5em !important;
+  min-width: 105px !important;
+  height: 30px !important;
+  font-size: 18px !important;
+  border-radius: 6px !important;
+  margin-bottom: 0.5em !important;
 }
 
 .bmc-btn-text {
-    margin-left: 4px !important;
+  margin-left: 4px !important;
 }
 
 .bmc-btn svg {
-    height: 16px !important;
+  height: 16px !important;
 }

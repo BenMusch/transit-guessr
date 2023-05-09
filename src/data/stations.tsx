@@ -643,16 +643,6 @@ export const STATIONS: Station[] = [
   },
   {
     lines: [
-      { name: "B", express: false, lineGroup: "orange" },
-      { name: "D", express: false, lineGroup: "orange" },
-      { name: "F", express: false, lineGroup: "orange" },
-      { name: "M", express: false, lineGroup: "orange" },
-    ],
-    name: "W 4th St - Washington Sq (Lower)",
-    coordinates: [[-74.00030814755975, 40.732254493367876]],
-  },
-  {
-    lines: [
       { name: "1", express: false, lineGroup: "red" },
       { name: "2", express: false, lineGroup: "red" },
     ],
@@ -1507,9 +1497,16 @@ export const STATIONS: Station[] = [
       { name: "A", express: false, lineGroup: "blue" },
       { name: "C", express: false, lineGroup: "blue" },
       { name: "E", express: false, lineGroup: "blue" },
+      { name: "B", express: false, lineGroup: "orange" },
+      { name: "D", express: false, lineGroup: "orange" },
+      { name: "F", express: false, lineGroup: "orange" },
+      { name: "M", express: false, lineGroup: "orange" },
     ],
-    name: "W 4th St - Washington Sq (Upper)",
-    coordinates: [[-74.00049500225435, 40.73233799774325]],
+    name: "W 4th St - Washington Sq",
+    coordinates: [
+      [-74.00049500225435, 40.73233799774325],
+      [-74.00030814755975, 40.732254493367876],
+    ],
   },
   {
     lines: [{ name: "J", express: false, lineGroup: "brown" }],

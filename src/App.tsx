@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import _ from "lodash";
 import type { MapboxStyle } from "react-map-gl";
 import Map, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -23,6 +24,30 @@ let firebaseApp: FirebaseApp | undefined;
 
 const HIGH_SCORES_KEY = "highScores";
 const SEEN_INSTRUCTIONS_KEY = "seenInstructions";
+
+function shareableGame(game: Game, score: number): string {
+  const guessStrs = [0, 1, 2, 3, 4].map((turn) => {
+    const guess = game.guesses[turn];
+    const station = game.stations[turn];
+    const splitStationName = station.name.split("/")[0];
+    const stationScore = calculateScore(guess!, station).score;
+
+    let stationScoreEmojis = _.repeat("⭐️", Math.ceil(stationScore / 1000));
+
+    if (stationScore > 4800) {
+      stationScoreEmojis += "✨";
+    } else if (stationScore === 0) {
+      stationScoreEmojis = "❌";
+    }
+
+    return `${splitStationName} ${stationScoreEmojis}`;
+  });
+  return `
+${score.toLocaleString()} / 25,000
+${guessStrs.join("\n")}
+https://nycguessr.com
+    `.trim();
+}
 
 function tryToSaveFirebaseDoc(collectionName: string, doc: unknown) {
   try {
@@ -157,10 +182,21 @@ function GameReview(props: {
   guess: Coordinate;
   score: number;
   turn: number;
+  gameReviewCopied: boolean;
   onNewGame: () => void;
+  onCopy: () => void;
   onSelectTurn: (turn: number) => void;
 }) {
-  const { score, onNewGame, onSelectTurn, turn, guess, station } = props;
+  const {
+    score,
+    onNewGame,
+    onSelectTurn,
+    onCopy,
+    gameReviewCopied,
+    turn,
+    guess,
+    station,
+  } = props;
   const highScores = getHighScores();
 
   const guessScore = calculateScore(guess, station);
@@ -171,6 +207,9 @@ function GameReview(props: {
         <h2 className="final-score">Score: {score}</h2>
       </div>
       <div className="buttons">
+        <button onClick={onCopy}>
+          {gameReviewCopied ? "Copied" : "Share"}
+        </button>
         <button onClick={onNewGame}>Play Again</button>
       </div>
       <div className="guess-review">
@@ -334,6 +373,7 @@ class App extends React.Component<
     guessConfirmed: boolean;
     gameOver: boolean;
     instructionsVisible: boolean;
+    gameReviewCopied: boolean;
   }
 > {
   constructor() {
@@ -342,6 +382,7 @@ class App extends React.Component<
       game: makeGame(),
       guess: null,
       gameReviewSelectedTurn: 0,
+      gameReviewCopied: false,
       guessConfirmed: false,
       gameOver: false,
       turn: 0,
@@ -356,6 +397,7 @@ class App extends React.Component<
       gameOver,
       turn,
       gameReviewSelectedTurn,
+      gameReviewCopied,
       guessConfirmed,
       guess,
       score,
@@ -428,14 +470,22 @@ class App extends React.Component<
               station={game.stations[gameReviewSelectedTurn]!}
               turn={gameReviewSelectedTurn}
               score={score}
+              gameReviewCopied={gameReviewCopied}
               onSelectTurn={(turn) => {
                 this.setState({ gameReviewSelectedTurn: turn });
+              }}
+              onCopy={() => {
+                const toShare = shareableGame(game, score);
+                navigator.clipboard.writeText(toShare);
+                this.setState({ gameReviewCopied: true });
               }}
               onNewGame={() => {
                 this.setState({
                   game: makeGame(),
                   guess: null,
                   guessConfirmed: false,
+                  gameReviewSelectedTurn: 0,
+                  gameReviewCopied: false,
                   gameOver: false,
                   turn: 0,
                   score: 0,
