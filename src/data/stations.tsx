@@ -941,15 +941,17 @@ export const STATIONS: Station[] = [
   },
   {
     lines: [
+      { name: "2", express: false, lineGroup: "red" },
+      { name: "3", express: false, lineGroup: "red" },
       { name: "4", express: false, lineGroup: "green" },
       { name: "5", express: false, lineGroup: "green" },
       { name: "R", express: false, lineGroup: "yellow" },
-      { name: "W", express: false, lineGroup: "yellow" },
     ],
-    name: "Borough Hall/City Hall",
+    name: "Borough Hall/Court St",
     coordinates: [
       [-73.99015100090539, 40.692403999991036],
-      [-74.00698581780337, 40.71327233111697],
+      [-73.99181830901125, 40.694196480776995],
+      [-73.98999799960687, 40.693218999611084],
     ],
   },
   {
@@ -2588,14 +2590,6 @@ export const STATIONS: Station[] = [
   {
     lines: [
       { name: "N", express: false, lineGroup: "yellow" },
-      { name: "R", express: false, lineGroup: "yellow" },
-    ],
-    name: "Court St",
-    coordinates: [[-73.99181830901125, 40.694196480776995]],
-  },
-  {
-    lines: [
-      { name: "N", express: false, lineGroup: "yellow" },
       { name: "Q", express: false, lineGroup: "yellow" },
       { name: "R", express: false, lineGroup: "yellow" },
       { name: "W", express: false, lineGroup: "yellow" },
@@ -2759,14 +2753,6 @@ export const STATIONS: Station[] = [
     ],
     name: "Hoyt St",
     coordinates: [[-73.98506379575646, 40.69054418535472]],
-  },
-  {
-    lines: [
-      { name: "2", express: false, lineGroup: "red" },
-      { name: "3", express: false, lineGroup: "red" },
-    ],
-    name: "Borough Hall",
-    coordinates: [[-73.98999799960687, 40.693218999611084]],
   },
   {
     lines: [{ name: "4", express: false, lineGroup: "green" }],
