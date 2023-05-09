@@ -4,13 +4,38 @@ import type { MapboxStyle } from "react-map-gl";
 import Map, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapStyle from "./map_style";
-
-import type { Station, Coordinate } from "./data/stations";
-
+import { initializeApp } from "firebase/app";
+import { addDoc, getFirestore, collection } from "firebase/firestore/lite";
+import type { Station, Coordinate, Line } from "./data/stations";
 import { Game, calculateScore, makeGame } from "./game/game";
+
+const GUESSES_COLLECTION_NAME = "guesses";
+const SCORES_COLLECTION_NAME = "scores";
+
+const FIREBASE_CONFIG = {
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+};
+
+const FIREBASE_APP = initializeApp(FIREBASE_CONFIG);
 
 const HIGH_SCORES_KEY = "highScores";
 const SEEN_INSTRUCTIONS_KEY = "seenInstructions";
+
+function tryToSaveFirebaseDoc(collectionName: string, doc: unknown) {
+  try {
+    const dbRef = getFirestore(FIREBASE_APP);
+    const collectionRef = collection(dbRef, collectionName);
+    addDoc(collectionRef, doc);
+  } catch (err) {
+    console.error("Error sending guess data to server", err);
+  }
+}
 
 function getHighScores(): number[] {
   try {
@@ -350,6 +375,20 @@ class App extends React.Component<
               onGuessConfirmed={(guessScore) => {
                 let newGame = { ...game };
                 newGame.guesses[turn] = guess;
+
+                const station = game.stations[turn];
+                const stationNameSuffix = station.lines
+                  .map(
+                    (line: Line) => `${line.name}${line.express ? "Exp" : ""}`
+                  )
+                  .join(",");
+
+                tryToSaveFirebaseDoc(GUESSES_COLLECTION_NAME, {
+                  score: guessScore,
+                  station: `${station.name} (${stationNameSuffix})`,
+                  loc: guess,
+                });
+
                 this.setState({
                   guessConfirmed: true,
                   score: guessScore + score,
@@ -365,6 +404,7 @@ class App extends React.Component<
               }}
               onGameOver={() => {
                 addHighScore(score);
+                tryToSaveFirebaseDoc(SCORES_COLLECTION_NAME, { score: score });
                 this.setState({
                   gameOver: true,
                 });
