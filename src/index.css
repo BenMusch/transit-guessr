@@ -240,7 +240,7 @@ body {
   padding-bottom: 1em;
 }
 
-button {
+.buttons button {
   padding: 0.5em;
   display: block;
   font-size: 1em;
