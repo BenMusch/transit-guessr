@@ -22,6 +22,8 @@ const FIREBASE_CONFIG = {
   measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
+console.log(FIREBASE_CONFIG);
+
 const FIREBASE_APP = initializeApp(FIREBASE_CONFIG);
 
 const HIGH_SCORES_KEY = "highScores";
