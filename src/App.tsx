@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import _ from "lodash";
 import type { MapboxStyle } from "react-map-gl";
-import Map, { Marker } from "react-map-gl";
+import { Map, MapProvider, useMap, Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapStyle from "./map_style";
 import { initializeApp } from "firebase/app";
@@ -24,6 +24,12 @@ let firebaseApp: FirebaseApp | undefined;
 
 const HIGH_SCORES_KEY = "highScores";
 const SEEN_INSTRUCTIONS_KEY = "seenInstructions";
+
+const INITIAL_MAP_STATE = {
+  longitude: -73.875,
+  latitude: 40.73065,
+  zoom: 9.25,
+};
 
 function shareableGame(game: Game, score: number): string {
   const guessStrs = [0, 1, 2, 3, 4].map((turn) => {
@@ -98,18 +104,16 @@ function hasSeenInstruction() {
 
 function WrappedMap(props: {
   guessMarker: Coordinate | null;
+  id: string;
   guessScore: number | null;
   stationMarker: Coordinate | null;
   onClick: (c: Coordinate) => void;
 }) {
-  const { guessMarker, stationMarker, onClick, guessScore } = props;
+  const { id, guessMarker, stationMarker, onClick, guessScore } = props;
   return (
     <Map
-      initialViewState={{
-        longitude: -73.875,
-        latitude: 40.73065,
-        zoom: 9.25,
-      }}
+      id={id}
+      initialViewState={INITIAL_MAP_STATE}
       maxZoom={12}
       minZoom={8.5}
       onClick={(e) => {
@@ -169,6 +173,7 @@ function GameplayMap(props: {
 
   return (
     <WrappedMap
+      id="gameplayMap"
       onClick={onClick}
       guessMarker={guess}
       stationMarker={guessConfirmed ? guessScore!.point : null}
@@ -236,6 +241,7 @@ function GameReview(props: {
           <div className="guess-review-item">
             <StationHeader station={station} />
             <WrappedMap
+              id="reviewMap"
               guessMarker={guess}
               stationMarker={guessScore.point}
               onClick={(c) => {}}
@@ -314,7 +320,6 @@ function ActiveGame(props: {
         station={station}
         guessConfirmed={guessConfirmed}
         guess={guess}
-        key={turn}
       />
 
       <div className="buttons">
@@ -362,141 +367,120 @@ function Instructions(props: { visible: boolean; onHide: () => void }) {
   );
 }
 
-class App extends React.Component<
-  {},
-  {
-    score: number;
-    game: Game;
-    turn: number;
-    gameReviewSelectedTurn: number;
-    guess: Coordinate | null;
-    guessConfirmed: boolean;
-    gameOver: boolean;
-    instructionsVisible: boolean;
-    gameReviewCopied: boolean;
-  }
-> {
-  constructor() {
-    super({});
-    this.state = {
-      game: makeGame(),
-      guess: null,
-      gameReviewSelectedTurn: 0,
-      gameReviewCopied: false,
-      guessConfirmed: false,
-      gameOver: false,
-      turn: 0,
-      score: 0,
-      instructionsVisible: !hasSeenInstruction(),
-    };
-  }
+function AppImpl() {
+  // TODO: refactor once I understand good react code
+  const [game, setGame] = useState(makeGame());
+  const [guess, setGuess] = useState<Coordinate | null>(null);
+  const [gameReviewSelectedTurn, setGameReviewSelectedTurn] = useState(0);
+  const [gameReviewCopied, setGameReviewCopied] = useState(false);
+  const [guessConfirmed, setGuessConfirmed] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
+  const [turn, setTurn] = useState(0);
+  const [score, setScore] = useState(0);
+  const [instructionsVisible, setInstructionsVisible] = useState(
+    !hasSeenInstruction()
+  );
 
-  render() {
-    const {
-      game,
-      gameOver,
-      turn,
-      gameReviewSelectedTurn,
-      gameReviewCopied,
-      guessConfirmed,
-      guess,
-      score,
-      instructionsVisible,
-    } = this.state;
+  const mapRef = useMap();
+  const resetView = () => {
+    mapRef?.reviewMap?.jumpTo(INITIAL_MAP_STATE);
+    mapRef?.gameplayMap?.jumpTo(INITIAL_MAP_STATE);
+  };
 
-    return (
-      <div className="main-container">
-        <Instructions
-          visible={instructionsVisible}
-          onHide={() => {
-            markInstructionsSeen();
-            this.setState({ instructionsVisible: false });
-          }}
-        />
-        <div className="inner-container">
-          {!gameOver && (
-            <ActiveGame
-              onGuess={(guess) =>
-                this.setState({ guess, guessConfirmed: false })
-              }
-              onGuessConfirmed={(guessScore) => {
-                let newGame = { ...game };
-                newGame.guesses[turn] = guess;
+  return (
+    <div className="main-container">
+      <Instructions
+        visible={instructionsVisible}
+        onHide={() => {
+          markInstructionsSeen();
+          setInstructionsVisible(false);
+        }}
+      />
+      <div className="inner-container">
+        {!gameOver && (
+          <ActiveGame
+            onGuess={(guess) => {
+              setGuess(guess);
+              setGuessConfirmed(false);
+            }}
+            onGuessConfirmed={(guessScore) => {
+              let newGame = { ...game };
+              newGame.guesses[turn] = guess;
 
-                const station = game.stations[turn];
-                const stationNameSuffix = station.lines
-                  .map(
-                    (line: Line) => `${line.name}${line.express ? "Exp" : ""}`
-                  )
-                  .join(",");
+              const station = game.stations[turn];
+              const stationNameSuffix = station.lines
+                .map((line: Line) => `${line.name}${line.express ? "Exp" : ""}`)
+                .join(",");
 
-                tryToSaveFirebaseDoc(GUESSES_COLLECTION_NAME, {
-                  score: guessScore,
-                  station: `${station.name} (${stationNameSuffix})`,
-                  loc: guess,
-                });
+              tryToSaveFirebaseDoc(GUESSES_COLLECTION_NAME, {
+                score: guessScore,
+                station: `${station.name} (${stationNameSuffix})`,
+                loc: guess,
+              });
 
-                this.setState({
-                  guessConfirmed: true,
-                  score: guessScore + score,
-                  game: newGame,
-                });
-              }}
-              onContinue={() => {
-                this.setState({
-                  guess: null,
-                  guessConfirmed: false,
-                  turn: turn + 1,
-                });
-              }}
-              onGameOver={() => {
-                addHighScore(score);
-                tryToSaveFirebaseDoc(SCORES_COLLECTION_NAME, { score: score });
-                this.setState({
-                  gameOver: true,
-                });
-              }}
-              game={game}
-              turn={turn}
-              guessConfirmed={guessConfirmed}
-              score={score}
-              guess={guess}
-            />
-          )}
+              setGuessConfirmed(true);
+              setScore(score + guessScore);
+              setGame(newGame);
+            }}
+            onContinue={() => {
+              setGuess(null);
+              setGuessConfirmed(false);
+              setTurn(turn + 1);
+              resetView();
+            }}
+            onGameOver={() => {
+              addHighScore(score);
+              tryToSaveFirebaseDoc(SCORES_COLLECTION_NAME, { score: score });
+              setGameOver(true);
+            }}
+            game={game}
+            turn={turn}
+            guessConfirmed={guessConfirmed}
+            score={score}
+            guess={guess}
+          />
+        )}
 
-          {gameOver && (
-            <GameReview
-              guess={game.guesses[gameReviewSelectedTurn]!}
-              station={game.stations[gameReviewSelectedTurn]!}
-              turn={gameReviewSelectedTurn}
-              score={score}
-              gameReviewCopied={gameReviewCopied}
-              onSelectTurn={(turn) => {
-                this.setState({ gameReviewSelectedTurn: turn });
-              }}
-              onCopy={() => {
-                const toShare = shareableGame(game, score);
-                navigator.clipboard.writeText(toShare);
-                this.setState({ gameReviewCopied: true });
-              }}
-              onNewGame={() => {
-                this.setState({
-                  game: makeGame(),
-                  guess: null,
-                  guessConfirmed: false,
-                  gameReviewSelectedTurn: 0,
-                  gameReviewCopied: false,
-                  gameOver: false,
-                  turn: 0,
-                  score: 0,
-                });
-              }}
-            />
-          )}
-        </div>
+        {gameOver && (
+          <GameReview
+            guess={game.guesses[gameReviewSelectedTurn]!}
+            station={game.stations[gameReviewSelectedTurn]!}
+            turn={gameReviewSelectedTurn}
+            score={score}
+            gameReviewCopied={gameReviewCopied}
+            onSelectTurn={(turn) => {
+              setGameReviewSelectedTurn(turn);
+              resetView();
+            }}
+            onCopy={() => {
+              const toShare = shareableGame(game, score);
+              navigator.clipboard.writeText(toShare);
+              setGameReviewCopied(true);
+            }}
+            onNewGame={() => {
+              setGame(makeGame);
+              setGuess(null);
+              setGuessConfirmed(false);
+              setGameReviewSelectedTurn(0);
+              setGameReviewCopied(false);
+              setGameOver(false);
+              setTurn(0);
+              setScore(0);
+              resetView();
+            }}
+          />
+        )}
       </div>
-    );
-  }
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <MapProvider>
+      <AppImpl />
+    </MapProvider>
+  );
 }
 
 export default App;
