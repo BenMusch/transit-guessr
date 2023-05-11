@@ -183,28 +183,23 @@ function GameplayMap(props: {
 }
 
 function GameReview(props: {
-  station: Station;
-  guess: Coordinate;
+  game: Game;
   score: number;
-  turn: number;
-  gameReviewCopied: boolean;
   onNewGame: () => void;
-  onCopy: () => void;
-  onSelectTurn: (turn: number) => void;
 }) {
-  const {
-    score,
-    onNewGame,
-    onSelectTurn,
-    onCopy,
-    gameReviewCopied,
-    turn,
-    guess,
-    station,
-  } = props;
+  const { score, onNewGame, game } = props;
+  const [copied, setCopied] = useState(false);
+  const [selectedTurn, setSelectedTurn] = useState(0);
   const highScores = getHighScores();
 
-  const guessScore = calculateScore(guess, station);
+  const guess = game.guesses[selectedTurn];
+  const station = game.stations[selectedTurn];
+
+  const guessScore = calculateScore(guess!, station);
+  const mapRef = useMap();
+  const resetView = () => {
+    mapRef?.reviewMap?.jumpTo(INITIAL_MAP_STATE);
+  };
 
   return (
     <>
@@ -212,8 +207,14 @@ function GameReview(props: {
         <h2 className="final-score">Score: {score}</h2>
       </div>
       <div className="buttons">
-        <button onClick={onCopy}>
-          {gameReviewCopied ? "Copied" : "Share"}
+        <button
+          onClick={() => {
+            setCopied(true);
+            const toShare = shareableGame(game, score);
+            navigator.clipboard.writeText(toShare);
+          }}
+        >
+          {copied ? "Copied" : "Share"}
         </button>
         <button onClick={onNewGame}>Play Again</button>
       </div>
@@ -226,9 +227,12 @@ function GameReview(props: {
             return (
               <div
                 className={`turn-select-item${
-                  curTurn === turn ? " active" : ""
+                  curTurn === selectedTurn ? " active" : ""
                 }`}
-                onClick={() => onSelectTurn(curTurn)}
+                onClick={() => {
+                  setSelectedTurn(curTurn);
+                  resetView();
+                }}
                 key={curTurn}
               >
                 <span>{curTurn + 1}</span>
@@ -268,30 +272,18 @@ function GameReview(props: {
 }
 
 function ActiveGame(props: {
-  onGuess: (c: Coordinate) => void;
-  onGuessConfirmed: (score: number) => void;
+  onGuess: (score: number, location: Coordinate) => void;
   onContinue: () => void;
   onGameOver: () => void;
   turn: number;
   score: number;
   game: Game;
-  guess: Coordinate | null;
-  guessConfirmed: boolean;
 }) {
-  const {
-    game,
-    turn,
-    guessConfirmed,
-    onGuess,
-    guess,
-    score,
-    onGuessConfirmed,
-    onContinue,
-    onGameOver,
-  } = props;
+  const { game, turn, onGuess, score, onContinue, onGameOver } = props;
   const station = game.stations[turn];
 
-  const curGuessScore = guess ? calculateScore(guess, station).score : null;
+  const [guess, setGuess] = useState<Coordinate | null>(null);
+  const [confirmed, setConfirmed] = useState(false);
 
   return (
     <>
@@ -313,37 +305,54 @@ function ActiveGame(props: {
 
       <GameplayMap
         onClick={(guess) => {
-          if (!guessConfirmed) {
-            onGuess(guess);
+          if (!confirmed) {
+            setGuess(guess);
           }
         }}
         station={station}
-        guessConfirmed={guessConfirmed}
+        guessConfirmed={confirmed}
         guess={guess}
       />
 
       <div className="buttons">
-        {!guessConfirmed && (
+        {!confirmed && (
           <button
             disabled={guess === null}
-            onClick={() => onGuessConfirmed(curGuessScore!)}
+            onClick={() => {
+              onGuess(calculateScore(guess!, station).score, guess!);
+              setConfirmed(false);
+            }}
           >
             Confirm
           </button>
         )}
-        {guessConfirmed && guess && turn !== 4 && (
-          <button onClick={onContinue}>Continue</button>
+        {confirmed && guess && turn !== 4 && (
+          <button
+            onClick={() => {
+              setGuess(null);
+              onContinue();
+            }}
+          >
+            Continue
+          </button>
         )}
-        {guessConfirmed && guess && turn === 4 && (
-          <button onClick={onGameOver}>See Results</button>
+        {confirmed && guess && turn === 4 && (
+          <button
+            onClick={() => {
+              setGuess(null);
+              onGameOver();
+            }}
+          >
+            See Results
+          </button>
         )}
       </div>
     </>
   );
 }
 
-function Instructions(props: { visible: boolean; onHide: () => void }) {
-  const { visible, onHide } = props;
+function Instructions() {
+  const [visible, setVisible] = useState(!hasSeenInstruction());
 
   if (!visible) {
     return null;
@@ -360,7 +369,14 @@ function Instructions(props: { visible: boolean; onHide: () => void }) {
           subway stop location.
         </p>
         <div className="buttons buttons-hide">
-          <button onClick={onHide}>Got It</button>
+          <button
+            onClick={() => {
+              setVisible(false);
+              markInstructionsSeen();
+            }}
+          >
+            Got It
+          </button>
         </div>
       </div>
     </div>
@@ -368,18 +384,10 @@ function Instructions(props: { visible: boolean; onHide: () => void }) {
 }
 
 function AppImpl() {
-  // TODO: refactor once I understand good react code
   const [game, setGame] = useState(makeGame());
-  const [guess, setGuess] = useState<Coordinate | null>(null);
-  const [gameReviewSelectedTurn, setGameReviewSelectedTurn] = useState(0);
-  const [gameReviewCopied, setGameReviewCopied] = useState(false);
-  const [guessConfirmed, setGuessConfirmed] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [turn, setTurn] = useState(0);
   const [score, setScore] = useState(0);
-  const [instructionsVisible, setInstructionsVisible] = useState(
-    !hasSeenInstruction()
-  );
 
   const mapRef = useMap();
   const resetView = () => {
@@ -389,23 +397,13 @@ function AppImpl() {
 
   return (
     <div className="main-container">
-      <Instructions
-        visible={instructionsVisible}
-        onHide={() => {
-          markInstructionsSeen();
-          setInstructionsVisible(false);
-        }}
-      />
+      <Instructions />
       <div className="inner-container">
         {!gameOver && (
           <ActiveGame
-            onGuess={(guess) => {
-              setGuess(guess);
-              setGuessConfirmed(false);
-            }}
-            onGuessConfirmed={(guessScore) => {
+            onGuess={(guessScore, guessLoc) => {
               let newGame = { ...game };
-              newGame.guesses[turn] = guess;
+              newGame.guesses[turn] = guessLoc;
 
               const station = game.stations[turn];
               const stationNameSuffix = station.lines
@@ -415,16 +413,12 @@ function AppImpl() {
               tryToSaveFirebaseDoc(GUESSES_COLLECTION_NAME, {
                 score: guessScore,
                 station: `${station.name} (${stationNameSuffix})`,
-                loc: guess,
+                loc: guessLoc,
               });
-
-              setGuessConfirmed(true);
               setScore(score + guessScore);
               setGame(newGame);
             }}
             onContinue={() => {
-              setGuess(null);
-              setGuessConfirmed(false);
               setTurn(turn + 1);
               resetView();
             }}
@@ -435,34 +429,16 @@ function AppImpl() {
             }}
             game={game}
             turn={turn}
-            guessConfirmed={guessConfirmed}
             score={score}
-            guess={guess}
           />
         )}
 
         {gameOver && (
           <GameReview
-            guess={game.guesses[gameReviewSelectedTurn]!}
-            station={game.stations[gameReviewSelectedTurn]!}
-            turn={gameReviewSelectedTurn}
+            game={game}
             score={score}
-            gameReviewCopied={gameReviewCopied}
-            onSelectTurn={(turn) => {
-              setGameReviewSelectedTurn(turn);
-              resetView();
-            }}
-            onCopy={() => {
-              const toShare = shareableGame(game, score);
-              navigator.clipboard.writeText(toShare);
-              setGameReviewCopied(true);
-            }}
             onNewGame={() => {
               setGame(makeGame);
-              setGuess(null);
-              setGuessConfirmed(false);
-              setGameReviewSelectedTurn(0);
-              setGameReviewCopied(false);
               setGameOver(false);
               setTurn(0);
               setScore(0);
