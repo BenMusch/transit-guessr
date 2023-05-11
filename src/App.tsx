@@ -320,7 +320,7 @@ function ActiveGame(props: {
             disabled={guess === null}
             onClick={() => {
               onGuess(calculateScore(guess!, station).score, guess!);
-              setConfirmed(false);
+              setConfirmed(true);
             }}
           >
             Confirm
@@ -330,6 +330,7 @@ function ActiveGame(props: {
           <button
             onClick={() => {
               setGuess(null);
+              setConfirmed(false);
               onContinue();
             }}
           >
@@ -340,6 +341,7 @@ function ActiveGame(props: {
           <button
             onClick={() => {
               setGuess(null);
+              setConfirmed(false);
               onGameOver();
             }}
           >
