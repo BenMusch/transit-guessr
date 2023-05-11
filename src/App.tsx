@@ -10,17 +10,27 @@ import { addDoc, getFirestore, collection } from "firebase/firestore/lite";
 import type { Station, Coordinate, Line } from "./data/stations";
 import type { FirebaseOptions, FirebaseApp } from "firebase/app";
 import { Game, calculateScore, makeGame } from "./game/game";
+import * as Sentry from "@sentry/react";
 
 const GUESSES_COLLECTION_NAME = "guesses";
 const SCORES_COLLECTION_NAME = "scores";
 
 declare global {
   interface Window {
-    firebaseConfig?: FirebaseOptions; // error RIP
+    firebaseConfig?: FirebaseOptions;
+    sentryDsn?: string;
   }
 }
 
 let firebaseApp: FirebaseApp | undefined;
+
+if (window.sentryDsn) {
+  Sentry.init({
+    dsn: window.sentryDsn,
+    integrations: [new Sentry.BrowserTracing()],
+    tracesSampleRate: 1.0,
+  });
+}
 
 const HIGH_SCORES_KEY = "highScores";
 const SEEN_INSTRUCTIONS_KEY = "seenInstructions";
