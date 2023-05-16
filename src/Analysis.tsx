@@ -5,7 +5,7 @@ import { STATION_GUESS_DATA } from "./data/guesses";
 import "./Analysis.css";
 import type { Station, Coordinate } from "./data/stations";
 import { STATIONS } from "./data/stations";
-import { firebaseNameForStation, guessesForStation } from "./firebase";
+import { firebaseNameForStation } from "./firebase";
 import { StationHeader } from "./StationHeader";
 import { WrappedMap } from "./WrappedMap";
 
@@ -23,29 +23,6 @@ function StationGuessAnalysis(props: {
   onBack: () => void;
 }) {
   const { station, avgScore, first, last, onNext, onPrev, onBack } = props;
-
-  const [guesses, setGuesses] = useState<
-    | {
-        loc: Coordinate;
-        score: number;
-      }[]
-    | null
-  >(null);
-  const [error, setError] = useState<string | null>(null);
-
-  guessesForStation(station)
-    .then((data) => {
-      const guessData: { loc: Coordinate; score: number }[] = [];
-      data.docs.forEach((doc) => {
-        guessData.push({
-          loc: doc.get("loc") as Coordinate,
-          score: doc.get("score") as number,
-        });
-      });
-
-      setGuesses(guessData);
-    })
-    .catch(() => setError("Error loading data, try refreshing"));
 
   return (
     <>
@@ -80,8 +57,10 @@ function StationGuessAnalysis(props: {
       <StationHeader station={station} />
       <WrappedMap
         id="analysis"
-        guessDistribution={guesses}
-        errorMsg={error}
+        guessesSourceFile={`geojson/${firebaseNameForStation(station).replace(
+          /[^\w\d]/g,
+          ""
+        )}.geojson`}
         stationMarker={station.coordinates[0]!}
       />
     </>

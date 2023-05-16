@@ -4,11 +4,6 @@ import { MapProvider, useMap } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { Station, Coordinate } from "./data/stations";
 import { Game, calculateScore, makeGame } from "./game_logic";
-import {
-  firebaseNameForStation,
-  tryToSaveFirebaseDoc,
-  FirebaseCollection,
-} from "./firebase";
 import { StationHeader } from "./StationHeader";
 import { WrappedMap, INITIAL_MAP_STATE } from "./WrappedMap";
 
@@ -313,13 +308,6 @@ function GameImpl() {
               let newGame = { ...game };
               newGame.guesses[turn] = guessLoc;
 
-              const station = game.stations[turn];
-
-              tryToSaveFirebaseDoc(FirebaseCollection.GUESSES, {
-                score: guessScore,
-                station: firebaseNameForStation(station),
-                loc: guessLoc,
-              });
               setScore(score + guessScore);
               setGame(newGame);
             }}
@@ -329,7 +317,6 @@ function GameImpl() {
             }}
             onGameOver={() => {
               addHighScore(score);
-              tryToSaveFirebaseDoc(FirebaseCollection.SCORES, { score: score });
               setGameOver(true);
             }}
             game={game}

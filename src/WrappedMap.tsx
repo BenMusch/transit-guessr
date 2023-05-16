@@ -2,7 +2,6 @@ import React from "react";
 import type { Coordinate } from "./data/stations";
 import { Map, Marker, Source, Layer } from "react-map-gl";
 import type { MapboxStyle } from "react-map-gl";
-import type { FeatureCollection } from "geojson";
 import mapStyle from "./map_style";
 
 export const INITIAL_MAP_STATE = {
@@ -11,23 +10,11 @@ export const INITIAL_MAP_STATE = {
   zoom: 9.25,
 };
 
-function GuessDistributionOverlay(props: {
-  guessDistribution: { loc: Coordinate; score: number }[];
-}) {
-  const { guessDistribution } = props;
-  const guessGeojson: FeatureCollection = {
-    type: "FeatureCollection",
-    features: guessDistribution.map((guessData) => {
-      return {
-        type: "Feature",
-        geometry: { type: "Point", coordinates: guessData.loc },
-        properties: { score: guessData.score },
-      };
-    }),
-  };
+function GuessDistributionOverlay(props: { sourceFile: string }) {
+  const { sourceFile } = props;
 
   return (
-    <Source type="geojson" data={guessGeojson}>
+    <Source type="geojson" data={sourceFile}>
       <Layer
         id="clusters"
         type="circle"
@@ -50,14 +37,14 @@ function GuessDistributionOverlay(props: {
 export function WrappedMap(props: {
   id: string;
   guessMarker?: Coordinate | null;
-  guessDistribution?: { loc: Coordinate; score: number }[] | null;
+  guessesSourceFile?: string | null;
   guessScore?: number | null;
   errorMsg?: string | null;
   stationMarker?: Coordinate | null;
   onClick?: (c: Coordinate) => void;
 }) {
   const {
-    guessDistribution,
+    guessesSourceFile,
     id,
     guessMarker,
     stationMarker,
@@ -90,8 +77,8 @@ export function WrappedMap(props: {
       )}
       {guessScore && <div className="score-overlay">Score: {guessScore}</div>}
       {errorMsg && <div className="error-overlay">Error: {errorMsg}</div>}
-      {guessDistribution && (
-        <GuessDistributionOverlay guessDistribution={guessDistribution} />
+      {guessesSourceFile && (
+        <GuessDistributionOverlay sourceFile={guessesSourceFile} />
       )}
     </Map>
   );
