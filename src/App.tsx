@@ -3,6 +3,7 @@ import "./App.css";
 import Game from "./Game";
 import Analysis from "./Analysis";
 import * as Sentry from "@sentry/react";
+import { Routes, BrowserRouter, Route } from "react-router-dom";
 
 declare global {
   interface Window {
@@ -19,11 +20,15 @@ if (window.sentryDsn) {
 }
 
 function App() {
-  if (window.location.host.split(".")[0] === "data") {
-    return <Analysis />;
-  } else {
-    return <Game />;
-  }
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="data" element={<Analysis />} />
+        <Route path="data/:selectedIndex" element={<Analysis />} />
+        <Route index element={<Game />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

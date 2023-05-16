@@ -8,6 +8,7 @@ import { STATIONS } from "./data/stations";
 import { firebaseNameForStation } from "./firebase";
 import { StationHeader } from "./StationHeader";
 import { WrappedMap } from "./WrappedMap";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 const STATIONS_BY_FIREBASE_NAME = _.fromPairs(
   STATIONS.map((station) => [firebaseNameForStation(station), station])
@@ -57,7 +58,7 @@ function StationGuessAnalysis(props: {
       <StationHeader station={station} />
       <WrappedMap
         id="analysis"
-        guessesSourceFile={`geojson/${firebaseNameForStation(station).replace(
+        guessesSourceFile={`/geojson/${firebaseNameForStation(station).replace(
           /[^\w\d]/g,
           ""
         )}.geojson`}
@@ -68,75 +69,88 @@ function StationGuessAnalysis(props: {
 }
 
 function Analysis() {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const { selectedIndex } = useParams();
+  const navigate = useNavigate();
 
-  if (selectedIndex === null) {
+  if (selectedIndex === null || selectedIndex === undefined) {
     return (
       <div className="main-container">
         <div className="inner-container inner-container-large">
-          <table>
-            <thead>
-              <th>Station</th>
-              <th>Lines</th>
-              <th>Avg. Guess Score (max 5000)</th>
-            </thead>
-            <tbody>
-              {STATION_GUESS_DATA.map((stationGuessData, i) => {
-                const station =
-                  STATIONS_BY_FIREBASE_NAME[stationGuessData.station];
+          <div className="analysis-prelude">
+            <h1>NYCGuessr Data</h1>
+            <span>
+              View all of the guesses made in <Link to="/">nycguessr</Link> by
+              their station and score.
+              <br />
+              Haven't played yet? <Link to="/">Check it out now!</Link>
+            </span>
+          </div>
+          <center className="table-container">
+            <table>
+              <thead>
+                <th>Station</th>
+                <th>Lines</th>
+                <th>Avg. Guess Score (max 5000)</th>
+              </thead>
+              <tbody>
+                {STATION_GUESS_DATA.map((stationGuessData, i) => {
+                  const station =
+                    STATIONS_BY_FIREBASE_NAME[stationGuessData.station];
 
-                return (
-                  <tr
-                    key={i}
-                    onClick={() => {
-                      setSelectedIndex(i);
-                    }}
-                  >
-                    <td
+                  return (
+                    <tr
+                      key={i}
                       onClick={() => {
-                        setSelectedIndex(i);
+                        navigate(`/data/${i}`);
                       }}
                     >
-                      {station.name.split("/")[0]}
-                    </td>
-                    <td
-                      className="station-lines station-lines-small"
-                      onClick={() => {
-                        setSelectedIndex(i);
-                      }}
-                    >
-                      {station.lines.map((line, i) => {
-                        return (
-                          <div
-                            key={i}
-                            className={`station-line station-line-small ${
-                              line.lineGroup
-                            } ${line.express ? "express" : "local"}`}
-                          >
-                            <span className="station-line-name">
-                              {line.name}
-                            </span>
-                          </div>
-                        );
-                      })}
-                    </td>
-                    <td
-                      onClick={() => {
-                        setSelectedIndex(i);
-                      }}
-                    >
-                      {Math.round(stationGuessData.avgScore)}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                      <td
+                        onClick={() => {
+                          navigate(`/data/${i}`);
+                        }}
+                      >
+                        {station.name.split("/")[0]}
+                      </td>
+                      <td
+                        className="station-lines station-lines-small"
+                        onClick={() => {
+                          navigate(`/data/${i}`);
+                        }}
+                      >
+                        {station.lines.map((line, i) => {
+                          return (
+                            <div
+                              key={i}
+                              className={`station-line station-line-small ${
+                                line.lineGroup
+                              } ${line.express ? "express" : "local"}`}
+                            >
+                              <span className="station-line-name">
+                                {line.name}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </td>
+                      <td
+                        onClick={() => {
+                          navigate(`/data/${i}`);
+                        }}
+                      >
+                        {Math.round(stationGuessData.avgScore)}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </center>
         </div>
       </div>
     );
   } else {
-    const stationGuessData = STATION_GUESS_DATA[selectedIndex]!;
+    const stationIndex = parseInt(selectedIndex.toString());
+    const stationGuessData = STATION_GUESS_DATA[stationIndex]!;
     const station = STATIONS_BY_FIREBASE_NAME[stationGuessData.station];
     return (
       <div className="main-container">
@@ -144,11 +158,11 @@ function Analysis() {
           <StationGuessAnalysis
             station={station}
             avgScore={Math.round(stationGuessData.avgScore)}
-            first={selectedIndex === 0}
-            last={selectedIndex === STATION_GUESS_DATA.length - 1}
-            onBack={() => setSelectedIndex(null)}
-            onNext={() => setSelectedIndex(selectedIndex + 1)}
-            onPrev={() => setSelectedIndex(selectedIndex - 1)}
+            first={stationIndex === 0}
+            last={stationIndex === STATION_GUESS_DATA.length - 1}
+            onBack={() => navigate("/data")}
+            onNext={() => navigate(`/data/${stationIndex + 1}`)}
+            onPrev={() => navigate(`/data/${stationIndex - 1}`)}
           />
         </div>
       </div>
