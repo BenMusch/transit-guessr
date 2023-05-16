@@ -291,13 +291,15 @@ button:disabled {
   color: #ffffff70;
 }
 
-.stats {
+.stats,
+.analysis-nav {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   padding: 0.25em;
 }
 
-.stats .stat-container {
+.stats .stat-container,
+.analysis-nav-container {
   height: 1em;
 }
 
@@ -315,6 +317,31 @@ button:disabled {
 .stats .stat-component-value {
   margin-right: 0.5em;
   color: #ffffffb8;
+}
+
+.analysis-nav-container > div {
+  display: block;
+  float: left;
+  width: 33.3%;
+}
+
+.analysis-nav-right .analysis-nav-link {
+  display: block;
+  float: right;
+  margin-right: 0.5em;
+}
+
+.analysis-nav-center {
+  text-align: center;
+}
+
+.analysis-nav-info,
+.analysis-nav-link:hover {
+  color: #ffffffb8;
+}
+
+.analysis-nav-link {
+  color: #ffffff70;
 }
 
 .score-overlay {

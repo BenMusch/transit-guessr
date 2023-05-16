@@ -1,46 +1,19 @@
 import React, { useState } from "react";
 import _ from "lodash";
-import type { MapboxStyle } from "react-map-gl";
-import { Map, MapProvider, useMap, Marker } from "react-map-gl";
+import { MapProvider, useMap } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import mapStyle from "./map_style";
-import { initializeApp } from "firebase/app";
-import { addDoc, getFirestore, collection } from "firebase/firestore/lite";
 import type { Station, Coordinate, Line } from "./data/stations";
-import type { FirebaseOptions, FirebaseApp } from "firebase/app";
 import { Game, calculateScore, makeGame } from "./game_logic";
-import { firebaseNameForStation } from "./firebase";
-import * as Sentry from "@sentry/react";
-import {StationHeader} from "./StationHeader";
-
-const GUESSES_COLLECTION_NAME = "guesses";
-const SCORES_COLLECTION_NAME = "scores";
-
-declare global {
-  interface Window {
-    firebaseConfig?: FirebaseOptions;
-    sentryDsn?: string;
-  }
-}
-
-let firebaseApp: FirebaseApp | undefined;
-
-if (window.sentryDsn) {
-  Sentry.init({
-    dsn: window.sentryDsn,
-    integrations: [new Sentry.BrowserTracing()],
-    tracesSampleRate: 1.0,
-  });
-}
+import {
+  firebaseNameForStation,
+  tryToSaveFirebaseDoc,
+  FirebaseCollection,
+} from "./firebase";
+import { StationHeader } from "./StationHeader";
+import { WrappedMap, INITIAL_MAP_STATE } from "./WrappedMap";
 
 const HIGH_SCORES_KEY = "highScores";
 const SEEN_INSTRUCTIONS_KEY = "seenInstructions";
-
-const INITIAL_MAP_STATE = {
-  longitude: -73.875,
-  latitude: 40.73065,
-  zoom: 9.25,
-};
 
 function shareableGame(game: Game, score: number): string {
   const guessStrs = [0, 1, 2, 3, 4].map((turn) => {
@@ -64,24 +37,6 @@ ${score.toLocaleString()} / 25,000
 ${guessStrs.join("\n")}
 https://nycguessr.com
     `.trim();
-}
-
-function tryToSaveFirebaseDoc(collectionName: string, doc: unknown) {
-  try {
-    if (!firebaseApp && window.firebaseConfig) {
-      firebaseApp = initializeApp(window.firebaseConfig);
-    }
-
-    if (!firebaseApp) {
-      return;
-    }
-
-    const dbRef = getFirestore(firebaseApp);
-    const collectionRef = collection(dbRef, collectionName);
-    addDoc(collectionRef, doc);
-  } catch (err) {
-    console.error("Error sending guess data to server", err);
-  }
 }
 
 function getHighScores(): number[] {
@@ -111,43 +66,6 @@ function markInstructionsSeen() {
 
 function hasSeenInstruction() {
   return localStorage.getItem(SEEN_INSTRUCTIONS_KEY) !== null;
-}
-
-function WrappedMap(props: {
-  guessMarker: Coordinate | null;
-  id: string;
-  guessScore: number | null;
-  stationMarker: Coordinate | null;
-  onClick: (c: Coordinate) => void;
-}) {
-  const { id, guessMarker, stationMarker, onClick, guessScore } = props;
-  return (
-    <Map
-      id={id}
-      initialViewState={INITIAL_MAP_STATE}
-      maxZoom={12}
-      minZoom={8.5}
-      onClick={(e) => {
-        onClick([e.lngLat.lng, e.lngLat.lat]);
-      }}
-      style={{ width: 500, height: 400 }}
-      mapStyle={mapStyle as MapboxStyle}
-    >
-      {guessMarker && (
-        <Marker longitude={guessMarker[0]} latitude={guessMarker[1]} />
-      )}
-      {stationMarker && (
-        <Marker
-          longitude={stationMarker[0]}
-          latitude={stationMarker[1]}
-          color="red"
-        />
-      )}
-      {stationMarker && (
-        <div className="score-overlay">Score: {guessScore}</div>
-      )}
-    </Map>
-  );
 }
 
 function GameplayMap(props: {
@@ -397,7 +315,7 @@ function GameImpl() {
 
               const station = game.stations[turn];
 
-              tryToSaveFirebaseDoc(GUESSES_COLLECTION_NAME, {
+              tryToSaveFirebaseDoc(FirebaseCollection.GUESSES, {
                 score: guessScore,
                 station: firebaseNameForStation(station),
                 loc: guessLoc,
@@ -411,7 +329,7 @@ function GameImpl() {
             }}
             onGameOver={() => {
               addHighScore(score);
-              tryToSaveFirebaseDoc(SCORES_COLLECTION_NAME, { score: score });
+              tryToSaveFirebaseDoc(FirebaseCollection.SCORES, { score: score });
               setGameOver(true);
             }}
             game={game}
