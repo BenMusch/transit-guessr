@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 import _ from "lodash";
 import { STATION_GUESS_DATA } from "./data/guesses";
 import "./Analysis.css";
-import type { Station, Coordinate } from "./data/stations";
+import type { Station } from "./data/stations";
 import { STATIONS } from "./data/stations";
 import { firebaseNameForStation } from "./firebase";
 import { StationHeader } from "./StationHeader";
