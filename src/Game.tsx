@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import _ from "lodash";
 import { MapProvider, useMap } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import type { Station, Coordinate, Line } from "./data/stations";
+import type { Station, Coordinate } from "./data/stations";
 import { Game, calculateScore, makeGame } from "./game_logic";
 import {
   firebaseNameForStation,

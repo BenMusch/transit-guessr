@@ -33,24 +33,26 @@ function StationGuessAnalysis(props: {
   >(null);
   const [error, setError] = useState<string | null>(null);
 
-  guessesForStation(station).then((data) => {
-    const guessData: { loc: Coordinate; score: number }[] = [];
-    data.docs.forEach((doc) => {
-      guessData.push({
-        loc: doc.get("loc") as Coordinate,
-        score: doc.get("score") as number,
+  guessesForStation(station)
+    .then((data) => {
+      const guessData: { loc: Coordinate; score: number }[] = [];
+      data.docs.forEach((doc) => {
+        guessData.push({
+          loc: doc.get("loc") as Coordinate,
+          score: doc.get("score") as number,
+        });
       });
-    });
 
-    setGuesses(guessData);
-  });
+      setGuesses(guessData);
+    })
+    .catch(() => setError("Error loading data, try refreshing"));
 
   return (
     <>
       <header className="analysis-nav">
         <div className="analysis-nav-container">
           <div className="analysis-nav-left">
-            <a className="analysis-nav-link" onClick={onBack}>
+            <a className="analysis-nav-link" href="#" onClick={onBack}>
               Back
             </a>
           </div>
@@ -59,12 +61,12 @@ function StationGuessAnalysis(props: {
           </div>
           <div className="analysis-nav-right">
             {!last && (
-              <a className="analysis-nav-link" onClick={onNext}>
+              <a className="analysis-nav-link" href="#" onClick={onNext}>
                 Next
               </a>
             )}
             {!first && (
-              <a className="analysis-nav-link" onClick={onPrev}>
+              <a className="analysis-nav-link" href="#" onClick={onPrev}>
                 Prev
               </a>
             )}
@@ -75,6 +77,7 @@ function StationGuessAnalysis(props: {
       <WrappedMap
         id="analysis"
         guessDistribution={guesses}
+        errorMsg={error}
         stationMarker={station.coordinates[0]!}
       />
     </>

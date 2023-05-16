@@ -1,6 +1,6 @@
 import React from "react";
 import type { Coordinate } from "./data/stations";
-import { Map, Marker, Source, Layer, LayerProps } from "react-map-gl";
+import { Map, Marker, Source, Layer } from "react-map-gl";
 import type { MapboxStyle } from "react-map-gl";
 import type { FeatureCollection } from "geojson";
 import mapStyle from "./map_style";
