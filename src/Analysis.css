@@ -1,0 +1,76 @@
+.inner-container-large {
+  max-width: 800px;
+}
+
+.analysis-prelude {
+  padding: 1em;
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.analysis-prelude h1 {
+  font-family: "Arial Black", "Helvetica", sans-serif;
+  font-weight: bolder;
+  font-size: 2em;
+  margin-bottom: 0.25em;
+  color: #f1f5f9;
+}
+
+.analysis-prelude span {
+  color: #94a3b8;
+  line-height: 1.5em;
+  margin-bottom: 1em;
+}
+
+.analysis-prelude a {
+  color: #e2e8f0;
+  text-decoration: none;
+}
+
+.analysis-prelude a:hover {
+  color: #f1f5f9;
+}
+
+table {
+  overflow-y: scroll;
+  height: 750px;
+  display: block;
+  width: 100%;
+}
+
+tbody {
+  width: 100%;
+}
+
+th {
+  padding: 0.25em;
+  background-color: #0284c7;
+  height: 1.5em;
+  font-weight: bold;
+  line-height: 1.5em;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+td {
+  padding: 0.25em;
+  text-align: center;
+  color: #f1f5f9;
+}
+
+tr:nth-child(even) {
+  background-color: #475569;
+}
+
+tr:nth-child(odd) {
+  background-color: #334155;
+}
+
+tr:hover {
+  color: #f1f5f9;
+  background-color: #94a3b8;
+  cursor: grab;
+}
