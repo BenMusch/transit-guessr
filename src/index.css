@@ -340,6 +340,15 @@ button:disabled {
   color: #ffffffb8;
 }
 
+button.analysis-nav-link {
+  border: none;
+  background: none;
+}
+
+button.analysis-nav-link:disabled {
+  color: #ffffff45;
+}
+
 .analysis-nav-link {
   color: #ffffff70;
 }

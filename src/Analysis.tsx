@@ -52,24 +52,28 @@ function StationGuessAnalysis(props: {
       <header className="analysis-nav">
         <div className="analysis-nav-container">
           <div className="analysis-nav-left">
-            <a className="analysis-nav-link" href="#" onClick={onBack}>
+            <button className="analysis-nav-link" onClick={onBack}>
               Back
-            </a>
+            </button>
           </div>
           <div className="analysis-nav-center">
             <span className="analysis-nav-info">Average score: {avgScore}</span>
           </div>
           <div className="analysis-nav-right">
-            {!last && (
-              <a className="analysis-nav-link" href="#" onClick={onNext}>
-                Next
-              </a>
-            )}
-            {!first && (
-              <a className="analysis-nav-link" href="#" onClick={onPrev}>
-                Prev
-              </a>
-            )}
+            <button
+              disabled={last}
+              className="analysis-nav-link"
+              onClick={onNext}
+            >
+              Next
+            </button>
+            <button
+              disabled={first}
+              className="analysis-nav-link"
+              onClick={onPrev}
+            >
+              Prev
+            </button>
           </div>
         </div>
       </header>
