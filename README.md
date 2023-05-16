@@ -1,6 +1,6 @@
 # NYC Guessr
 
-<center><img src="public/screenshot.png"/></center>
+<center><img width="400px" src="public/screenshot.png"/></center>
 
 NYC Guessr is a GeoGuessr-style game for the subway.
 
