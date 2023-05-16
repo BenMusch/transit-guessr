@@ -49,3 +49,5 @@ things I want to add are:
 1. Different "levels" (hard = no parks, easy = shows streets)
 2. More transit lines (Staten Island, LIRR, etc.)
 3. Perhaps different transit agencies!
+4. Any sorts of CSS or react improvments. These aren't my area of expertise so
+   lots of the code here is pretty bad
