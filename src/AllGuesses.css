@@ -1,27 +1,42 @@
 .inner-container-map {
-  width: 100%;
-  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.clearfix:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+
+.clearfix {
+  display: inline-block;
+}
+
+html[xmlns] .clearfix {
+  display: block;
+}
+
+* html .clearfix {
+  height: 1%;
 }
 
 .map-container {
-  max-width: 800px;
-  width: 66%;
+  width: 800px;
   float: left;
   margin: 1em;
 }
 
 .controls-container {
-  max-width: 400px;
-  width: 33%;
+  width: 400px;
   float: left;
   padding: 1em;
   background-color: rgb(15 23 42);
   border-radius: 1em;
   margin: 1em;
-}
-
-.inner-container-map {
-  height: 100%;
 }
 
 .line-badge-control {

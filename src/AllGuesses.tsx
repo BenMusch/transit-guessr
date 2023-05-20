@@ -15,7 +15,7 @@ import "./AllGuesses.css";
 export const INITIAL_MAP_STATE = {
   longitude: -73.875,
   latitude: 40.73065,
-  zoom: 10,
+  zoom: 10.25,
 };
 
 function LineBadgeControl(props: {
@@ -184,7 +184,7 @@ function GuessMap(props: { enabledLines: Set<Line>; showLines: boolean }) {
     <Map
       initialViewState={INITIAL_MAP_STATE}
       maxZoom={12}
-      style={{ height: 800 }}
+      style={{ height: 800, width: 800 }}
       mapStyle={mapStyle as MapboxStyle}
     >
       <Source type="geojson" data="/geojson/guesses.geojson">
@@ -245,7 +245,7 @@ export default function AllGuesses() {
 
   return (
     <div className="main-container-map">
-      <div className="inner-container-map">
+      <div className="inner-container-map clearfix">
         <div className="map-container">
           <GuessMap showLines={showLines} enabledLines={enabledLines} />
         </div>
