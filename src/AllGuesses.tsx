@@ -123,20 +123,26 @@ export default function AllGuesses() {
         {showLines && (
           <Source id="routes" type="geojson" data="/geojson/routes.geojson">
             {Object.entries(LINES_BY_TRUNK_LINE).map(([trunkLine, lines]) => {
-              const filters = lines
+              const lineFilters = lines
                 .filter((line) => enabledLines.has(line))
                 .map((line) => {
                   return ["in", `${line.name}`, ["get", "name"]];
                 });
+              const filters = [
+                "all",
+                ["any", ...lineFilters],
+                ["!=", "SI", ["get", "rt_symbol"]],
+              ];
+
               return (
                 <>
                   <Layer
-                    source="routes"
+                    layout={{ "line-cap": "round" }}
+                    filter={filters}
                     key={`${trunkLine}_route_border`}
                     id={`${trunkLine}_route_border`}
+                    source="routes"
                     type="line"
-                    filter={["any", ...filters]}
-                    layout={{ "line-cap": "round" }}
                     paint={{
                       "line-color": "#1e293b",
                       "line-gap-width": [
@@ -173,7 +179,7 @@ export default function AllGuesses() {
                     key={`${trunkLine}_route`}
                     id={`${trunkLine}_route`}
                     type="line"
-                    filter={["any", ...filters]}
+                    filter={filters}
                     layout={{ "line-cap": "round" }}
                     paint={{
                       "line-color":
@@ -196,7 +202,7 @@ export default function AllGuesses() {
                     key={`${trunkLine}_route_lighten`}
                     id={`${trunkLine}_route_lighten`}
                     type="line"
-                    filter={["any", ...filters]}
+                    filter={filters}
                     layout={{ "line-cap": "round" }}
                     paint={{
                       "line-color": "#ffffff",
