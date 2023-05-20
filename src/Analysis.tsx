@@ -2,6 +2,7 @@ import React from "react";
 
 import _ from "lodash";
 import { STATION_GUESS_DATA } from "./data/guesses";
+import { LinesRow } from "./LinesRow";
 import "./Analysis.css";
 import type { Station } from "./data/stations";
 import { STATIONS } from "./data/stations";
@@ -112,25 +113,11 @@ function Analysis() {
                         {station.name.split("/")[0]}
                       </td>
                       <td
-                        className="station-lines station-lines-small"
                         onClick={() => {
                           navigate(`/data/${i}`);
                         }}
                       >
-                        {station.lines.map((line, i) => {
-                          return (
-                            <div
-                              key={i}
-                              className={`station-line station-line-small ${
-                                line.lineGroup
-                              } ${line.express ? "express" : "local"}`}
-                            >
-                              <span className="station-line-name">
-                                {line.name}
-                              </span>
-                            </div>
-                          );
-                        })}
+                        <LinesRow lines={station.lines} small={true} />
                       </td>
                       <td
                         onClick={() => {

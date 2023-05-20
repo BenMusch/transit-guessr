@@ -1,0 +1,49 @@
+.station-line {
+  font-family: "Arial Black", "Helvetica", sans-serif;
+  font-weight: bolder;
+  display: block;
+  width: 1.5em;
+  height: 1.5em;
+  padding: 0.1em;
+  line-height: 1.5em;
+  float: left;
+  margin-right: 0.5em;
+  text-align: center;
+}
+
+.station-line-small {
+  width: 0.75em;
+  height: 0.75em;
+  padding: 0.05em;
+  line-height: 0.5em;
+  margin-right: 0.25em;
+}
+
+.station-line-small .station-line-name {
+  font-size: 50%;
+}
+
+.local {
+  border-radius: 1em;
+}
+
+.express {
+  transform: rotate(45deg);
+  width: 1.06em;
+  height: 1.06em;
+  margin-top: 0.22em;
+}
+
+.express .station-line-name {
+  transform: rotate(-45deg);
+  line-height: 1.25em;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.express.station-line-small {
+  width: 0.53em;
+  height: 0.53em;
+  margin-top: 0.11em;
+}
