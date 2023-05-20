@@ -1,7 +1,13 @@
+import React, { useState } from "react";
 import { Map, Source, Layer } from "react-map-gl";
 import type { MapboxStyle } from "react-map-gl";
 import mapStyle from "./map_style";
-import {B
+import {
+  LINES_BY_TRUNK_LINE,
+  LINES,
+  BACKGROUND_COLOR_BY_TRUNK_LINE,
+  TrunkLine,
+} from "./data/lines";
 
 export const INITIAL_MAP_STATE = {
   longitude: -73.875,
@@ -10,130 +16,208 @@ export const INITIAL_MAP_STATE = {
 };
 
 export default function AllGuesses() {
-  const basePaintProperties = {
-    "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 1, 13, 2],
-    "circle-opacity": ["*", 1 / 40000, ["get", "score"]],
-  };
+  const [showLines, setShowLines] = useState(true);
+  const [enabledLines, setEnabledLines] = useState(
+    new Set(Object.values(LINES))
+  );
+
+  const enabledTrunkLines = new Set();
+  for (const line of enabledLines) {
+    enabledTrunkLines.add(line.trunkLine);
+  }
+
   return (
-    <Map
-      initialViewState={INITIAL_MAP_STATE}
-      maxZoom={12}
-      style={{ width: 500, height: 400 }}
-      mapStyle={mapStyle as MapboxStyle}
-    >
-      <Source type="geojson" data="/public/guesses.geojson">
-        <Layer
-          id="green"
-          type="circle"
-          filter={["any", ["has", "4"], ["has", "5"], ["has", "6"]]}
-          paint={{
-            "circle-color": "#00933c",
-          }}
-        />
-        <Layer
-          id="jz"
-          type="circle"
-          filter={["any", ["has", "J"], ["has", "Z"]]}
-          paint={{
-            "circle-color": "#996633",
-            "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 1, 13, 2],
-            "circle-opacity": ["*", 1 / 40000, ["get", "score"]],
-          }}
-        />
-        <Layer
-          id="s"
-          type="circle"
-          filter={["any", ["has", "S"]]}
-          paint={{
-            "circle-color": "#808183",
-            "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 1, 13, 2],
-            "circle-opacity": ["*", 1 / 40000, ["get", "score"]],
-          }}
-        />
-        <Layer
-          id="l"
-          type="circle"
-          filter={["any", ["has", "L"]]}
-          paint={{
-            "circle-color": "#a7a9ac",
-            "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 1, 13, 2],
-            "circle-opacity": ["*", 1 / 40000, ["get", "score"]],
-          }}
-        />
-        <Layer
-          id="g"
-          type="circle"
-          filter={["any", ["has", "G"]]}
-          paint={{
-            "circle-color": "#6cbe45",
-            "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 1, 13, 2],
-            "circle-opacity": ["*", 1 / 40000, ["get", "score"]],
-          }}
-        />
-        <Layer
-          id="yellow"
-          type="circle"
-          filter={[
-            "any",
-            ["has", "N"],
-            ["has", "Q"],
-            ["has", "W"],
-            ["has", "R"],
-          ]}
-          paint={{
-            "circle-color": "#fccc0a",
-            "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 1, 13, 2],
-            "circle-opacity": ["*", 1 / 40000, ["get", "score"]],
-          }}
-        />
-        <Layer
-          id="orange"
-          type="circle"
-          filter={[
-            "any",
-            ["has", "B"],
-            ["has", "D"],
-            ["has", "F"],
-            ["has", "M"],
-            ["has", "FExp"],
-          ]}
-          paint={{
-            "circle-color": "#ff6319",
-            "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 1, 13, 2],
-            "circle-opacity": ["*", 1 / 40000, ["get", "score"]],
-          }}
-        />
-        <Layer
-          id="blue"
-          type="circle"
-          filter={["any", ["has", "A"], ["has", "C"], ["has", "E"]]}
-          paint={{
-            "circle-color": "#0039a6",
-            "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 1, 13, 2],
-            "circle-opacity": ["*", 1 / 40000, ["get", "score"]],
-          }}
-        />
-        <Layer
-          id="red"
-          type="circle"
-          filter={["any", ["has", "1"], ["has", "2"], ["has", "3"]]}
-          paint={{
-            "circle-color": "#ee352e",
-            "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 1, 13, 2],
-            "circle-opacity": ["*", 1 / 40000, ["get", "score"]],
-          }}
-        />
-        <Layer
-          id="purple"
-          type="circle"
-          filter={["any", ["has", "7"], ["has", "7Exp"]]}
-          paint={{
-            "circle-color": "#b933ad",
-            "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 1, 13, 2],
-            "circle-opacity": ["*", 1 / 40000, ["get", "score"]],
-          }}
-        />
-      </Source>
-    </Map>
+    <>
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            checked={showLines}
+            onChange={() => setShowLines(!showLines)}
+          />
+          Show Official Routes
+        </label>
+        <br />
+        {Object.entries(LINES_BY_TRUNK_LINE).map(([trunkLine, lines]) => {
+          return (
+            <>
+              {lines.map((line) => {
+                return (
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={enabledLines.has(line)}
+                      onChange={() => {
+                        if (enabledLines.has(line)) {
+                          enabledLines.delete(line);
+                        } else {
+                          enabledLines.add(line);
+                        }
+                        setEnabledLines(new Set([...enabledLines]));
+                      }}
+                    />
+                    {line.name}
+                    {line.express ? " Express" : ""}
+                  </label>
+                );
+              })}
+              <br />
+            </>
+          );
+        })}
+      </div>
+      <Map
+        initialViewState={INITIAL_MAP_STATE}
+        maxZoom={12}
+        style={{ width: 800, height: 800 }}
+        mapStyle={mapStyle as MapboxStyle}
+      >
+        <Source type="geojson" data="/geojson/guesses.geojson">
+          {Object.entries(LINES_BY_TRUNK_LINE).map(([trunkLine, lines]) => {
+            const filters = lines
+              .filter((line) => enabledLines.has(line))
+              .map((line) => [
+                "has",
+                `${line.name}${line.express ? "Exp" : ""}`,
+              ]);
+
+            // When fewer lines are enabled, there's less color conflict, so
+            // higher opacity is better
+            const minOpacity = 0.5 - 0.04 * enabledTrunkLines.size;
+            let maxOpacity = 0.9 - 0.02 * enabledTrunkLines.size;
+
+            return (
+              <Layer
+                key={`${trunkLine}_guesses`}
+                id={`${trunkLine}_guesses`}
+                type="circle"
+                filter={["any", ...filters]}
+                paint={{
+                  "circle-color":
+                    BACKGROUND_COLOR_BY_TRUNK_LINE[
+                      trunkLine as unknown as TrunkLine
+                    ],
+                  "circle-radius": [
+                    "interpolate",
+                    ["linear"],
+                    ["zoom"],
+                    8,
+                    1,
+                    13,
+                    1.5,
+                  ],
+                  "circle-opacity": [
+                    "interpolate",
+                    ["linear"],
+                    ["zoom"],
+                    9,
+                    minOpacity,
+                    13,
+                    maxOpacity,
+                  ],
+                }}
+              />
+            );
+          })}
+        </Source>
+        {showLines && (
+          <Source id="routes" type="geojson" data="/geojson/routes.geojson">
+            {Object.entries(LINES_BY_TRUNK_LINE).map(([trunkLine, lines]) => {
+              const filters = lines
+                .filter((line) => enabledLines.has(line))
+                .map((line) => {
+                  return ["in", `${line.name}`, ["get", "name"]];
+                });
+              return (
+                <>
+                  <Layer
+                    source="routes"
+                    key={`${trunkLine}_route_border`}
+                    id={`${trunkLine}_route_border`}
+                    type="line"
+                    filter={["any", ...filters]}
+                    layout={{ "line-cap": "round" }}
+                    paint={{
+                      "line-color": "#1e293b",
+                      "line-gap-width": [
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        9,
+                        1,
+                        13,
+                        4,
+                      ],
+                      "line-opacity": [
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        9,
+                        0.9,
+                        13,
+                        0.9,
+                      ],
+                      "line-width": [
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        9,
+                        0.5,
+                        13,
+                        1,
+                      ],
+                    }}
+                  />
+                  <Layer
+                    source="routes"
+                    key={`${trunkLine}_route`}
+                    id={`${trunkLine}_route`}
+                    type="line"
+                    filter={["any", ...filters]}
+                    layout={{ "line-cap": "round" }}
+                    paint={{
+                      "line-color":
+                        BACKGROUND_COLOR_BY_TRUNK_LINE[
+                          trunkLine as unknown as TrunkLine
+                        ],
+                      "line-width": [
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        9,
+                        1,
+                        13,
+                        4,
+                      ],
+                    }}
+                  />
+                  <Layer
+                    source="routes"
+                    key={`${trunkLine}_route_lighten`}
+                    id={`${trunkLine}_route_lighten`}
+                    type="line"
+                    filter={["any", ...filters]}
+                    layout={{ "line-cap": "round" }}
+                    paint={{
+                      "line-color": "#ffffff",
+                      "line-opacity": 0.1,
+                      "line-width": [
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        9,
+                        1,
+                        13,
+                        4,
+                      ],
+                    }}
+                  />
+                </>
+              );
+            })}
+          </Source>
+        )}
+      </Map>
+    </>
   );
 }

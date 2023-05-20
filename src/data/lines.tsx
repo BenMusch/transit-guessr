@@ -168,5 +168,29 @@ export const LINES = {
   },
 };
 
+export const LINES_BY_TRUNK_LINE: { [l in TrunkLine]: Line[] } = {
+  [TrunkLine.EIGHTH_AVENUE_IND]: [LINES.A, LINES.C, LINES.E],
+  [TrunkLine.SIXTH_AVENUE_IND]: [
+    LINES.B,
+    LINES.D,
+    LINES.F,
+    LINES.M,
+    LINES.F_EXPRESS,
+  ],
+  [TrunkLine.CROSSTOWN_IND]: [LINES.G],
+  [TrunkLine.CANARSIE_BMT]: [LINES.L],
+  [TrunkLine.NASSAU_BMT]: [LINES.J, LINES.Z],
+  [TrunkLine.BROADWAY_BMT]: [LINES.N, LINES.Q, LINES.R, LINES.W],
+  [TrunkLine.BROADWAY_IRT]: [LINES.ONE, LINES.TWO, LINES.THREE],
+  [TrunkLine.LEXINGTON_IRT]: [
+    LINES.FOUR,
+    LINES.FIVE,
+    LINES.SIX,
+    LINES.SIX_EXPRESS,
+  ],
+  [TrunkLine.FLUSHING_IRT]: [LINES.SEVEN, LINES.SEVEN_EXPRESS],
+  [TrunkLine.SHUTTLES]: [LINES.S],
+};
+
 export type LineIdentifier = keyof typeof LINES;
 export type Line = typeof LINES[LineIdentifier];
