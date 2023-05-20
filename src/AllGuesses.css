@@ -1,0 +1,56 @@
+.inner-container-map {
+  width: 100%;
+  height: 100%;
+}
+
+.map-container {
+  max-width: 800px;
+  width: 66%;
+  float: left;
+  margin: 1em;
+}
+
+.controls-container {
+  max-width: 400px;
+  width: 33%;
+  float: left;
+  padding: 1em;
+  background-color: rgb(15 23 42);
+  border-radius: 1em;
+  margin: 1em;
+}
+
+.inner-container-map {
+  height: 100%;
+}
+
+.line-badge-control {
+  cursor: pointer;
+}
+
+.show-lines-control {
+  margin-top: 1em;
+  color: #cbd5e1;
+}
+
+.line-badge-control-row {
+  border-radius: 0.5em;
+  padding: 0.5em;
+  margin-top: 0.5em;
+  border: 2px solid #64748b;
+  height: 1em;
+}
+
+.line-badge-toggles span {
+  float: right;
+  display: block;
+  height: 100%;
+  margin-right: 0.4em;
+  line-height: 1.5em;
+  font-size: 0.75em;
+  color: #94a3b8;
+}
+
+.line-badge-toggles span:hover {
+  color: #e2e8f0;
+}
