@@ -6,6 +6,10 @@ export default {
     "mapbox:autocomposite": true,
   },
   sources: {
+    transit: {
+      url: "mapbox://mapbox.transit-v2",
+      type: "vector",
+    },
     mapbox: {
       url: "mapbox://mapbox.mapbox-streets-v7",
       type: "vector",
@@ -42,6 +46,17 @@ export default {
         "fill-color": "#0f172a",
       },
       interactive: true,
+    },
+    {
+      id: "transit_line_line",
+      type: "line",
+      source: "transit",
+      "source-layer": "transit_line",
+      filter: ["==", "$type", "LineString"],
+      paint: {
+        "line-width": 2,
+        "line-color": "rgba(66,100,251, 0.3)",
+      },
     },
   ],
 };
