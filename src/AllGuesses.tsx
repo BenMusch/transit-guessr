@@ -11,6 +11,7 @@ import {
 } from "./data/lines";
 import { LineBadge } from "./LineBadge";
 import "./AllGuesses.css";
+import { Link } from "react-router-dom";
 
 export const INITIAL_MAP_STATE = {
   longitude: -73.875,
@@ -251,6 +252,18 @@ export default function AllGuesses() {
         </div>
 
         <div className="controls-container">
+          <div className="controls-header">
+            <h1>NYCGuessr Map</h1>
+            <span>
+              The NYC Subway map according to your guesses in{" "}
+              <Link to="/">nycguessr</Link>.
+              <br />
+              Haven't played yet? <Link to="/">Check it out now!</Link>
+              <br />
+              Or go <Link to="/data">here</Link> to see this broken down by
+              station.
+            </span>
+          </div>
           <div className="controls">
             {Object.entries(LINES_BY_TRUNK_LINE).map(([trunkLine, lines]) => {
               return (

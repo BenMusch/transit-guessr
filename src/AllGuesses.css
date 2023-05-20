@@ -69,3 +69,30 @@ html[xmlns] .clearfix {
 .line-badge-toggles span:hover {
   color: #e2e8f0;
 }
+
+.controls-header {
+  padding: 0.5em;
+  text-align: left;
+}
+
+.controls-header h1 {
+  font-family: "Arial Black", "Helvetica", sans-serif;
+  font-weight: bolder;
+  font-size: 1.25em;
+  margin-bottom: 0.25em;
+  color: #f1f5f9;
+}
+
+.controls-header span {
+  color: #94a3b8;
+  font-size: 0.75em;
+}
+
+.controls-header a {
+  color: #e2e8f0;
+  text-decoration: none;
+}
+
+.controls-header a:hover {
+  color: #f1f5f9;
+}

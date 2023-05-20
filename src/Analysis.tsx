@@ -84,6 +84,9 @@ function Analysis() {
               their station and score.
               <br />
               Haven't played yet? <Link to="/">Check it out now!</Link>
+              <br />
+              Or go <Link to="/map">here</Link> for a map of all guesses
+              regardless of station.
             </span>
           </div>
           <center className="table-container">
