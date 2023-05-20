@@ -1,0 +1,18 @@
+.station-heading {
+  background-color: rgb(15 23 42);
+  padding: 0.5em;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  border-radius: 1em;
+}
+
+.station-name {
+  padding-top: 0.1em;
+  font-family: "Arial Black", "Helvetica", sans-serif;
+  font-weight: bolder;
+  font-size: 2em;
+  border-top: 0.1em solid white;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+

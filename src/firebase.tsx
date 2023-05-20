@@ -1,4 +1,5 @@
-import type { Station, Line } from "./data/stations";
+import type { Line } from "./data/lines";
+import type { Station } from "./data/stations";
 
 // Super simple heuristic to stringify stations for firebase
 export function firebaseNameForStation(station: Station): string {
