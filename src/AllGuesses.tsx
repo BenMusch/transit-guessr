@@ -1,6 +1,7 @@
 import { Map, Source, Layer } from "react-map-gl";
 import type { MapboxStyle } from "react-map-gl";
 import mapStyle from "./map_style";
+import {B
 
 export const INITIAL_MAP_STATE = {
   longitude: -73.875,
@@ -9,6 +10,10 @@ export const INITIAL_MAP_STATE = {
 };
 
 export default function AllGuesses() {
+  const basePaintProperties = {
+    "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 1, 13, 2],
+    "circle-opacity": ["*", 1 / 40000, ["get", "score"]],
+  };
   return (
     <Map
       initialViewState={INITIAL_MAP_STATE}
@@ -16,18 +21,13 @@ export default function AllGuesses() {
       style={{ width: 500, height: 400 }}
       mapStyle={mapStyle as MapboxStyle}
     >
-      <Source
-        type="geojson"
-        data="https://ben-muschol-resume.s3.amazonaws.com/guesses.geojson"
-      >
+      <Source type="geojson" data="/public/guesses.geojson">
         <Layer
           id="green"
           type="circle"
           filter={["any", ["has", "4"], ["has", "5"], ["has", "6"]]}
           paint={{
             "circle-color": "#00933c",
-            "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 1, 13, 2],
-            "circle-opacity": ["*", 1 / 40000, ["get", "score"]],
           }}
         />
         <Layer
