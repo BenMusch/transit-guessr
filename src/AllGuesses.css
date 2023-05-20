@@ -1,0 +1,71 @@
+.inner-container-map {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.clearfix:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+
+.clearfix {
+  display: inline-block;
+}
+
+html[xmlns] .clearfix {
+  display: block;
+}
+
+* html .clearfix {
+  height: 1%;
+}
+
+.map-container {
+  width: 800px;
+  float: left;
+  margin: 1em;
+}
+
+.controls-container {
+  width: 400px;
+  float: left;
+  padding: 1em;
+  background-color: rgb(15 23 42);
+  border-radius: 1em;
+  margin: 1em;
+}
+
+.line-badge-control {
+  cursor: pointer;
+}
+
+.show-lines-control {
+  margin-top: 1em;
+  color: #cbd5e1;
+}
+
+.line-badge-control-row {
+  border-radius: 0.5em;
+  padding: 0.5em;
+  margin-top: 0.5em;
+  border: 2px solid #64748b;
+  height: 1em;
+}
+
+.line-badge-toggles span {
+  float: right;
+  display: block;
+  height: 100%;
+  margin-right: 0.4em;
+  line-height: 1.5em;
+  font-size: 0.75em;
+  color: #94a3b8;
+}
+
+.line-badge-toggles span:hover {
+  color: #e2e8f0;
+}

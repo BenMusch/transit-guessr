@@ -11,12 +11,24 @@
   text-align: center;
 }
 
+.station-line-medium {
+  width: 1em;
+  height: 1em;
+  padding: 0.066em;
+  line-height: 1em;
+  margin-right: 0.33em;
+}
+
 .station-line-small {
   width: 0.75em;
   height: 0.75em;
   padding: 0.05em;
   line-height: 0.5em;
   margin-right: 0.25em;
+}
+
+.station-line-medium .station-line-name {
+  font-size: 66%;
 }
 
 .station-line-small .station-line-name {
@@ -46,4 +58,8 @@
   width: 0.53em;
   height: 0.53em;
   margin-top: 0.11em;
+}
+
+.station-line-greyscale {
+  color: #cbd5e1 !important;
 }
