@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import _ from "lodash";
 import { MapProvider, useMap } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import type { Station, Coordinate } from "./data/stations";
+import type {
+  Station,
+  Coordinate,
+  PlayableConfig,
+} from "./data/operator_config";
 import { Game, calculateScore, makeGame } from "./game_logic";
 import { StationHeader } from "./StationHeader";
 import { WrappedMap, INITIAL_MAP_STATE } from "./WrappedMap";
@@ -286,8 +290,8 @@ function Instructions() {
   );
 }
 
-function GameImpl() {
-  const [game, setGame] = useState(makeGame());
+function GameImpl(props: { config: PlayableConfig }) {
+  const [game, setGame] = useState(makeGame(props.config));
   const [gameOver, setGameOver] = useState(false);
   const [turn, setTurn] = useState(0);
   const [score, setScore] = useState(0);
@@ -330,7 +334,7 @@ function GameImpl() {
             game={game}
             score={score}
             onNewGame={() => {
-              setGame(makeGame);
+              setGame(makeGame(props.config));
               setGameOver(false);
               setTurn(0);
               setScore(0);
@@ -343,10 +347,10 @@ function GameImpl() {
   );
 }
 
-function GameComponent() {
+function GameComponent(props: { config: PlayableConfig }) {
   return (
     <MapProvider>
-      <GameImpl />
+      <GameImpl config={props.config} />
     </MapProvider>
   );
 }
