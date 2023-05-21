@@ -1,5 +1,5 @@
 import React from "react";
-import type { Coordinate } from "./data/stations";
+import type { Coordinate } from "./operators/types";
 import { Map, Marker, Source, Layer } from "react-map-gl";
 import type { MapboxStyle } from "react-map-gl";
 import mapStyle from "./map_style";

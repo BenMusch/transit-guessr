@@ -1,6 +1,7 @@
 import _ from "lodash";
 
-import type { Coordinate, PlayableConfig } from "./data/operator_config";
+import type { Coordinate } from "./operators/types";
+import type { PlayableConfig } from "./operators/config";
 
 type PlayableStation = PlayableConfig["stations"][number];
 type FiveArray<T> = [T, T, T, T, T];
