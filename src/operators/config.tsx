@@ -7,6 +7,8 @@ export type TrunkLine = keyof PlayableConfig["linesByTrunkLine"];
 export type Line = PlayableConfig["lines"][number];
 export type Station = PlayableConfig["stations"][number];
 
-export default {
+const configByOperator = {
   [Operator.MTA]: mtaConfig,
 };
+
+export default configByOperator;
