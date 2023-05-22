@@ -2,14 +2,7 @@ import React, { useState } from "react";
 import { Map, Source, Layer } from "react-map-gl";
 import type { MapboxStyle } from "react-map-gl";
 import mapStyle from "./map_style";
-import type { Line } from "./data/lines";
-import {
-  LINES_BY_TRUNK_LINE,
-  LINES,
-  BACKGROUND_COLOR_BY_TRUNK_LINE,
-  TrunkLine,
-} from "./data/lines";
-import { LineBadge } from "./LineBadge";
+import type { Line, PlayableConfig, TrunkLine } from "./operators/config";
 import "./AllGuesses.css";
 import { Link } from "react-router-dom";
 
@@ -20,19 +13,21 @@ export const INITIAL_MAP_STATE = {
 };
 
 function LineBadgeControl(props: {
+  config: PlayableConfig;
   line: Line;
   enabled: boolean;
   onChange: () => void;
 }) {
-  const { line, enabled, onChange } = props;
+  const { line, enabled, onChange, config } = props;
   return (
     <div className="line-badge-control" onClick={onChange}>
-      <LineBadge line={line} medium greyscale={!enabled} />
+      {config.renderLine(line, { medium: true, greyscale: !enabled })}
     </div>
   );
 }
 
 function LineBadgeControlRow(props: {
+  config: PlayableConfig;
   lines: Line[];
   enabledLines: Set<Line>;
   onOnlyRow: () => void;
@@ -40,16 +35,24 @@ function LineBadgeControlRow(props: {
   onAllRow: () => void;
   onChangeLine: (l: Line) => void;
 }) {
-  const { lines, enabledLines, onOnlyRow, onAllRow, onHideRow, onChangeLine } =
-    props;
+  const {
+    lines,
+    enabledLines,
+    config,
+    onOnlyRow,
+    onAllRow,
+    onHideRow,
+    onChangeLine,
+  } = props;
   return (
     <div className="line-badge-control-row">
       <div className="line-badges">
         {lines
-          .filter((line) => !line.express)
+          .filter((line) => !line.line.includes("Express"))
           .map((line) => {
             return (
               <LineBadgeControl
+                config={config}
                 line={line}
                 enabled={enabledLines.has(line)}
                 onChange={() => onChangeLine(line)}
@@ -66,15 +69,22 @@ function LineBadgeControlRow(props: {
   );
 }
 
-function TransitLinesOverlay(props: { enabledLines: Set<Line> }) {
-  const { enabledLines } = props;
+function TransitLinesOverlay(props: {
+  config: PlayableConfig;
+  enabledLines: Set<Line>;
+}) {
+  const { enabledLines, config } = props;
   return (
     <Source id="routes" type="geojson" data="/geojson/routes.geojson">
-      {Object.entries(LINES_BY_TRUNK_LINE).map(([trunkLine, lines]) => {
+      {Object.entries(config.linesByTrunkLine).map(([trunkLine, lines]) => {
+        // dumb way to get the color for the trunk line since it's embedded on
+        // the
         const lineFilters = lines
-          .filter((line) => !line.express && enabledLines.has(line))
+          .filter(
+            (line) => !line.line.includes("Express") && enabledLines.has(line)
+          )
           .map((line) => {
-            return ["in", `${line.name}`, ["get", "name"]];
+            return ["in", `${line.displayName}`, ["get", "name"]];
           });
         const filters = [
           "all",
@@ -130,10 +140,7 @@ function TransitLinesOverlay(props: { enabledLines: Set<Line> }) {
               filter={filters}
               layout={{ "line-cap": "round" }}
               paint={{
-                "line-color":
-                  BACKGROUND_COLOR_BY_TRUNK_LINE[
-                    trunkLine as unknown as TrunkLine
-                  ],
+                "line-color": config.getColor(trunkLine as TrunkLine),
                 "line-width": [
                   "interpolate",
                   ["linear"],
@@ -173,8 +180,12 @@ function TransitLinesOverlay(props: { enabledLines: Set<Line> }) {
   );
 }
 
-function GuessMap(props: { enabledLines: Set<Line>; showLines: boolean }) {
-  const { enabledLines, showLines } = props;
+function GuessMap(props: {
+  config: PlayableConfig;
+  enabledLines: Set<Line>;
+  showLines: boolean;
+}) {
+  const { enabledLines, showLines, config } = props;
 
   const enabledTrunkLines = new Set();
   for (const line of enabledLines) {
@@ -189,10 +200,12 @@ function GuessMap(props: { enabledLines: Set<Line>; showLines: boolean }) {
       mapStyle={mapStyle as MapboxStyle}
     >
       <Source type="geojson" data="/geojson/guesses.geojson">
-        {Object.entries(LINES_BY_TRUNK_LINE).map(([trunkLine, lines]) => {
+        {Object.entries(config.linesByTrunkLine).map(([trunkLine, lines]) => {
           const filters = lines
-            .filter((line) => !line.express && enabledLines.has(line))
-            .map((line) => ["has", `${line.name}`]);
+            .filter(
+              (line) => !line.line.includes("Express") && enabledLines.has(line)
+            )
+            .map((line) => ["has", `${line.displayName}`]);
 
           // When fewer lines are enabled, there's less color conflict, so
           // higher opacity is better
@@ -206,10 +219,7 @@ function GuessMap(props: { enabledLines: Set<Line>; showLines: boolean }) {
               type="circle"
               filter={["any", ...filters]}
               paint={{
-                "circle-color":
-                  BACKGROUND_COLOR_BY_TRUNK_LINE[
-                    trunkLine as unknown as TrunkLine
-                  ],
+                "circle-color": config.getColor(trunkLine as TrunkLine),
                 "circle-radius": [
                   "interpolate",
                   ["linear"],
@@ -233,22 +243,27 @@ function GuessMap(props: { enabledLines: Set<Line>; showLines: boolean }) {
           );
         })}
       </Source>
-      {showLines && <TransitLinesOverlay enabledLines={enabledLines} />}
+      {showLines && (
+        <TransitLinesOverlay config={config} enabledLines={enabledLines} />
+      )}
     </Map>
   );
 }
 
-export default function AllGuesses() {
+export default function AllGuesses(props: { config: PlayableConfig }) {
+  const { config } = props;
   const [showLines, setShowLines] = useState(true);
-  const [enabledLines, setEnabledLines] = useState(
-    new Set(Object.values(LINES))
-  );
+  const [enabledLines, setEnabledLines] = useState(new Set(config.lines));
 
   return (
     <div className="main-container-map">
       <div className="inner-container-map clearfix">
         <div className="map-container">
-          <GuessMap showLines={showLines} enabledLines={enabledLines} />
+          <GuessMap
+            config={config}
+            showLines={showLines}
+            enabledLines={enabledLines}
+          />
         </div>
 
         <div className="controls-container">
@@ -265,37 +280,40 @@ export default function AllGuesses() {
             </span>
           </div>
           <div className="controls">
-            {Object.entries(LINES_BY_TRUNK_LINE).map(([trunkLine, lines]) => {
-              return (
-                <LineBadgeControlRow
-                  lines={lines}
-                  enabledLines={enabledLines}
-                  onAllRow={() => {
-                    for (const line of lines) {
-                      enabledLines.add(line);
-                    }
-                    setEnabledLines(new Set([...enabledLines]));
-                  }}
-                  onHideRow={() => {
-                    for (const line of lines) {
-                      enabledLines.delete(line);
-                    }
-                    setEnabledLines(new Set([...enabledLines]));
-                  }}
-                  onOnlyRow={() => {
-                    setEnabledLines(new Set([...lines]));
-                  }}
-                  onChangeLine={(line) => {
-                    if (enabledLines.has(line)) {
-                      enabledLines.delete(line);
-                    } else {
-                      enabledLines.add(line);
-                    }
-                    setEnabledLines(new Set([...enabledLines]));
-                  }}
-                />
-              );
-            })}
+            {Object.entries(config.linesByTrunkLine).map(
+              ([trunkLine, lines]) => {
+                return (
+                  <LineBadgeControlRow
+                    config={config}
+                    lines={lines}
+                    enabledLines={enabledLines}
+                    onAllRow={() => {
+                      for (const line of lines) {
+                        enabledLines.add(line);
+                      }
+                      setEnabledLines(new Set([...enabledLines]));
+                    }}
+                    onHideRow={() => {
+                      for (const line of lines) {
+                        enabledLines.delete(line);
+                      }
+                      setEnabledLines(new Set([...enabledLines]));
+                    }}
+                    onOnlyRow={() => {
+                      setEnabledLines(new Set([...lines]));
+                    }}
+                    onChangeLine={(line) => {
+                      if (enabledLines.has(line)) {
+                        enabledLines.delete(line);
+                      } else {
+                        enabledLines.add(line);
+                      }
+                      setEnabledLines(new Set([...enabledLines]));
+                    }}
+                  />
+                );
+              }
+            )}
           </div>
           <div className="show-lines-control">
             <label>

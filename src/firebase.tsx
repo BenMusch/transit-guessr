@@ -1,10 +1,13 @@
-import type { Line } from "./data/lines";
-import type { Station } from "./data/stations";
+import type { Station, Line } from "./operators/config";
 
 // Super simple heuristic to stringify stations for firebase
 export function firebaseNameForStation(station: Station): string {
-  const stationNameSuffix = station.lines
-    .map((line: Line) => `${line.name}${line.express ? "Exp" : ""}`)
+  const lines = station.lines;
+  const stationNameSuffix = lines
+    .map(
+      (line: Line) =>
+        `${line.displayName}${line.line.includes("Express") ? "Exp" : ""}`
+    )
     .join(",");
 
   return `${station.name} (${stationNameSuffix})`;

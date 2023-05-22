@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import _ from "lodash";
 import { MapProvider, useMap } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import type { Station, Coordinate } from "./data/stations";
+import type { Coordinate } from "./operators/types";
+import type { Station, PlayableConfig } from "./operators/config";
 import { Game, calculateScore, makeGame } from "./game_logic";
-import { StationHeader } from "./StationHeader";
 import { WrappedMap, INITIAL_MAP_STATE } from "./WrappedMap";
 
 const HIGH_SCORES_KEY = "highScores";
@@ -84,11 +84,12 @@ function GameplayMap(props: {
 }
 
 function GameReview(props: {
+  config: PlayableConfig;
   game: Game;
   score: number;
   onNewGame: () => void;
 }) {
-  const { score, onNewGame, game } = props;
+  const { config, score, onNewGame, game } = props;
   const [copied, setCopied] = useState(false);
   const [selectedTurn, setSelectedTurn] = useState(0);
   const highScores = getHighScores();
@@ -144,7 +145,7 @@ function GameReview(props: {
 
         <div className="guess-review">
           <div className="guess-review-item">
-            <StationHeader station={station} />
+            {config.renderStationHeading(station)}
             <WrappedMap
               id="reviewMap"
               guessMarker={guess}
@@ -173,6 +174,7 @@ function GameReview(props: {
 }
 
 function ActiveGame(props: {
+  config: PlayableConfig;
   onGuess: (score: number, location: Coordinate) => void;
   onContinue: () => void;
   onGameOver: () => void;
@@ -180,7 +182,7 @@ function ActiveGame(props: {
   score: number;
   game: Game;
 }) {
-  const { game, turn, onGuess, score, onContinue, onGameOver } = props;
+  const { config, game, turn, onGuess, score, onContinue, onGameOver } = props;
   const station = game.stations[turn];
 
   const [guess, setGuess] = useState<Coordinate | null>(null);
@@ -202,7 +204,7 @@ function ActiveGame(props: {
         </div>
       </header>
 
-      <StationHeader station={station} />
+      {config.renderStationHeading(station)}
 
       <GameplayMap
         onClick={(guess) => {
@@ -286,8 +288,8 @@ function Instructions() {
   );
 }
 
-function GameImpl() {
-  const [game, setGame] = useState(makeGame());
+function GameImpl(props: { config: PlayableConfig }) {
+  const [game, setGame] = useState(makeGame(props.config));
   const [gameOver, setGameOver] = useState(false);
   const [turn, setTurn] = useState(0);
   const [score, setScore] = useState(0);
@@ -304,6 +306,7 @@ function GameImpl() {
       <div className="inner-container">
         {!gameOver && (
           <ActiveGame
+            config={props.config}
             onGuess={(guessScore, guessLoc) => {
               let newGame = { ...game };
               newGame.guesses[turn] = guessLoc;
@@ -327,10 +330,11 @@ function GameImpl() {
 
         {gameOver && (
           <GameReview
+            config={props.config}
             game={game}
             score={score}
             onNewGame={() => {
-              setGame(makeGame);
+              setGame(makeGame(props.config));
               setGameOver(false);
               setTurn(0);
               setScore(0);
@@ -343,10 +347,10 @@ function GameImpl() {
   );
 }
 
-function GameComponent() {
+function GameComponent(props: { config: PlayableConfig }) {
   return (
     <MapProvider>
-      <GameImpl />
+      <GameImpl config={props.config} />
     </MapProvider>
   );
 }

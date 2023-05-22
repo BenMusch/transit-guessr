@@ -1,8 +1,9 @@
 import _ from "lodash";
 
-import type { Coordinate, Station } from "./data/stations";
-import { STATIONS } from "./data/stations";
+import type { Coordinate } from "./operators/types";
+import type { PlayableConfig } from "./operators/config";
 
+type PlayableStation = PlayableConfig["stations"][number];
 type FiveArray<T> = [T, T, T, T, T];
 
 // calculate distance in meters using https://www.movable-type.co.uk/scripts/latlong.html
@@ -26,7 +27,7 @@ function distanceInMeters(a: Coordinate, b: Coordinate) {
 
 export function calculateScore(
   guess: Coordinate,
-  station: Station
+  station: PlayableStation
 ): { score: number; point: Coordinate } {
   let point: Coordinate | null = null;
   let score: number = 0;
@@ -52,13 +53,13 @@ export function calculateScore(
 
 export type Game = {
   guesses: FiveArray<Coordinate | null>;
-  stations: FiveArray<Station>;
+  stations: FiveArray<PlayableStation>;
 };
 
-export function makeGame(): Game {
+export function makeGame(config: PlayableConfig): Game {
   return {
     guesses: [null, null, null, null, null],
-    stations: _.sampleSize(STATIONS, 5) as FiveArray<Station>,
+    stations: _.sampleSize(config.stations, 5) as FiveArray<PlayableStation>,
   };
 }
 
