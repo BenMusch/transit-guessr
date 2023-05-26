@@ -631,7 +631,7 @@ export const stations: MtaStation[] = [
     coordinates: [[-73.95762400074634, 40.67477166685263]],
   },
   {
-    lines: [lines[MtaLineName.A], lines[MtaLineName.S]],
+    lines: [lines[MtaLineName.A]],
     name: "111th St",
     coordinates: [[-73.83216299845388, 40.68433100001238]],
   },
@@ -704,7 +704,7 @@ export const stations: MtaStation[] = [
     coordinates: [[-74.00536700180581, 40.728251000730204]],
   },
   {
-    lines: [lines[MtaLineName.A], lines[MtaLineName.S]],
+    lines: [lines[MtaLineName.A]],
     name: "104th St",
     coordinates: [[-73.83768300060997, 40.681711001091195]],
   },
@@ -743,7 +743,7 @@ export const stations: MtaStation[] = [
     coordinates: [[-73.9401635351909, 40.750635651014804]],
   },
   {
-    lines: [lines[MtaLineName.A], lines[MtaLineName.S]],
+    lines: [lines[MtaLineName.A]],
     name: "Rockaway Blvd",
     coordinates: [[-73.8438529979573, 40.680428999588415]],
   },
@@ -1247,7 +1247,7 @@ export const stations: MtaStation[] = [
     coordinates: [[-73.86161820097203, 40.729763972422425]],
   },
   {
-    lines: [lines[MtaLineName.A], lines[MtaLineName.S]],
+    lines: [lines[MtaLineName.A]],
     name: "Grant Ave",
     coordinates: [[-73.86504999877702, 40.67704400054478]],
   },
@@ -1267,7 +1267,7 @@ export const stations: MtaStation[] = [
     coordinates: [[-74.00290599855235, 40.73342200104225]],
   },
   {
-    lines: [lines[MtaLineName.A], lines[MtaLineName.S]],
+    lines: [lines[MtaLineName.A]],
     name: "Ozone Park - Lefferts Blvd",
     coordinates: [[-73.82579799906613, 40.68595099878361]],
   },
@@ -2645,12 +2645,12 @@ export const stations: MtaStation[] = [
     coordinates: [[-73.94747800152219, 40.79060000008452]],
   },
   {
-    lines: [lines[MtaLineName.A], lines[MtaLineName.C], lines[MtaLineName.S]],
+    lines: [lines[MtaLineName.A], lines[MtaLineName.C]],
     name: "Euclid Ave",
     coordinates: [[-73.87210600099675, 40.675376998239365]],
   },
   {
-    lines: [lines[MtaLineName.A], lines[MtaLineName.S]],
+    lines: [lines[MtaLineName.A]],
     name: "88th St",
     coordinates: [[-73.85147000026086, 40.67984300135503]],
   },
@@ -2679,7 +2679,7 @@ export const stations: MtaStation[] = [
     coordinates: [[-74.00688600277107, 40.719318001302135]],
   },
   {
-    lines: [lines[MtaLineName.A], lines[MtaLineName.S]],
+    lines: [lines[MtaLineName.A]],
     name: "80th St",
     coordinates: [[-73.85899200206335, 40.67937100115432]],
   },
