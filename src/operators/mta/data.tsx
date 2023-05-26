@@ -423,8 +423,9 @@ export const stations: MtaStation[] = [
       lines[MtaLineName.FIVE],
       lines[MtaLineName.TWO],
       lines[MtaLineName.THREE],
+      lines[MtaLineName.S]
     ],
-    name: "Franklin Ave",
+    name: "Franklin Ave/Botanic Garden",
     coordinates: [[-73.9580997367769, 40.67076515344894]],
   },
   {
@@ -1703,11 +1704,6 @@ export const stations: MtaStation[] = [
     lines: [lines[MtaLineName.TWO]],
     name: "Wakefield - 241st St",
     coordinates: [[-73.8506199987954, 40.903125000541245]],
-  },
-  {
-    lines: [lines[MtaLineName.S]],
-    name: "Botanic Garden",
-    coordinates: [[-73.95924499945693, 40.670342666584396]],
   },
   {
     lines: [lines[MtaLineName.L]],
