@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import _ from "lodash";
 import { MapProvider, useMap } from "react-map-gl";
+import type { CameraOptions } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { Coordinate } from "./operators/types";
 import type { IStation, OperatorConfiguration } from "./operators/types";
@@ -111,7 +112,14 @@ function GameReview<
   const guessScore = calculateScore(guess!, station);
   const mapRef = useMap();
   const resetView = () => {
-    mapRef?.reviewMap?.jumpTo(config.initialMapState);
+    mapRef?.reviewMap?.jumpTo({
+      zoom: config.initialMapState.zoom,
+      pitch: 0,
+      center: [
+        config.initialMapState.longitude,
+        config.initialMapState.latitude,
+      ],
+    });
   };
 
   return (
@@ -315,8 +323,16 @@ function GameImpl<TrunkLineT extends string, LineNameT extends string>(props: {
 
   const mapRef = useMap();
   const resetView = () => {
-    mapRef?.reviewMap?.jumpTo(config.initialMapState);
-    mapRef?.gameplayMap?.jumpTo(config.initialMapState);
+    const stateToJumpTo: CameraOptions = {
+      center: [
+        config.initialMapState.longitude,
+        config.initialMapState.latitude,
+      ],
+      zoom: config.initialMapState.zoom,
+      pitch: 0,
+    };
+    mapRef?.reviewMap?.jumpTo(stateToJumpTo);
+    mapRef?.gameplayMap?.jumpTo(stateToJumpTo);
   };
 
   return (
@@ -335,6 +351,7 @@ function GameImpl<TrunkLineT extends string, LineNameT extends string>(props: {
             }}
             onContinue={() => {
               setTurn(turn + 1);
+              debugger;
               resetView();
             }}
             onGameOver={() => {

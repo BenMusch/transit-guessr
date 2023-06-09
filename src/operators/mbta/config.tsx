@@ -9,8 +9,8 @@ class MbtaConfig implements OperatorConfiguration<MbtaTrunkLine, MbtaLineName> {
   lines = Object.values(lines);
   linesByTrunkLine = linesByTrunkLine as { [k in MbtaTrunkLine]: MbtaLine[] };
   initialMapState = {
-    longitude: -71.0589,
-    latitude: 42.3601,
+    longitude: -71.0593,
+    latitude: 42.35,
     zoom: 10,
   };
 
@@ -37,10 +37,12 @@ class MbtaConfig implements OperatorConfiguration<MbtaTrunkLine, MbtaLineName> {
     l: MbtaLine,
     props: { greyscale?: boolean; medium?: boolean; small?: boolean }
   ) {
+    // TODO: Implement for analysis pages
     return "Line!";
   }
 
   renderLines(l: MbtaLine[], props: { small?: boolean }) {
+    // TODO: Implement for analysis pages
     return "Line!";
   }
 }
