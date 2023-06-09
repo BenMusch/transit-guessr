@@ -1,13 +1,13 @@
-import { Operator, OperatorConfiguration } from "./types";
+import { Operator, OperatorConfiguration, ILine, IStation } from "./types";
 import mtaConfig from "./mta/config";
 import mbtaConfig from "./mbta/config";
+import { MbtaLineName, MbtaTrunkLine } from "./mbta/types";
+import { MtaLineName, MtaTrunkLine } from "./mta/types";
 
-// Dynamic types which will adjust to only include valid generic params
-export type PlayableConfig = typeof mtaConfig | typeof mbtaConfig;
-export type TrunkLine = keyof PlayableConfig["linesByTrunkLine"];
-export type Line = PlayableConfig["lines"][number];
-export type Station = PlayableConfig["stations"][number];
 export type AnalyzableConfig = typeof mtaConfig;
+export type AnalyzableTrunkLine = keyof AnalyzableConfig["linesByTrunkLine"];
+export type AnalyzableLine = AnalyzableConfig["lines"][number];
+export type AnalyzableStation = AnalyzableConfig["stations"][number];
 
 const configByOperator = {
   [Operator.MTA]: mtaConfig,

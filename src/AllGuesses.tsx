@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { Map, Source, Layer } from "react-map-gl";
 import type { MapboxStyle } from "react-map-gl";
 import mapStyle from "./map_style";
-import type { Line, AnalyzableConfig, TrunkLine } from "./operators/config";
+import type {
+  AnalyzableLine,
+  AnalyzableConfig,
+  AnalyzableTrunkLine,
+} from "./operators/config";
 import "./AllGuesses.css";
 import { Link } from "react-router-dom";
 
@@ -14,7 +18,7 @@ export const INITIAL_MAP_STATE = {
 
 function LineBadgeControl(props: {
   config: AnalyzableConfig;
-  line: Line;
+  line: AnalyzableLine;
   enabled: boolean;
   onChange: () => void;
 }) {
@@ -28,12 +32,12 @@ function LineBadgeControl(props: {
 
 function LineBadgeControlRow(props: {
   config: AnalyzableConfig;
-  lines: Line[];
-  enabledLines: Set<Line>;
+  lines: AnalyzableLine[];
+  enabledLines: Set<AnalyzableLine>;
   onOnlyRow: () => void;
   onHideRow: () => void;
   onAllRow: () => void;
-  onChangeLine: (l: Line) => void;
+  onChangeLine: (l: AnalyzableLine) => void;
 }) {
   const {
     lines,
@@ -71,7 +75,7 @@ function LineBadgeControlRow(props: {
 
 function TransitLinesOverlay(props: {
   config: AnalyzableConfig;
-  enabledLines: Set<Line>;
+  enabledLines: Set<AnalyzableLine>;
 }) {
   const { enabledLines, config } = props;
   return (
@@ -140,7 +144,7 @@ function TransitLinesOverlay(props: {
               filter={filters}
               layout={{ "line-cap": "round" }}
               paint={{
-                "line-color": config.getColor(trunkLine as TrunkLine),
+                "line-color": config.getColor(trunkLine as AnalyzableTrunkLine),
                 "line-width": [
                   "interpolate",
                   ["linear"],
@@ -182,7 +186,7 @@ function TransitLinesOverlay(props: {
 
 function GuessMap(props: {
   config: AnalyzableConfig;
-  enabledLines: Set<Line>;
+  enabledLines: Set<AnalyzableLine>;
   showLines: boolean;
 }) {
   const { enabledLines, showLines, config } = props;
@@ -219,7 +223,9 @@ function GuessMap(props: {
               type="circle"
               filter={["any", ...filters]}
               paint={{
-                "circle-color": config.getColor(trunkLine as TrunkLine),
+                "circle-color": config.getColor(
+                  trunkLine as AnalyzableTrunkLine
+                ),
                 "circle-radius": [
                   "interpolate",
                   ["linear"],

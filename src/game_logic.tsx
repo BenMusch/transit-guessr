@@ -1,9 +1,11 @@
 import _ from "lodash";
 
-import type { Coordinate } from "./operators/types";
-import type { PlayableConfig } from "./operators/config";
+import type {
+  IStation,
+  Coordinate,
+  OperatorConfiguration,
+} from "./operators/types";
 
-type PlayableStation = PlayableConfig["stations"][number];
 type FiveArray<T> = [T, T, T, T, T];
 
 // calculate distance in meters using https://www.movable-type.co.uk/scripts/latlong.html
@@ -25,9 +27,12 @@ function distanceInMeters(a: Coordinate, b: Coordinate) {
   return 6371e3 * c;
 }
 
-export function calculateScore(
+export function calculateScore<
+  TrunkLineT extends string,
+  LineNameT extends string
+>(
   guess: Coordinate,
-  station: PlayableStation
+  station: IStation<TrunkLineT, LineNameT>
 ): { score: number; point: Coordinate } {
   let point: Coordinate | null = null;
   let score: number = 0;
@@ -51,19 +56,27 @@ export function calculateScore(
   return { score, point: point! };
 }
 
-export type Game = {
+export type Game<TrunkLineT extends string, LineNameT extends string> = {
   guesses: FiveArray<Coordinate | null>;
-  stations: FiveArray<PlayableStation>;
+  stations: FiveArray<IStation<TrunkLineT, LineNameT>>;
 };
 
-export function makeGame(config: PlayableConfig): Game {
+export function makeGame<TrunkLineT extends string, LineNameT extends string>(
+  config: OperatorConfiguration<TrunkLineT, LineNameT>
+): Game<TrunkLineT, LineNameT> {
   return {
     guesses: [null, null, null, null, null],
-    stations: _.sampleSize(config.stations, 5) as FiveArray<PlayableStation>,
+    stations: _.sampleSize(config.stations, 5) as FiveArray<
+      IStation<TrunkLineT, LineNameT>
+    >,
   };
 }
 
-export function guess(game: Game, guess: Coordinate, turn: number): Game {
+export function guess<TrunkLineT extends string, LineNameT extends string>(
+  game: Game<TrunkLineT, LineNameT>,
+  guess: Coordinate,
+  turn: number
+): Game<TrunkLineT, LineNameT> {
   const newGuesses = [...game.guesses] as FiveArray<Coordinate | null>;
   newGuesses[turn] = guess;
 

@@ -1,12 +1,12 @@
 import { OperatorConfiguration } from "../types";
 import { MbtaTrunkLine, MbtaLineName } from "./types";
-import type { MbtaStation } from "./types";
+import type { MbtaStation, MbtaLine } from "./types";
 import { stations, lines, linesByTrunkLine } from "./data";
 
 const config: OperatorConfiguration<MbtaTrunkLine, MbtaLineName> = {
   stations,
   lines: Object.values(lines),
-  linesByTrunkLine,
+  linesByTrunkLine: linesByTrunkLine as { [k in MbtaTrunkLine]: MbtaLine[] },
   getColor: (t: MbtaTrunkLine) => {
     return "foo";
   },

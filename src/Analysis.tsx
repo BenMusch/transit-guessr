@@ -2,14 +2,14 @@ import React from "react";
 
 import _ from "lodash";
 import "./Analysis.css";
-import type { Station, AnalyzableConfig } from "./operators/config";
+import type { AnalyzableStation, AnalyzableConfig } from "./operators/config";
 import { firebaseNameForStation } from "./firebase";
 import { WrappedMap } from "./WrappedMap";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
 function StationGuessAnalysis(props: {
   config: AnalyzableConfig;
-  station: Station;
+  station: AnalyzableStation;
   avgScore: number;
   first?: boolean;
   last?: boolean;

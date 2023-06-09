@@ -3,14 +3,17 @@ import _ from "lodash";
 import { MapProvider, useMap } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { Coordinate } from "./operators/types";
-import type { Station, PlayableConfig } from "./operators/config";
+import type { IStation, OperatorConfiguration } from "./operators/types";
 import { Game, calculateScore, makeGame } from "./game_logic";
 import { WrappedMap, INITIAL_MAP_STATE } from "./WrappedMap";
 
 const HIGH_SCORES_KEY = "highScores";
 const SEEN_INSTRUCTIONS_KEY = "seenInstructions";
 
-function shareableGame(game: Game, score: number): string {
+function shareableGame<TrunkLineT extends string, LineNameT extends string>(
+  game: Game<TrunkLineT, LineNameT>,
+  score: number
+): string {
   const guessStrs = [0, 1, 2, 3, 4].map((turn) => {
     const guess = game.guesses[turn];
     const station = game.stations[turn];
@@ -63,8 +66,11 @@ function hasSeenInstruction() {
   return localStorage.getItem(SEEN_INSTRUCTIONS_KEY) !== null;
 }
 
-function GameplayMap(props: {
-  station: Station;
+function GameplayMap<
+  TrunkLineT extends string,
+  LineNameT extends string
+>(props: {
+  station: IStation<TrunkLineT, LineNameT>;
   guess: Coordinate | null;
   guessConfirmed: boolean;
   onClick: (c: Coordinate) => void;
@@ -83,9 +89,12 @@ function GameplayMap(props: {
   );
 }
 
-function GameReview(props: {
-  config: PlayableConfig;
-  game: Game;
+function GameReview<
+  TrunkLineT extends string,
+  LineNameT extends string
+>(props: {
+  config: OperatorConfiguration<TrunkLineT, LineNameT>;
+  game: Game<TrunkLineT, LineNameT>;
   score: number;
   onNewGame: () => void;
 }) {
@@ -173,14 +182,17 @@ function GameReview(props: {
   );
 }
 
-function ActiveGame(props: {
-  config: PlayableConfig;
+function ActiveGame<
+  TrunkLineT extends string,
+  LineNameT extends string
+>(props: {
+  config: OperatorConfiguration<TrunkLineT, LineNameT>;
   onGuess: (score: number, location: Coordinate) => void;
   onContinue: () => void;
   onGameOver: () => void;
   turn: number;
   score: number;
-  game: Game;
+  game: Game<TrunkLineT, LineNameT>;
 }) {
   const { config, game, turn, onGuess, score, onContinue, onGameOver } = props;
   const station = game.stations[turn];
@@ -288,7 +300,9 @@ function Instructions() {
   );
 }
 
-function GameImpl(props: { config: PlayableConfig }) {
+function GameImpl<TrunkLineT extends string, LineNameT extends string>(props: {
+  config: OperatorConfiguration<TrunkLineT, LineNameT>;
+}) {
   const [game, setGame] = useState(makeGame(props.config));
   const [gameOver, setGameOver] = useState(false);
   const [turn, setTurn] = useState(0);
@@ -347,7 +361,10 @@ function GameImpl(props: { config: PlayableConfig }) {
   );
 }
 
-function GameComponent(props: { config: PlayableConfig }) {
+function GameComponent<
+  TrunkLineT extends string,
+  LineNameT extends string
+>(props: { config: OperatorConfiguration<TrunkLineT, LineNameT> }) {
   return (
     <MapProvider>
       <GameImpl config={props.config} />
@@ -356,4 +373,3 @@ function GameComponent(props: { config: PlayableConfig }) {
 }
 
 export default GameComponent;
-
