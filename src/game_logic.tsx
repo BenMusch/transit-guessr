@@ -1,10 +1,7 @@
 import _ from "lodash";
 
-import type {
-  IStation,
-  Coordinate,
-  OperatorConfiguration,
-} from "./operators/types";
+import type { Coordinate } from "./operators/types";
+import type { PlayableConfig, PlayableStation } from "./operators/config";
 
 type FiveArray<T> = [T, T, T, T, T];
 
@@ -27,12 +24,9 @@ function distanceInMeters(a: Coordinate, b: Coordinate) {
   return 6371e3 * c;
 }
 
-export function calculateScore<
-  TrunkLineT extends string,
-  LineNameT extends string
->(
+export function calculateScore(
   guess: Coordinate,
-  station: IStation<TrunkLineT, LineNameT>
+  station: PlayableStation
 ): { score: number; point: Coordinate } {
   let point: Coordinate | null = null;
   let score: number = 0;
@@ -56,27 +50,19 @@ export function calculateScore<
   return { score, point: point! };
 }
 
-export type Game<TrunkLineT extends string, LineNameT extends string> = {
+export type Game = {
   guesses: FiveArray<Coordinate | null>;
-  stations: FiveArray<IStation<TrunkLineT, LineNameT>>;
+  stations: FiveArray<PlayableStation>;
 };
 
-export function makeGame<TrunkLineT extends string, LineNameT extends string>(
-  config: OperatorConfiguration<TrunkLineT, LineNameT>
-): Game<TrunkLineT, LineNameT> {
+export function makeGame(config: PlayableConfig): Game {
   return {
     guesses: [null, null, null, null, null],
-    stations: _.sampleSize(config.stations, 5) as FiveArray<
-      IStation<TrunkLineT, LineNameT>
-    >,
+    stations: _.sampleSize(config.stations, 5) as FiveArray<PlayableStation>,
   };
 }
 
-export function guess<TrunkLineT extends string, LineNameT extends string>(
-  game: Game<TrunkLineT, LineNameT>,
-  guess: Coordinate,
-  turn: number
-): Game<TrunkLineT, LineNameT> {
+export function guess(game: Game, guess: Coordinate, turn: number): Game {
   const newGuesses = [...game.guesses] as FiveArray<Coordinate | null>;
   newGuesses[turn] = guess;
 

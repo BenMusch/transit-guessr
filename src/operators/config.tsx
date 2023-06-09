@@ -1,8 +1,11 @@
-import { Operator, OperatorConfiguration, ILine, IStation } from "./types";
+import { Operator } from "./types";
 import mtaConfig from "./mta/config";
 import mbtaConfig from "./mbta/config";
-import { MbtaLineName, MbtaTrunkLine } from "./mbta/types";
-import { MtaLineName, MtaTrunkLine } from "./mta/types";
+
+export type PlayableConfig = typeof mtaConfig | typeof mbtaConfig;
+export type PlayableStation =
+  | typeof mtaConfig["stations"][number]
+  | typeof mbtaConfig["stations"][number];
 
 export type AnalyzableConfig = typeof mtaConfig;
 export type AnalyzableTrunkLine = keyof AnalyzableConfig["linesByTrunkLine"];

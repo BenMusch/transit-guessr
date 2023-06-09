@@ -29,11 +29,13 @@ export interface OperatorConfiguration<
     latitude: number;
     zoom: number;
   };
+  hasAnalysisPage: boolean;
   stations: IStation<TrunkLine, LineNameT>[];
   lines: ILine<TrunkLine, LineNameT>[];
   linesByTrunkLine: { [key in TrunkLine]: ILine<TrunkLine, LineNameT>[] };
   getColor: (t: TrunkLine) => string;
   renderStationHeading: (s: IStation<TrunkLine, LineNameT>) => ReactNode;
+  uniqueNameForStation: (s: IStation<TrunkLine, LineNameT>) => string;
   renderLines: (
     l: ILine<TrunkLine, LineNameT>[],
     p: { small?: boolean }

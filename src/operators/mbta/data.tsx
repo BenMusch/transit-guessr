@@ -784,7 +784,3 @@ export const stations: MbtaStation[] = [
     name: "Warren Street",
   },
 ];
-
-const stationNames = stations.map((station) => station.name);
-console.log("names", stationNames);
-console.log("unique names", new Set(stationNames).size);

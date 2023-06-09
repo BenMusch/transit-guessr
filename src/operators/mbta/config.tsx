@@ -1,4 +1,4 @@
-import { OperatorConfiguration, ILine, IStation } from "../types";
+import { OperatorConfiguration } from "../types";
 import { MbtaTrunkLine, MbtaLineName } from "./types";
 import type { MbtaStation, MbtaLine } from "./types";
 import { stations, lines, linesByTrunkLine } from "./data";
@@ -8,6 +8,7 @@ class MbtaConfig implements OperatorConfiguration<MbtaTrunkLine, MbtaLineName> {
   stations = stations;
   lines = Object.values(lines);
   linesByTrunkLine = linesByTrunkLine as { [k in MbtaTrunkLine]: MbtaLine[] };
+  hasAnalysisPage = false;
   initialMapState = {
     longitude: -71.0593,
     latitude: 42.35,
@@ -27,6 +28,10 @@ class MbtaConfig implements OperatorConfiguration<MbtaTrunkLine, MbtaLineName> {
       case MbtaTrunkLine.SILVER:
         return "#7C878E";
     }
+  }
+
+  uniqueNameForStation(station: MbtaStation) {
+    return station.name;
   }
 
   renderStationHeading(station: MbtaStation) {

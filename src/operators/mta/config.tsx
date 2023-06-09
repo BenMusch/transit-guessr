@@ -1,5 +1,5 @@
 import { OperatorConfiguration } from "../types";
-import { MtaTrunkLine, MtaLineName, MtaStation } from "./types";
+import { MtaTrunkLine, MtaLine, MtaLineName, MtaStation } from "./types";
 import { stations, lines, linesByTrunkLine } from "./data";
 import { MtaStationHeader } from "../../operator_components/mta/MtaStationHeader";
 import { MtaLineBadge } from "../../operator_components/mta/MtaLineBadge";
@@ -7,6 +7,7 @@ import { MtaLinesRow } from "../../operator_components/mta/MtaLinesRow";
 
 const config: OperatorConfiguration<MtaTrunkLine, MtaLineName> = {
   stations,
+  hasAnalysisPage: false,
   lines: Object.values(lines),
   linesByTrunkLine,
   initialMapState: {
@@ -27,6 +28,18 @@ const config: OperatorConfiguration<MtaTrunkLine, MtaLineName> = {
       [MtaTrunkLine.FLUSHING_IRT]: "#b933ad",
       [MtaTrunkLine.SHUTTLES]: "#808183",
     }[t];
+  },
+
+  uniqueNameForStation: (station: MtaStation) => {
+    const lines = station.lines;
+    const stationNameSuffix = lines
+      .map(
+        (line: MtaLine) =>
+          `${line.displayName}${line.line.includes("Express") ? "Exp" : ""}`
+      )
+      .join(",");
+
+    return `${station.name} (${stationNameSuffix})`;
   },
 
   renderStationHeading: (station: MtaStation) => {

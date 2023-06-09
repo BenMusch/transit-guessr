@@ -3,7 +3,6 @@ import React from "react";
 import _ from "lodash";
 import "./Analysis.css";
 import type { AnalyzableStation, AnalyzableConfig } from "./operators/config";
-import { firebaseNameForStation } from "./firebase";
 import { WrappedMap } from "./WrappedMap";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
@@ -54,10 +53,9 @@ function StationGuessAnalysis(props: {
       <WrappedMap
         id="analysis"
         initialViewState={config.initialMapState}
-        guessesSourceFile={`/geojson/${firebaseNameForStation(station).replace(
-          /[^\w\d]/g,
-          ""
-        )}.geojson`}
+        guessesSourceFile={`/geojson/${config
+          .uniqueNameForStation(station)
+          .replace(/[^\w\d]/g, "")}.geojson`}
         stationMarker={station.coordinates[0]!}
       />
     </>
@@ -75,7 +73,10 @@ function Analysis(props: {
   const navigate = useNavigate();
 
   const stationsByFirebaseName = _.fromPairs(
-    config.stations.map((station) => [firebaseNameForStation(station), station])
+    config.stations.map((station) => [
+      config.uniqueNameForStation(station),
+      station,
+    ])
   );
   console.log(stationsByFirebaseName);
 

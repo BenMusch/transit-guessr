@@ -5,12 +5,14 @@ import Analysis from "./Analysis";
 import AllGuesses from "./AllGuesses";
 import * as Sentry from "@sentry/react";
 import { Routes, BrowserRouter, Route } from "react-router-dom";
+import type { AnalyzableConfig } from "./operators/config";
 import config from "./operators/config";
 import { STATION_GUESS_DATA } from "./data/guesses";
 
 declare global {
   interface Window {
     sentryDsn?: string;
+    operator: "mbta" | "mta";
   }
 }
 
@@ -29,24 +31,41 @@ if (window.sentryDsn) {
   }
 }
 
+const configToPlay = config[window.operator];
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="map" element={<AllGuesses config={config.mta} />} />
-        <Route
-          path="data"
-          element={
-            <Analysis config={config.mta} guessData={STATION_GUESS_DATA} />
-          }
-        />
-        <Route
-          path="data/:selectedIndex"
-          element={
-            <Analysis config={config.mta} guessData={STATION_GUESS_DATA} />
-          }
-        />
-        <Route index element={<Game config={config.mbta} />} />
+        {configToPlay.hasAnalysisPage && (
+          <Route
+            path="map"
+            element={<AllGuesses config={configToPlay as AnalyzableConfig} />}
+          />
+        )}
+        {configToPlay.hasAnalysisPage && (
+          <Route
+            path="data"
+            element={
+              <Analysis
+                config={configToPlay as AnalyzableConfig}
+                guessData={STATION_GUESS_DATA}
+              />
+            }
+          />
+        )}
+        {configToPlay.hasAnalysisPage && (
+          <Route
+            path="data/:selectedIndex"
+            element={
+              <Analysis
+                config={configToPlay as AnalyzableConfig}
+                guessData={STATION_GUESS_DATA}
+              />
+            }
+          />
+        )}
+        <Route index element={<Game config={configToPlay} />} />
       </Routes>
     </BrowserRouter>
   );
