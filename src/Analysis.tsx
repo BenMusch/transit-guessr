@@ -2,13 +2,13 @@ import React from "react";
 
 import _ from "lodash";
 import "./Analysis.css";
-import type { Station, PlayableConfig } from "./operators/config";
+import type { Station, AnalyzableConfig } from "./operators/config";
 import { firebaseNameForStation } from "./firebase";
 import { WrappedMap } from "./WrappedMap";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
 function StationGuessAnalysis(props: {
-  config: PlayableConfig;
+  config: AnalyzableConfig;
   station: Station;
   avgScore: number;
   first?: boolean;
@@ -66,7 +66,7 @@ function StationGuessAnalysis(props: {
 type GuessDataExport = { station: string; avgScore: number }[];
 
 function Analysis(props: {
-  config: PlayableConfig;
+  config: AnalyzableConfig;
   guessData: GuessDataExport;
 }) {
   const { config, guessData } = props;

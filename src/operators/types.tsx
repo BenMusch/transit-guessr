@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 export enum Operator {
   MTA = "mta",
+  MBTA = "mbta",
 }
 
 // long/lat pair

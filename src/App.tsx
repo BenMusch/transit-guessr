@@ -39,7 +39,7 @@ function App() {
             <Analysis config={config.mta} guessData={STATION_GUESS_DATA} />
           }
         />
-        <Route index element={<Game config={config.mta} />} />
+        <Route index element={<Game config={config.mbta} />} />
       </Routes>
     </BrowserRouter>
   );

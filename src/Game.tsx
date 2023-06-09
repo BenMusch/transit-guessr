@@ -356,3 +356,4 @@ function GameComponent(props: { config: PlayableConfig }) {
 }
 
 export default GameComponent;
+
