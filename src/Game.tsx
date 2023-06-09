@@ -337,7 +337,6 @@ function GameImpl(props: { config: PlayableConfig }) {
             }}
             onContinue={() => {
               setTurn(turn + 1);
-              debugger;
               resetView();
             }}
             onGameOver={() => {
