@@ -2,6 +2,7 @@ import { OperatorConfiguration } from "../types";
 import { MbtaTrunkLine, MbtaLineName } from "./types";
 import type { MbtaStation, MbtaLine } from "./types";
 import { stations, lines, linesByTrunkLine } from "./data";
+import { MbtaStationHeader } from "../../operator_components/mbta/MbtaStationHeader";
 
 const config: OperatorConfiguration<MbtaTrunkLine, MbtaLineName> = {
   stations,
@@ -17,7 +18,7 @@ const config: OperatorConfiguration<MbtaTrunkLine, MbtaLineName> = {
   },
 
   renderStationHeading: (station: MbtaStation) => {
-    return station.name;
+    return <MbtaStationHeader station={station}/>;
   },
 
   renderLine: (l, props) => {
