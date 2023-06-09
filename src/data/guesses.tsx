@@ -1108,7 +1108,7 @@ export const STATION_GUESS_DATA = [
     avgLat: 40.698256319337759,
   },
   {
-    station: "Franklin Ave (4,5,2,3)",
+    station: "Franklin Ave/Botanic Garden (4,5,2,3,S)",
     avgScore: 3619.3969465648861,
     avgLng: -73.953966399762891,
     avgLat: 40.69278003346686,
@@ -1178,12 +1178,6 @@ export const STATION_GUESS_DATA = [
     avgScore: 3573.4978354978352,
     avgLng: -73.975806968648143,
     avgLat: 40.70384822379016,
-  },
-  {
-    station: "Botanic Garden (S)",
-    avgScore: 3559.2789699570812,
-    avgLng: -73.930258837772229,
-    avgLat: 40.718298545845812,
   },
   {
     station: "Nevins St (4,5,2,3)",
@@ -2158,7 +2152,7 @@ export const STATION_GUESS_DATA = [
     avgLat: 40.810180295644628,
   },
   {
-    station: "Euclid Ave (A,C,S)",
+    station: "Euclid Ave (A,C)",
     avgScore: 2669.8268398268415,
     avgLng: -74.027775606462782,
     avgLat: 40.70471066396766,
@@ -2176,7 +2170,7 @@ export const STATION_GUESS_DATA = [
     avgLat: 40.718962800252683,
   },
   {
-    station: "Ozone Park - Lefferts Blvd (A,S)",
+    station: "Ozone Park - Lefferts Blvd (A)",
     avgScore: 2639.9102564102568,
     avgLng: -73.84570980280948,
     avgLat: 40.681825176003805,
@@ -2254,7 +2248,7 @@ export const STATION_GUESS_DATA = [
     avgLat: 40.6600263823808,
   },
   {
-    station: "Grant Ave (A,S)",
+    station: "Grant Ave (A)",
     avgScore: 2540.4588744588746,
     avgLng: -73.886761496748179,
     avgLat: 40.67557807428247,
@@ -2476,7 +2470,7 @@ export const STATION_GUESS_DATA = [
     avgLat: 40.7309168952399,
   },
   {
-    station: "Rockaway Blvd (A,S)",
+    station: "Rockaway Blvd (A)",
     avgScore: 2040.6517857142851,
     avgLng: -73.846247309028115,
     avgLat: 40.636675079417508,
@@ -2488,7 +2482,7 @@ export const STATION_GUESS_DATA = [
     avgLat: 40.688837523705345,
   },
   {
-    station: "111th St (A,S)",
+    station: "111th St (A)",
     avgScore: 2024.7358490566046,
     avgLng: -73.908202779760458,
     avgLat: 40.67383467281639,
@@ -2518,13 +2512,13 @@ export const STATION_GUESS_DATA = [
     avgLat: 40.729332279971182,
   },
   {
-    station: "104th St (A,S)",
+    station: "104th St (A)",
     avgScore: 1888.7737556561092,
     avgLng: -73.8741819347197,
     avgLat: 40.699111348825717,
   },
   {
-    station: "80th St (A,S)",
+    station: "80th St (A)",
     avgScore: 1820.8903508771921,
     avgLng: -73.897726723480361,
     avgLat: 40.690576441988767,
@@ -2536,7 +2530,7 @@ export const STATION_GUESS_DATA = [
     avgLat: 40.746309163481179,
   },
   {
-    station: "88th St (A,S)",
+    station: "88th St (A)",
     avgScore: 1740.338028169014,
     avgLng: -73.918769835315274,
     avgLat: 40.723088969921676,

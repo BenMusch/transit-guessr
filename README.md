@@ -39,6 +39,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 You should be able to run it with `npm run start`
 
+To run, you will need to create a Mapbox API token following [these
+instructions](https://docs.mapbox.com/help/tutorials/get-started-tokens-api/).
+After creating, copy `.env.local.example` to `.env.local` and then have `REACT_APP_MAPBOX_TOKEN` map
+to your new token.
+
 There are no tests, just manual testing.
 
 ## Contributing

@@ -15,11 +15,18 @@ declare global {
 }
 
 if (window.sentryDsn) {
-  Sentry.init({
-    dsn: window.sentryDsn,
-    integrations: [new Sentry.BrowserTracing()],
-    tracesSampleRate: 1.0,
-  });
+  try {
+    Sentry.init({
+      dsn: window.sentryDsn,
+      integrations: [new Sentry.BrowserTracing()],
+      tracesSampleRate: 1.0,
+    });
+  } catch (err) {
+    // For the most part, this will happen because sentry isn't set-up for local
+    // development. But if for some reason we error on prod, it shouldn't cause
+    // the entire app to crash
+    console.error(err);
+  }
 }
 
 function App() {
