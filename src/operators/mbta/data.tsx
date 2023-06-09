@@ -44,27 +44,27 @@ export const lines = {
   },
   [MbtaLineName.SILVER_1]: {
     line: MbtaLineName.SILVER_1,
-    displayName: "lines[MbtaLineName.SILVER_1]",
+    displayName: "SL1",
     trunkLine: MbtaTrunkLine.SILVER,
   },
   [MbtaLineName.SILVER_2]: {
     line: MbtaLineName.SILVER_2,
-    displayName: "lines[MbtaLineName.SILVER_2]",
+    displayName: "SL2",
     trunkLine: MbtaTrunkLine.SILVER,
   },
   [MbtaLineName.SILVER_3]: {
     line: MbtaLineName.SILVER_3,
-    displayName: "lines[MbtaLineName.SILVER_3]",
+    displayName: "SL3",
     trunkLine: MbtaTrunkLine.SILVER,
   },
   [MbtaLineName.SILVER_4]: {
     line: MbtaLineName.SILVER_4,
-    displayName: "lines[MbtaLineName.SILVER_4]",
+    displayName: "SL4",
     trunkLine: MbtaTrunkLine.SILVER,
   },
   [MbtaLineName.SILVER_5]: {
     line: MbtaLineName.SILVER_5,
-    displayName: "lines[MbtaLineName.SILVER_5]",
+    displayName: "SL5",
     trunkLine: MbtaTrunkLine.SILVER,
   },
 };
