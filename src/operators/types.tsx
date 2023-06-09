@@ -24,6 +24,11 @@ export interface OperatorConfiguration<
   TrunkLine extends string,
   LineNameT extends string
 > {
+  initialMapState: {
+    longitude: number;
+    latitude: number;
+    zoom: number;
+  };
   stations: IStation<TrunkLine, LineNameT>[];
   lines: ILine<TrunkLine, LineNameT>[];
   linesByTrunkLine: { [key in TrunkLine]: ILine<TrunkLine, LineNameT>[] };

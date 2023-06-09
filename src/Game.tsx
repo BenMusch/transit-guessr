@@ -5,7 +5,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import type { Coordinate } from "./operators/types";
 import type { IStation, OperatorConfiguration } from "./operators/types";
 import { Game, calculateScore, makeGame } from "./game_logic";
-import { WrappedMap, INITIAL_MAP_STATE } from "./WrappedMap";
+import { WrappedMap } from "./WrappedMap";
 
 const HIGH_SCORES_KEY = "highScores";
 const SEEN_INSTRUCTIONS_KEY = "seenInstructions";
@@ -73,14 +73,16 @@ function GameplayMap<
   station: IStation<TrunkLineT, LineNameT>;
   guess: Coordinate | null;
   guessConfirmed: boolean;
+  initialViewState: { zoom: number; latitude: number; longitude: number };
   onClick: (c: Coordinate) => void;
 }) {
-  const { guess, station, guessConfirmed, onClick } = props;
+  const { guess, station, guessConfirmed, onClick, initialViewState } = props;
   const guessScore = guess ? calculateScore(guess, station) : null;
 
   return (
     <WrappedMap
       id="gameplayMap"
+      initialViewState={initialViewState}
       onClick={onClick}
       guessMarker={guess}
       stationMarker={guessConfirmed ? guessScore!.point : null}
@@ -109,7 +111,7 @@ function GameReview<
   const guessScore = calculateScore(guess!, station);
   const mapRef = useMap();
   const resetView = () => {
-    mapRef?.reviewMap?.jumpTo(INITIAL_MAP_STATE);
+    mapRef?.reviewMap?.jumpTo(config.initialMapState);
   };
 
   return (
@@ -157,6 +159,7 @@ function GameReview<
             {config.renderStationHeading(station)}
             <WrappedMap
               id="reviewMap"
+              initialViewState={config.initialMapState}
               guessMarker={guess}
               stationMarker={guessScore.point}
               onClick={(c) => {}}
@@ -224,6 +227,7 @@ function ActiveGame<
             setGuess(guess);
           }
         }}
+        initialViewState={config.initialMapState}
         station={station}
         guessConfirmed={confirmed}
         guess={guess}
@@ -303,6 +307,7 @@ function Instructions() {
 function GameImpl<TrunkLineT extends string, LineNameT extends string>(props: {
   config: OperatorConfiguration<TrunkLineT, LineNameT>;
 }) {
+  const { config } = props;
   const [game, setGame] = useState(makeGame(props.config));
   const [gameOver, setGameOver] = useState(false);
   const [turn, setTurn] = useState(0);
@@ -310,8 +315,8 @@ function GameImpl<TrunkLineT extends string, LineNameT extends string>(props: {
 
   const mapRef = useMap();
   const resetView = () => {
-    mapRef?.reviewMap?.jumpTo(INITIAL_MAP_STATE);
-    mapRef?.gameplayMap?.jumpTo(INITIAL_MAP_STATE);
+    mapRef?.reviewMap?.jumpTo(config.initialMapState);
+    mapRef?.gameplayMap?.jumpTo(config.initialMapState);
   };
 
   return (

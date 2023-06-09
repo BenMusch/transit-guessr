@@ -9,6 +9,11 @@ const config: OperatorConfiguration<MtaTrunkLine, MtaLineName> = {
   stations,
   lines: Object.values(lines),
   linesByTrunkLine,
+  initialMapState: {
+    longitude: -73.875,
+    latitude: 40.73065,
+    zoom: 9.25,
+  },
   getColor: (t: MtaTrunkLine) => {
     return {
       [MtaTrunkLine.EIGHTH_AVENUE_IND]: "#0039a6",

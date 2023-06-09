@@ -53,6 +53,7 @@ function StationGuessAnalysis(props: {
       {config.renderStationHeading(station)}
       <WrappedMap
         id="analysis"
+        initialViewState={config.initialMapState}
         guessesSourceFile={`/geojson/${firebaseNameForStation(station).replace(
           /[^\w\d]/g,
           ""
