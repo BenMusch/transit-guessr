@@ -7,7 +7,7 @@ import { MtaLinesRow } from "../../operator_components/mta/MtaLinesRow";
 
 const config: OperatorConfiguration<MtaTrunkLine, MtaLineName> = {
   stations,
-  hasAnalysisPage: false,
+  hasAnalysisPage: true,
   lines: Object.values(lines),
   linesByTrunkLine,
   initialMapState: {
