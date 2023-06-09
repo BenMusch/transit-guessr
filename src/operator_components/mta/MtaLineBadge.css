@@ -1,4 +1,4 @@
-.station-line {
+.station-line.mta {
   font-family: "Arial Black", "Helvetica", sans-serif;
   font-weight: bolder;
   display: block;
@@ -11,7 +11,7 @@
   text-align: center;
 }
 
-.station-line-medium {
+.station-line-medium.mta {
   width: 1em;
   height: 1em;
   padding: 0.066em;
@@ -19,7 +19,7 @@
   margin-right: 0.33em;
 }
 
-.station-line-small {
+.station-line-small.mta {
   width: 0.75em;
   height: 0.75em;
   padding: 0.05em;
@@ -27,11 +27,11 @@
   margin-right: 0.25em;
 }
 
-.station-line-medium .station-line-name {
+.station-line-medium.mta .station-line-name {
   font-size: 66%;
 }
 
-.station-line-small .station-line-name {
+.station-line-small.mta .station-line-name {
   font-size: 50%;
 }
 

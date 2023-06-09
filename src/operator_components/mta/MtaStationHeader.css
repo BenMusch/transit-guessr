@@ -1,4 +1,4 @@
-.station-heading {
+.station-heading.mta {
   background-color: rgb(15 23 42);
   padding: 0.5em;
   margin-top: 0.5em;
@@ -6,7 +6,7 @@
   border-radius: 1em;
 }
 
-.station-name {
+.station-name.mta {
   padding-top: 0.1em;
   font-family: "Arial Black", "Helvetica", sans-serif;
   font-weight: bolder;
@@ -15,4 +15,3 @@
   margin-top: 0.25em;
   margin-bottom: 0.25em;
 }
-

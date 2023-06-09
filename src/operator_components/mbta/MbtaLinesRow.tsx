@@ -1,16 +1,28 @@
 import React from "react";
-import type { MbtaLine } from "../../operators/mbta/types";
-//import "./MbtaLinesRow.css";
+import type {
+  MbtaLine,
+  MbtaLineName,
+  MbtaTrunkLine,
+} from "../../operators/mbta/types";
+import { MbtaLineBadge } from "./MbtaLineBadge";
+import "./MbtaLinesRow.css";
+import type { OperatorConfiguration } from "../../operators/types";
 
-export function MbtaLinesRow(props: { lines: MbtaLine[]; small?: boolean }) {
-    console.log(props)
-    return (
+export function MbtaLinesRow(props: {
+  config: OperatorConfiguration<MbtaTrunkLine, MbtaLineName>;
+  lines: MbtaLine[];
+  small?: boolean;
+}) {
+  return (
     <div
-      className={`station-lines${props.small ? " station-lines-small" : ""}`}
+      className={`mbta station-lines${
+        props.small ? " station-lines-small" : ""
+      }`}
     >
       {props.lines.map((line, i) => {
-        return <div>{line.displayName}</div>;
+        return <MbtaLineBadge key={i} line={line} config={props.config} />;
       })}
     </div>
   );
 }
+

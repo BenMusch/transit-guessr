@@ -1,0 +1,8 @@
+.station-lines.mbta {
+  margin-top: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  height: fit-content;
+  display: flow-root;
+}

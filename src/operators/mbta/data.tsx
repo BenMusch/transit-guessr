@@ -4,42 +4,42 @@ import type { MbtaLine, MbtaStation } from "./types";
 export const lines = {
   [MbtaLineName.BLUE]: {
     line: MbtaLineName.BLUE,
-    displayName: "BL",
+    displayName: "Blue Line",
     trunkLine: MbtaTrunkLine.BLUE,
   },
   [MbtaLineName.RED]: {
     line: MbtaLineName.RED,
-    displayName: "RL",
+    displayName: "Red Line",
     trunkLine: MbtaTrunkLine.RED,
   },
   [MbtaLineName.RED_M]: {
     line: MbtaLineName.RED_M,
-    displayName: "RLM",
+    displayName: "Red Line - Mattapan",
     trunkLine: MbtaTrunkLine.RED,
   },
   [MbtaLineName.ORANGE]: {
     line: MbtaLineName.ORANGE,
-    displayName: "OL",
+    displayName: "Orange Line",
     trunkLine: MbtaTrunkLine.ORANGE,
   },
   [MbtaLineName.GREEN_B]: {
     line: MbtaLineName.GREEN_B,
-    displayName: "GLB",
+    displayName: "Green Line - Boston College",
     trunkLine: MbtaTrunkLine.GREEN,
   },
   [MbtaLineName.GREEN_C]: {
     line: MbtaLineName.GREEN_C,
-    displayName: "GLC",
+    displayName: "Green Line - Cleveland Circle",
     trunkLine: MbtaTrunkLine.GREEN,
   },
   [MbtaLineName.GREEN_D]: {
     line: MbtaLineName.GREEN_D,
-    displayName: "GLD",
+    displayName: "Green Line - Riverside",
     trunkLine: MbtaTrunkLine.GREEN,
   },
   [MbtaLineName.GREEN_E]: {
     line: MbtaLineName.GREEN_E,
-    displayName: "GLE",
+    displayName: "Green Line - Heath St",
     trunkLine: MbtaTrunkLine.GREEN,
   },
   [MbtaLineName.SILVER_1]: {

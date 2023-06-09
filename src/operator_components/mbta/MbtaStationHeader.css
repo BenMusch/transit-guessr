@@ -1,0 +1,21 @@
+.station-heading.mbta {
+  background-color: #e2e8f0;
+  padding: 0.25em;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  border-radius: 0.1em;
+}
+
+.station-name.mbta {
+  padding-top: 0.1em;
+  color: #0f172a;
+  font-family: "Helvetica", "Arial", sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid #94a3b8;
+}
