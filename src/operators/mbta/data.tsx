@@ -307,15 +307,6 @@ export const stations: MbtaStation[] = [
     name: "Copley",
   },
   {
-    lines: [
-      lines[MbtaLineName.SILVER_1],
-      lines[MbtaLineName.SILVER_2],
-      lines[MbtaLineName.SILVER_3],
-    ],
-    coordinates: [[-71.038385, 42.347154]],
-    name: "Silver Line Way",
-  },
-  {
     lines: [lines[MbtaLineName.GREEN_C]],
     coordinates: [[-71.121263, 42.342116]],
     name: "Coolidge Corner",
@@ -560,11 +551,6 @@ export const stations: MbtaStation[] = [
     lines: [lines[MbtaLineName.RED]],
     coordinates: [[-71.029583, 42.275275]],
     name: "North Quincy",
-  },
-  {
-    lines: [lines[MbtaLineName.SILVER_4], lines[MbtaLineName.SILVER_5]],
-    coordinates: [[-71.083982, 42.329544]],
-    name: "Nubian",
   },
   {
     lines: [lines[MbtaLineName.GREEN_E]],
