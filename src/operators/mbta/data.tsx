@@ -351,7 +351,7 @@ export const stations: MbtaStation[] = [
     name: "Fairbanks Street",
   },
   {
-    lines: [lines[MbtaLineName.GREEN_C]],
+    lines: [lines[MbtaLineName.GREEN_E]],
     coordinates: [[-71.105728, 42.333706]],
     name: "Fenwood Road",
   },
