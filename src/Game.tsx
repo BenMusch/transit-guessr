@@ -11,12 +11,19 @@ import { WrappedMap } from "./WrappedMap";
 const HIGH_SCORES_KEY = "highScores";
 const SEEN_INSTRUCTIONS_KEY = "seenInstructions";
 
-function shareableGame(game: Game, score: number): string {
+function shareableGame(
+  game: Game,
+  score: number,
+  config: PlayableConfig
+): string {
   const guessStrs = [0, 1, 2, 3, 4].map((turn) => {
     const guess = game.guesses[turn];
     const station = game.stations[turn];
-    const splitStationName = station.name.split("/")[0];
-    const stationScore = calculateScore(guess!, station).score;
+    const stationScore = calculateScore(
+      guess!,
+      station,
+      config.zeroPointDistanceInMeters
+    ).score;
 
     const numStars = Math.ceil(stationScore / 1000);
     let stationScoreEmojis =
@@ -26,12 +33,14 @@ function shareableGame(game: Game, score: number): string {
       stationScoreEmojis = "🌟🌟🌟🌟🌟";
     }
 
-    return `${stationScoreEmojis} ${splitStationName}`;
+    return `${stationScoreEmojis} ${config.shortNameForStation(
+      station as any
+    )}`;
   });
   return `
 ${score.toLocaleString()} / 25,000
 ${guessStrs.join("\n")}
-https://nycguessr.com
+${config.zeroPointDistanceInMeters}
     `.trim();
 }
 
@@ -72,7 +81,9 @@ function GameplayMap(props: {
   onClick: (c: Coordinate) => void;
 }) {
   const { guess, station, guessConfirmed, onClick, initialViewState } = props;
-  const guessScore = guess ? calculateScore(guess, station) : null;
+  const guessScore = guess
+    ? calculateScore(guess, station, config.zeroPointDistanceInMeters)
+    : null;
 
   return (
     <WrappedMap
@@ -100,7 +111,11 @@ function GameReview(props: {
   const guess = game.guesses[selectedTurn];
   const station = game.stations[selectedTurn];
 
-  const guessScore = calculateScore(guess!, station);
+  const guessScore = calculateScore(
+    guess!,
+    station,
+    config.zeroPointDistanceInMeters
+  );
   const mapRef = useMap();
   const resetView = () => {
     mapRef?.reviewMap?.jumpTo({
@@ -122,7 +137,7 @@ function GameReview(props: {
         <button
           onClick={() => {
             setCopied(true);
-            const toShare = shareableGame(game, score);
+            const toShare = shareableGame(game, score, config);
             navigator.clipboard.writeText(toShare);
           }}
         >
@@ -234,7 +249,14 @@ function ActiveGame(props: {
           <button
             disabled={guess === null}
             onClick={() => {
-              onGuess(calculateScore(guess!, station).score, guess!);
+              onGuess(
+                calculateScore(
+                  guess!,
+                  station,
+                  config.zeroPointDistanceInMeters
+                ).score,
+                guess!
+              );
               setConfirmed(true);
             }}
           >
@@ -268,7 +290,7 @@ function ActiveGame(props: {
   );
 }
 
-function Instructions() {
+function Instructions(props: { config: PlayableConfig }) {
   const [visible, setVisible] = useState(!hasSeenInstruction());
 
   if (!visible) {
@@ -280,10 +302,10 @@ function Instructions() {
       <div className="instructions-content">
         <h3>Instructions</h3>
         <p>
-          Click on the map to guess where the displayed MTA stop is located.
-          There will be 5 rounds. Each round has a maximum score of 5000 points,
-          which are awarded based on how close your guess is to the actual
-          subway stop location.
+          Click on the map to guess where the displayed {props.config.name} stop
+          is located. There will be 5 rounds. Each round has a maximum score of
+          5000 points, which are awarded based on how close your guess is to the
+          actual stop location.
         </p>
         <div className="buttons buttons-hide">
           <button
@@ -323,7 +345,7 @@ function GameImpl(props: { config: PlayableConfig }) {
 
   return (
     <div className="main-container">
-      <Instructions />
+      <Instructions config={config} />
       <div className="inner-container">
         {!gameOver && (
           <ActiveGame

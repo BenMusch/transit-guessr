@@ -6,6 +6,9 @@ import { MbtaStationHeader } from "../../operator_components/mbta/MbtaStationHea
 
 class MbtaConfig implements OperatorConfiguration<MbtaTrunkLine, MbtaLineName> {
   stations = stations;
+  name = "MBTA";
+  domain = "mbtaguessr.com";
+  zeroPointDistanceInMeters = 15000;
   lines = Object.values(lines);
   linesByTrunkLine = linesByTrunkLine as { [k in MbtaTrunkLine]: MbtaLine[] };
   hasAnalysisPage = false;
@@ -28,6 +31,10 @@ class MbtaConfig implements OperatorConfiguration<MbtaTrunkLine, MbtaLineName> {
       case MbtaTrunkLine.SILVER:
         return "#7C878E";
     }
+  }
+
+  shortNameForStation(station: MbtaStation) {
+    return station.name;
   }
 
   uniqueNameForStation(station: MbtaStation) {

@@ -7,7 +7,10 @@ import { MtaLinesRow } from "../../operator_components/mta/MtaLinesRow";
 
 const config: OperatorConfiguration<MtaTrunkLine, MtaLineName> = {
   stations,
+  name: "MTA",
+  domain: "nycguessr.com",
   hasAnalysisPage: true,
+  zeroPointDistanceInMeters: 20000,
   lines: Object.values(lines),
   linesByTrunkLine,
   initialMapState: {
@@ -28,6 +31,10 @@ const config: OperatorConfiguration<MtaTrunkLine, MtaLineName> = {
       [MtaTrunkLine.FLUSHING_IRT]: "#b933ad",
       [MtaTrunkLine.SHUTTLES]: "#808183",
     }[t];
+  },
+
+  shortNameForStation: (station: MtaStation) => {
+    return station.name.split("/")[0];
   },
 
   uniqueNameForStation: (station: MtaStation) => {
