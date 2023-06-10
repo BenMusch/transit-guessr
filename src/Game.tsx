@@ -7,6 +7,7 @@ import type { Coordinate } from "./operators/types";
 import type { PlayableConfig, PlayableStation } from "./operators/config";
 import { Game, calculateScore, makeGame } from "./game_logic";
 import { WrappedMap } from "./WrappedMap";
+import { FirebaseCollection, tryToSaveFirebaseDoc } from "./firebase";
 
 const HIGH_SCORES_KEY = "highScores";
 const SEEN_INSTRUCTIONS_KEY = "seenInstructions";
@@ -355,10 +356,18 @@ function GameImpl(props: { config: PlayableConfig }) {
             config={props.config}
             onGuess={(guessScore, guessLoc) => {
               let newGame = { ...game };
+              const station = game.stations[turn];
               newGame.guesses[turn] = guessLoc;
 
               setScore(score + guessScore);
               setGame(newGame);
+
+              tryToSaveFirebaseDoc(FirebaseCollection.GUESSES, {
+                operator: config.name,
+                score: guessScore,
+                station: config.uniqueNameForStation(station as any),
+                loc: guessLoc,
+              });
             }}
             onContinue={() => {
               setTurn(turn + 1);
@@ -366,6 +375,10 @@ function GameImpl(props: { config: PlayableConfig }) {
             }}
             onGameOver={() => {
               addHighScore(score);
+              tryToSaveFirebaseDoc(FirebaseCollection.SCORES, {
+                score: score,
+                operator: config.name,
+              });
               setGameOver(true);
             }}
             game={game}

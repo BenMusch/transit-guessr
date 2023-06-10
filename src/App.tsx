@@ -8,10 +8,12 @@ import { Routes, BrowserRouter, Route } from "react-router-dom";
 import type { AnalyzableConfig } from "./operators/config";
 import config from "./operators/config";
 import { STATION_GUESS_DATA } from "./data/guesses";
+import type { FirebaseOptions } from "firebase/app";
 
 declare global {
   interface Window {
     sentryDsn?: string;
+    firebaseConfig?: FirebaseOptions;
     operator: "mbta" | "mta";
   }
 }
