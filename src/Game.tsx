@@ -1,21 +1,30 @@
 import React, { useState } from "react";
 import _ from "lodash";
 import { MapProvider, useMap } from "react-map-gl";
+import type { CameraOptions } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { Coordinate } from "./operators/types";
-import type { Station, PlayableConfig } from "./operators/config";
+import type { PlayableConfig, PlayableStation } from "./operators/config";
 import { Game, calculateScore, makeGame } from "./game_logic";
-import { WrappedMap, INITIAL_MAP_STATE } from "./WrappedMap";
+import { WrappedMap } from "./WrappedMap";
+import { FirebaseCollection, tryToSaveFirebaseDoc } from "./firebase";
 
 const HIGH_SCORES_KEY = "highScores";
 const SEEN_INSTRUCTIONS_KEY = "seenInstructions";
 
-function shareableGame(game: Game, score: number): string {
+function shareableGame(
+  game: Game,
+  score: number,
+  config: PlayableConfig
+): string {
   const guessStrs = [0, 1, 2, 3, 4].map((turn) => {
     const guess = game.guesses[turn];
     const station = game.stations[turn];
-    const splitStationName = station.name.split("/")[0];
-    const stationScore = calculateScore(guess!, station).score;
+    const stationScore = calculateScore(
+      guess!,
+      station,
+      config.zeroPointDistanceInMeters
+    ).score;
 
     const numStars = Math.ceil(stationScore / 1000);
     let stationScoreEmojis =
@@ -25,12 +34,14 @@ function shareableGame(game: Game, score: number): string {
       stationScoreEmojis = "🌟🌟🌟🌟🌟";
     }
 
-    return `${stationScoreEmojis} ${splitStationName}`;
+    return `${stationScoreEmojis} ${config.shortNameForStation(
+      station as any
+    )}`;
   });
   return `
 ${score.toLocaleString()} / 25,000
 ${guessStrs.join("\n")}
-https://nycguessr.com
+${config.domain}
     `.trim();
 }
 
@@ -64,17 +75,23 @@ function hasSeenInstruction() {
 }
 
 function GameplayMap(props: {
-  station: Station;
+  station: PlayableStation;
   guess: Coordinate | null;
   guessConfirmed: boolean;
+  initialViewState: { zoom: number; latitude: number; longitude: number };
   onClick: (c: Coordinate) => void;
+  config: PlayableConfig;
 }) {
-  const { guess, station, guessConfirmed, onClick } = props;
-  const guessScore = guess ? calculateScore(guess, station) : null;
+  const { config, guess, station, guessConfirmed, onClick, initialViewState } =
+    props;
+  const guessScore = guess
+    ? calculateScore(guess, station, config.zeroPointDistanceInMeters)
+    : null;
 
   return (
     <WrappedMap
       id="gameplayMap"
+      initialViewState={initialViewState}
       onClick={onClick}
       guessMarker={guess}
       stationMarker={guessConfirmed ? guessScore!.point : null}
@@ -97,10 +114,21 @@ function GameReview(props: {
   const guess = game.guesses[selectedTurn];
   const station = game.stations[selectedTurn];
 
-  const guessScore = calculateScore(guess!, station);
+  const guessScore = calculateScore(
+    guess!,
+    station,
+    config.zeroPointDistanceInMeters
+  );
   const mapRef = useMap();
   const resetView = () => {
-    mapRef?.reviewMap?.jumpTo(INITIAL_MAP_STATE);
+    mapRef?.reviewMap?.jumpTo({
+      zoom: config.initialMapState.zoom,
+      pitch: 0,
+      center: [
+        config.initialMapState.longitude,
+        config.initialMapState.latitude,
+      ],
+    });
   };
 
   return (
@@ -112,7 +140,7 @@ function GameReview(props: {
         <button
           onClick={() => {
             setCopied(true);
-            const toShare = shareableGame(game, score);
+            const toShare = shareableGame(game, score, config);
             navigator.clipboard.writeText(toShare);
           }}
         >
@@ -145,9 +173,10 @@ function GameReview(props: {
 
         <div className="guess-review">
           <div className="guess-review-item">
-            {config.renderStationHeading(station)}
+            {config.renderStationHeading(station as any)}
             <WrappedMap
               id="reviewMap"
+              initialViewState={config.initialMapState}
               guessMarker={guess}
               stationMarker={guessScore.point}
               onClick={(c) => {}}
@@ -204,7 +233,7 @@ function ActiveGame(props: {
         </div>
       </header>
 
-      {config.renderStationHeading(station)}
+      {config.renderStationHeading(station as any)}
 
       <GameplayMap
         onClick={(guess) => {
@@ -212,6 +241,8 @@ function ActiveGame(props: {
             setGuess(guess);
           }
         }}
+        config={config}
+        initialViewState={config.initialMapState}
         station={station}
         guessConfirmed={confirmed}
         guess={guess}
@@ -222,7 +253,14 @@ function ActiveGame(props: {
           <button
             disabled={guess === null}
             onClick={() => {
-              onGuess(calculateScore(guess!, station).score, guess!);
+              onGuess(
+                calculateScore(
+                  guess!,
+                  station,
+                  config.zeroPointDistanceInMeters
+                ).score,
+                guess!
+              );
               setConfirmed(true);
             }}
           >
@@ -256,7 +294,7 @@ function ActiveGame(props: {
   );
 }
 
-function Instructions() {
+function Instructions(props: { config: PlayableConfig }) {
   const [visible, setVisible] = useState(!hasSeenInstruction());
 
   if (!visible) {
@@ -268,10 +306,10 @@ function Instructions() {
       <div className="instructions-content">
         <h3>Instructions</h3>
         <p>
-          Click on the map to guess where the displayed MTA stop is located.
-          There will be 5 rounds. Each round has a maximum score of 5000 points,
-          which are awarded based on how close your guess is to the actual
-          subway stop location.
+          Click on the map to guess where the displayed {props.config.name} stop
+          is located. There will be 5 rounds. Each round has a maximum score of
+          5000 points, which are awarded based on how close your guess is to the
+          actual stop location.
         </p>
         <div className="buttons buttons-hide">
           <button
@@ -289,6 +327,7 @@ function Instructions() {
 }
 
 function GameImpl(props: { config: PlayableConfig }) {
+  const { config } = props;
   const [game, setGame] = useState(makeGame(props.config));
   const [gameOver, setGameOver] = useState(false);
   const [turn, setTurn] = useState(0);
@@ -296,23 +335,39 @@ function GameImpl(props: { config: PlayableConfig }) {
 
   const mapRef = useMap();
   const resetView = () => {
-    mapRef?.reviewMap?.jumpTo(INITIAL_MAP_STATE);
-    mapRef?.gameplayMap?.jumpTo(INITIAL_MAP_STATE);
+    const stateToJumpTo: CameraOptions = {
+      center: [
+        config.initialMapState.longitude,
+        config.initialMapState.latitude,
+      ],
+      zoom: config.initialMapState.zoom,
+      pitch: 0,
+    };
+    mapRef?.reviewMap?.jumpTo(stateToJumpTo);
+    mapRef?.gameplayMap?.jumpTo(stateToJumpTo);
   };
 
   return (
     <div className="main-container">
-      <Instructions />
+      <Instructions config={config} />
       <div className="inner-container">
         {!gameOver && (
           <ActiveGame
             config={props.config}
             onGuess={(guessScore, guessLoc) => {
               let newGame = { ...game };
+              const station = game.stations[turn];
               newGame.guesses[turn] = guessLoc;
 
               setScore(score + guessScore);
               setGame(newGame);
+
+              tryToSaveFirebaseDoc(FirebaseCollection.GUESSES, {
+                operator: config.name,
+                score: guessScore,
+                station: config.uniqueNameForStation(station as any),
+                loc: guessLoc,
+              });
             }}
             onContinue={() => {
               setTurn(turn + 1);
@@ -320,6 +375,10 @@ function GameImpl(props: { config: PlayableConfig }) {
             }}
             onGameOver={() => {
               addHighScore(score);
+              tryToSaveFirebaseDoc(FirebaseCollection.SCORES, {
+                score: score,
+                operator: config.name,
+              });
               setGameOver(true);
             }}
             game={game}

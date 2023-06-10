@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 export enum Operator {
   MTA = "mta",
+  MBTA = "mbta",
 }
 
 // long/lat pair
@@ -23,15 +24,62 @@ export interface OperatorConfiguration<
   TrunkLine extends string,
   LineNameT extends string
 > {
+  /**
+   * Location and zoom for the initial location of the operator's map
+   */
+  initialMapState: {
+    longitude: number;
+    latitude: number;
+    zoom: number;
+  };
+  /**
+   * Human-facing name for the system (e.g. MBTA for Boston)
+   */
+  name: string;
+  /**
+   * Domain hosting the app
+   */
+  domain: string;
+  /**
+   * True if the /data and /map routes exist for this operator
+   */
+  hasAnalysisPage: boolean;
+  /**
+   * For scoring calculations, the distance from a station in order for you to
+   * get 0 points on the guess. This is configured per-city because otherwise
+   * smaller cities have easier scores
+   */
+  zeroPointDistanceInMeters: number;
   stations: IStation<TrunkLine, LineNameT>[];
   lines: ILine<TrunkLine, LineNameT>[];
   linesByTrunkLine: { [key in TrunkLine]: ILine<TrunkLine, LineNameT>[] };
+  /**
+   * Trunk lines usually have a specific color associated with them
+   */
   getColor: (t: TrunkLine) => string;
   renderStationHeading: (s: IStation<TrunkLine, LineNameT>) => ReactNode;
+  /**
+   * Used to store the guesses for a station in firebase for analysis
+   */
+  uniqueNameForStation: (s: IStation<TrunkLine, LineNameT>) => string;
+  /**
+   * Used to render the station name in the 'Share' copy/paste feature
+   */
+  shortNameForStation: (s: IStation<TrunkLine, LineNameT>) => string;
+  /**
+   * Used when rendering multiple lines inline with a station name in the /data
+   * view and /map view
+   */
   renderLines: (
     l: ILine<TrunkLine, LineNameT>[],
     p: { small?: boolean }
   ) => ReactNode;
+  /**
+   * Used when rendering multiple lines inline with a station name in the /data
+   * view
+   *
+   * TODO: can this be replaced with just renderLines ?
+   */
   renderLine: (
     l: ILine<TrunkLine, LineNameT>,
     p: { greyscale?: boolean; medium?: boolean; small?: boolean }

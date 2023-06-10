@@ -2,24 +2,26 @@
 
 <center><img width="400px" src="public/screenshot.png"/></center>
 
-NYC Guessr is a GeoGuessr-style game for the subway.
+Transit Guessr is a GeoGuessr-style game for subway systems.
+
+It was initiall just NYC, but has been refactored to support multiple subway
+systems (currently Boston is the only other system, but more are on the way.)
 
 There are essentially two apps running in this repo:
 
-1. The NYC Guessr game
+1. The Transit Guessr game
 2. The analysis UI at `/data`: a visualization of 1 week of collected guess
    data. The data is no longer collected since it costs money to store and
    query, so it's just a one-time thing
 
 ## Data
 
-All station data is just manually created as a JSON file loaded from [NYC Open
+All station data is just manually created as a JSON file. For NYC I used [NYC Open
 Data](https://data.cityofnewyork.us/Transportation/Subway-Stations/arq3-7z49).
-
-That data was then copied into the `src/data/stations.tsx` file and manually
-merged with the [list of station
-complexes](https://en.wikipedia.org/wiki/New_York_City_Subway_stations#Station_complexes)
-in wikipedia so that things like Times Sq + PABT were treated as one station.
+For Boston, I used the publicly-available data and had the help of twitter user
+[@2urbaneric1](https://twitter.com/2urbaneric1) to get the data into the correct
+format. That data is stored
+[here](https://docs.google.com/spreadsheets/d/1bxJ7ftl-Ia0HmFglvWSOCL6lmtRHtANxBw3VgcCVrco/edit?usp=sharing)
 
 This is not an ideal data pipeline, but any sort of automated system felt like
 overkill.
@@ -45,6 +47,10 @@ After creating, copy `.env.local.example` to `.env.local` and then have `REACT_A
 to your new token.
 
 There are no tests, just manual testing.
+
+The transit operator that the game is played with is controlled using the
+`REACT_APP_TRANSITGUESSR_OPERATOR` env var. Current valid values are `mta` and
+`mbta'
 
 ## Contributing
 

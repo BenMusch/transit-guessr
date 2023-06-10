@@ -2,14 +2,13 @@ import React from "react";
 
 import _ from "lodash";
 import "./Analysis.css";
-import type { Station, PlayableConfig } from "./operators/config";
-import { firebaseNameForStation } from "./firebase";
+import type { AnalyzableStation, AnalyzableConfig } from "./operators/config";
 import { WrappedMap } from "./WrappedMap";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
 function StationGuessAnalysis(props: {
-  config: PlayableConfig;
-  station: Station;
+  config: AnalyzableConfig;
+  station: AnalyzableStation;
   avgScore: number;
   first?: boolean;
   last?: boolean;
@@ -53,10 +52,10 @@ function StationGuessAnalysis(props: {
       {config.renderStationHeading(station)}
       <WrappedMap
         id="analysis"
-        guessesSourceFile={`/geojson/${firebaseNameForStation(station).replace(
-          /[^\w\d]/g,
-          ""
-        )}.geojson`}
+        initialViewState={config.initialMapState}
+        guessesSourceFile={`/geojson/${config
+          .uniqueNameForStation(station)
+          .replace(/[^\w\d]/g, "")}.geojson`}
         stationMarker={station.coordinates[0]!}
       />
     </>
@@ -66,7 +65,7 @@ function StationGuessAnalysis(props: {
 type GuessDataExport = { station: string; avgScore: number }[];
 
 function Analysis(props: {
-  config: PlayableConfig;
+  config: AnalyzableConfig;
   guessData: GuessDataExport;
 }) {
   const { config, guessData } = props;
@@ -74,7 +73,10 @@ function Analysis(props: {
   const navigate = useNavigate();
 
   const stationsByFirebaseName = _.fromPairs(
-    config.stations.map((station) => [firebaseNameForStation(station), station])
+    config.stations.map((station) => [
+      config.uniqueNameForStation(station),
+      station,
+    ])
   );
   console.log(stationsByFirebaseName);
 

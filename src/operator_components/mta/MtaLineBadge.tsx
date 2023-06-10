@@ -36,7 +36,7 @@ export function MtaLineBadge(props: {
   greyscale?: boolean;
 }) {
   const { line, small, medium, greyscale } = props;
-  const classes = ["station-line"];
+  const classes = ["station-line", "mta"];
   if (small) {
     classes.push("station-line-small");
   }

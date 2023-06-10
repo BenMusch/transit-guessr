@@ -4,12 +4,6 @@ import { Map, Marker, Source, Layer } from "react-map-gl";
 import type { MapboxStyle } from "react-map-gl";
 import mapStyle from "./map_style";
 
-export const INITIAL_MAP_STATE = {
-  longitude: -73.875,
-  latitude: 40.73065,
-  zoom: 9.25,
-};
-
 function GuessDistributionOverlay(props: { sourceFile: string }) {
   const { sourceFile } = props;
 
@@ -42,6 +36,7 @@ export function WrappedMap(props: {
   errorMsg?: string | null;
   stationMarker?: Coordinate | null;
   onClick?: (c: Coordinate) => void;
+  initialViewState: { zoom: number; longitude: number; latitude: number };
 }) {
   const {
     guessesSourceFile,
@@ -51,12 +46,13 @@ export function WrappedMap(props: {
     onClick,
     guessScore,
     errorMsg,
+    initialViewState,
   } = props;
 
   return (
     <Map
       id={id}
-      initialViewState={INITIAL_MAP_STATE}
+      initialViewState={initialViewState}
       maxZoom={12}
       minZoom={8.5}
       onClick={(e) => {
