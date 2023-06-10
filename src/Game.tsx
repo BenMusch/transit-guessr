@@ -40,7 +40,7 @@ function shareableGame(
   return `
 ${score.toLocaleString()} / 25,000
 ${guessStrs.join("\n")}
-${config.zeroPointDistanceInMeters}
+${config.domain}
     `.trim();
 }
 
@@ -79,8 +79,10 @@ function GameplayMap(props: {
   guessConfirmed: boolean;
   initialViewState: { zoom: number; latitude: number; longitude: number };
   onClick: (c: Coordinate) => void;
+  config: PlayableConfig;
 }) {
-  const { guess, station, guessConfirmed, onClick, initialViewState } = props;
+  const { config, guess, station, guessConfirmed, onClick, initialViewState } =
+    props;
   const guessScore = guess
     ? calculateScore(guess, station, config.zeroPointDistanceInMeters)
     : null;
@@ -238,6 +240,7 @@ function ActiveGame(props: {
             setGuess(guess);
           }
         }}
+        config={config}
         initialViewState={config.initialMapState}
         station={station}
         guessConfirmed={confirmed}
