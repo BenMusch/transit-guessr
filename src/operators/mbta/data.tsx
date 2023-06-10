@@ -696,7 +696,7 @@ export const stations: MbtaStation[] = [
     name: "Sullivan Square",
   },
   {
-    lines: [lines[MbtaLineName.GREEN_B]],
+    lines: [lines[MbtaLineName.GREEN_C]],
     coordinates: [[-71.12561, 42.34111]],
     name: "Summit Avenue",
   },
