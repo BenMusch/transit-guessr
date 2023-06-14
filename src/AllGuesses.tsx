@@ -92,7 +92,7 @@ function TransitLinesOverlay(props: {
             (line) => !line.line.includes("Express") && enabledLines.has(line)
           )
           .map((line) => {
-            return ["in", `${line.displayName}`, ["get", "name"]];
+            return ["==", `${line.displayName}`, ["get", "name"]];
           });
         const filters = [
           "all",
