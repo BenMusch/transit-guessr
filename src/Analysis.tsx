@@ -67,8 +67,6 @@ function StationGuessAnalysis(props: {
   );
 }
 
-type GuessDataExport = { station: string; avgScore: number }[];
-
 function Analysis(props: { config: AnalyzableConfig }) {
   const { config } = props;
   const guessData = config.stationGuessData!;
