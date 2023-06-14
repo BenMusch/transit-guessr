@@ -1,0 +1,27 @@
+.station-line-condensed.mbta {
+  color: #0f172a;
+  font-family: "Helvetica", "Arial", sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+  font-height: 0.75em;
+  display: block;
+  float: left;
+  margin-right: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.station-line-condensed.mbta .station-line-name {
+  padding: 0.1em 0.5em;
+  border-radius: 1em;
+  font-height: 0.75em;
+}
+
+.station-line-condensed.mbta .station-line-name-suffix {
+  border-radius: 5em;
+  height: 1.5em;
+  margin-right: 0.25em;
+  margin-bottom: 0.25em;
+  z-index: 10;
+  margin-left: 0.25em;
+}

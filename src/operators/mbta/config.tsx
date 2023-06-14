@@ -1,13 +1,16 @@
-import { OperatorConfiguration } from "../types";
+import { OperatorConfiguration, Operator } from "../types";
 import { MbtaTrunkLine, MbtaLineName } from "./types";
 import type { MbtaStation, MbtaLine } from "./types";
 import { stationGuessData, stations, lines, linesByTrunkLine } from "./data";
 import { MbtaStationHeader } from "../../operator_components/mbta/MbtaStationHeader";
+import { MbtaLineBadgeCondensed } from "../../operator_components/mbta/MbtaLineBadgeCondensed";
 
 class MbtaConfig implements OperatorConfiguration<MbtaTrunkLine, MbtaLineName> {
+  operator = Operator.MBTA;
   stations = stations;
-  name = "MBTA";
+  operatorName = "MBTA";
   domain = "mbtaguessr.com";
+  appName = "MBTAGuessr";
   zeroPointDistanceInMeters = 15000;
   lines = Object.values(lines);
   linesByTrunkLine = linesByTrunkLine as { [k in MbtaTrunkLine]: MbtaLine[] };
@@ -29,8 +32,6 @@ class MbtaConfig implements OperatorConfiguration<MbtaTrunkLine, MbtaLineName> {
         return "#ED8B00";
       case MbtaTrunkLine.RED:
         return "#DA291C";
-      case MbtaTrunkLine.SILVER:
-        return "#7C878E";
     }
   }
 
@@ -46,17 +47,24 @@ class MbtaConfig implements OperatorConfiguration<MbtaTrunkLine, MbtaLineName> {
     return <MbtaStationHeader station={station} config={this} />;
   }
 
-  renderLine(
-    l: MbtaLine,
-    props: { greyscale?: boolean; medium?: boolean; small?: boolean }
-  ) {
-    // TODO: Implement for analysis pages
-    return l.line;
+  renderLineForAnalysisMapView(l: MbtaLine, props: { greyscale?: boolean }) {
+    return (
+      <MbtaLineBadgeCondensed
+        line={l}
+        greyscale={props.greyscale}
+        config={this}
+      />
+    );
   }
 
-  renderLines(ls: MbtaLine[], props: { small?: boolean }) {
-    // TODO: Implement for analysis pages
-    return ls.map((l) => l.line).join(", ");
+  renderLinesForDataView(ls: MbtaLine[]) {
+    return (
+      <div className="mbta station-lines-small">
+        {ls.map((l) => {
+          return <MbtaLineBadgeCondensed line={l} config={this} />;
+        })}
+      </div>
+    );
   }
 }
 

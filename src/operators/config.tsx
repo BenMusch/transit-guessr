@@ -7,6 +7,7 @@ export type PlayableStation =
   | typeof mtaConfig["stations"][number]
   | typeof mbtaConfig["stations"][number];
 
+// TODO: types ????
 export type AnalyzableConfig = typeof mtaConfig;
 export type AnalyzableTrunkLine = keyof AnalyzableConfig["linesByTrunkLine"];
 export type AnalyzableLine = AnalyzableConfig["lines"][number];

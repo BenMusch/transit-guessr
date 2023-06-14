@@ -42,31 +42,6 @@ export const lines = {
     displayName: "Green Line - Heath St",
     trunkLine: MbtaTrunkLine.GREEN,
   },
-  [MbtaLineName.SILVER_1]: {
-    line: MbtaLineName.SILVER_1,
-    displayName: "SL1",
-    trunkLine: MbtaTrunkLine.SILVER,
-  },
-  [MbtaLineName.SILVER_2]: {
-    line: MbtaLineName.SILVER_2,
-    displayName: "SL2",
-    trunkLine: MbtaTrunkLine.SILVER,
-  },
-  [MbtaLineName.SILVER_3]: {
-    line: MbtaLineName.SILVER_3,
-    displayName: "SL3",
-    trunkLine: MbtaTrunkLine.SILVER,
-  },
-  [MbtaLineName.SILVER_4]: {
-    line: MbtaLineName.SILVER_4,
-    displayName: "SL4",
-    trunkLine: MbtaTrunkLine.SILVER,
-  },
-  [MbtaLineName.SILVER_5]: {
-    line: MbtaLineName.SILVER_5,
-    displayName: "SL5",
-    trunkLine: MbtaTrunkLine.SILVER,
-  },
 };
 
 type MbtaTrunkLineMapping = { [k in MbtaTrunkLine]: MbtaLine[] };
@@ -187,7 +162,6 @@ export const stations: MbtaStation[] = [
       lines[MbtaLineName.GREEN_C],
       lines[MbtaLineName.GREEN_D],
       lines[MbtaLineName.GREEN_E],
-      lines[MbtaLineName.SILVER_5],
     ],
     coordinates: [[-71.06459, 42.35302]],
     name: "Boylston",
@@ -273,11 +247,7 @@ export const stations: MbtaStation[] = [
     name: "Charles/MGH",
   },
   {
-    lines: [
-      lines[MbtaLineName.ORANGE],
-      lines[MbtaLineName.SILVER_4],
-      lines[MbtaLineName.SILVER_5],
-    ],
+    lines: [lines[MbtaLineName.ORANGE]],
     coordinates: [[-71.062752, 42.352547]],
     name: "Chinatown",
   },
@@ -322,11 +292,7 @@ export const stations: MbtaStation[] = [
     name: "Dean Road",
   },
   {
-    lines: [
-      lines[MbtaLineName.RED],
-      lines[MbtaLineName.ORANGE],
-      lines[MbtaLineName.SILVER_5],
-    ],
+    lines: [lines[MbtaLineName.RED], lines[MbtaLineName.ORANGE]],
     coordinates: [[-71.060225, 42.355518]],
     name: "Downtown Crossing",
   },
@@ -664,14 +630,7 @@ export const stations: MbtaStation[] = [
     name: "Science Park/West End",
   },
   {
-    lines: [
-      lines[MbtaLineName.RED],
-      lines[MbtaLineName.SILVER_1],
-      lines[MbtaLineName.SILVER_2],
-      lines[MbtaLineName.SILVER_3],
-      lines[MbtaLineName.SILVER_4],
-      lines[MbtaLineName.SILVER_5],
-    ],
+    lines: [lines[MbtaLineName.RED]],
     coordinates: [[-71.055242, 42.352271]],
     name: "South Station",
   },
@@ -711,11 +670,7 @@ export const stations: MbtaStation[] = [
     name: "Tappan Street",
   },
   {
-    lines: [
-      lines[MbtaLineName.ORANGE],
-      lines[MbtaLineName.SILVER_4],
-      lines[MbtaLineName.SILVER_5],
-    ],
+    lines: [lines[MbtaLineName.ORANGE]],
     coordinates: [[-71.063917, 42.349662]],
     name: "Tufts Medical Center",
   },

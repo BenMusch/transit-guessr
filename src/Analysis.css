@@ -37,7 +37,7 @@ table {
   overflow-y: scroll;
   height: 750px;
   display: block;
-  width: 100%;
+  width: fit-content;
 }
 
 tbody {

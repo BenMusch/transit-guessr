@@ -32,14 +32,24 @@ export interface OperatorConfiguration<
     latitude: number;
     zoom: number;
   };
+
+  operator: Operator;
+
   /**
    * Human-facing name for the system (e.g. MBTA for Boston)
    */
-  name: string;
+  operatorName: string;
+
   /**
    * Domain hosting the app
    */
   domain: string;
+
+  /**
+   * Name for this app (e.g. NYCGuessr, MBTAGuessr, etc)
+   */
+  appName: string;
+
   /**
    * True if the /data and /map routes exist for this operator
    */
@@ -53,7 +63,7 @@ export interface OperatorConfiguration<
   stations: IStation<TrunkLine, LineNameT>[];
   lines: ILine<TrunkLine, LineNameT>[];
   linesByTrunkLine: { [key in TrunkLine]: ILine<TrunkLine, LineNameT>[] };
-  stationGuessData: { station: string, avgScore: number }[] | undefined;
+  stationGuessData: { station: string; avgScore: number }[] | undefined;
   /**
    * Trunk lines usually have a specific color associated with them
    */
@@ -71,18 +81,15 @@ export interface OperatorConfiguration<
    * Used when rendering multiple lines inline with a station name in the /data
    * view and /map view
    */
-  renderLines: (
-    l: ILine<TrunkLine, LineNameT>[],
-    p: { small?: boolean }
-  ) => ReactNode;
+  renderLinesForDataView: (l: ILine<TrunkLine, LineNameT>[]) => ReactNode;
   /**
    * Used when rendering multiple lines inline with a station name in the /data
    * view
    *
    * TODO: can this be replaced with just renderLines ?
    */
-  renderLine: (
+  renderLineForAnalysisMapView: (
     l: ILine<TrunkLine, LineNameT>,
-    p: { greyscale?: boolean; medium?: boolean; small?: boolean }
+    p: { greyscale?: boolean }
   ) => ReactNode;
 }

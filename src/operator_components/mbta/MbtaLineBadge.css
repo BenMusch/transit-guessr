@@ -5,10 +5,13 @@
   text-align: center;
   font-weight: bold;
   border-radius: 1em;
-  font-height: 0.75em;
   padding: 0.1em 0.5em;
   display: block;
   float: left;
   margin-right: 0.25em;
   margin-bottom: 0.25em;
+}
+
+.station-lines-small.mbta .station-line.mbta {
+  font-size: 0.9em;
 }

@@ -6,3 +6,7 @@
   height: fit-content;
   display: flow-root;
 }
+
+.station-lines-small.mbta {
+  height: 1em;
+}

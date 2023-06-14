@@ -8,6 +8,8 @@ import { MbtaLineBadge } from "./MbtaLineBadge";
 import "./MbtaLinesRow.css";
 import type { OperatorConfiguration } from "../../operators/types";
 
+
+
 export function MbtaLinesRow(props: {
   config: OperatorConfiguration<MbtaTrunkLine, MbtaLineName>;
   lines: MbtaLine[];

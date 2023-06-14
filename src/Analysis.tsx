@@ -60,7 +60,7 @@ function StationGuessAnalysis(props: {
         id="analysis"
         geojsonFilter={geojsonFilter}
         initialViewState={config.initialMapState}
-        guessesSourceFile={`/${config.name.toLowerCase()}/guesses.geojson`}
+        guessesSourceFile={`/${config.operator}/guesses.geojson`}
         stationMarker={station.coordinates[0]!}
       />
     </>
@@ -85,7 +85,7 @@ function Analysis(props: { config: AnalyzableConfig }) {
       <div className="main-container">
         <div className="inner-container inner-container-large">
           <div className="analysis-prelude">
-            <h1>NYCGuessr Data</h1>
+            <h1>{config.appName} Data</h1>
             <span>
               View all of the guesses made in <Link to="/">nycguessr</Link> by
               their station and score.
@@ -127,7 +127,7 @@ function Analysis(props: { config: AnalyzableConfig }) {
                           navigate(`/data/${i}`);
                         }}
                       >
-                        {config.renderLines(station.lines, { small: true })}
+                        {config.renderLinesForDataView(station.lines)}
                       </td>
                       <td
                         onClick={() => {

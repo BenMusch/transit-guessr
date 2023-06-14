@@ -25,7 +25,7 @@ function LineBadgeControl(props: {
   const { line, enabled, onChange, config } = props;
   return (
     <div className="line-badge-control" onClick={onChange}>
-      {config.renderLine(line, { medium: true, greyscale: !enabled })}
+      {config.renderLineForAnalysisMapView(line, { greyscale: !enabled })}
     </div>
   );
 }
@@ -65,9 +65,9 @@ function LineBadgeControlRow(props: {
           })}
       </div>
       <div className="line-badge-toggles">
-        <span onClick={onHideRow}>None</span>
+        {lines.length > 1 && <span onClick={onHideRow}>None</span>}
         <span onClick={onOnlyRow}>Only</span>
-        <span onClick={onAllRow}>All</span>
+        {lines.length > 1 && <span onClick={onAllRow}>All</span>}
       </div>
     </div>
   );
@@ -82,7 +82,7 @@ function TransitLinesOverlay(props: {
     <Source
       id="routes"
       type="geojson"
-      data={`/${config.name.toLowerCase()}/routes.geojson`}
+      data={`/${config.operator}/routes.geojson`}
     >
       {Object.entries(config.linesByTrunkLine).map(([trunkLine, lines]) => {
         // dumb way to get the color for the trunk line since it's embedded on
@@ -207,10 +207,7 @@ function GuessMap(props: {
       style={{ height: 800, width: 800 }}
       mapStyle={mapStyle as MapboxStyle}
     >
-      <Source
-        type="geojson"
-        data={`/${config.name.toLowerCase()}/guesses.geojson`}
-      >
+      <Source type="geojson" data={`/${config.operator}/guesses.geojson`}>
         {Object.entries(config.linesByTrunkLine).map(([trunkLine, lines]) => {
           const filters = lines
             .filter(
@@ -285,10 +282,10 @@ export default function AllGuesses(props: { config: AnalyzableConfig }) {
 
         <div className="controls-container">
           <div className="controls-header">
-            <h1>NYCGuessr Map</h1>
+            <h1>{config.appName} Map</h1>
             <span>
-              The NYC Subway map according to your guesses in{" "}
-              <Link to="/">nycguessr</Link>.
+              The {config.operatorName} map according to your guesses in{" "}
+              <Link to="/">config.appName</Link>.
               <br />
               Haven't played yet? <Link to="/">Check it out now!</Link>
               <br />
