@@ -1273,3 +1273,26 @@ export const stationGuessData = [
     avgScore: 1881.0629139072846,
   },
 ];
+
+console.log(
+  JSON.stringify(
+    Object.values(lines).map((line) => {
+      const thisLineStations = stations.filter(
+        (station) => station.lines.indexOf(line) >= 0
+      );
+      const coords = thisLineStations
+        .map((st) => st.coordinates[0]!)
+        .sort((a: any, b: any) => a[1] - a[0] - (b[1] - b[0]));
+      return {
+        geometry: {
+          type: "LineString",
+          coordinates: coords,
+        },
+        type: "Feature",
+        properties: {
+          name: line.displayName,
+        },
+      };
+    })
+  )
+);

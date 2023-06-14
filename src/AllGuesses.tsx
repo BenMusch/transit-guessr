@@ -79,7 +79,11 @@ function TransitLinesOverlay(props: {
 }) {
   const { enabledLines, config } = props;
   return (
-    <Source id="routes" type="geojson" data="/geojson/routes.geojson">
+    <Source
+      id="routes"
+      type="geojson"
+      data={`/${config.name.toLowerCase()}/routes.geojson`}
+    >
       {Object.entries(config.linesByTrunkLine).map(([trunkLine, lines]) => {
         // dumb way to get the color for the trunk line since it's embedded on
         // the
@@ -212,7 +216,11 @@ function GuessMap(props: {
             .filter(
               (line) => !line.line.includes("Express") && enabledLines.has(line)
             )
-            .map((line) => ["has", `${line.line}`]);
+            .map((line) => [
+              "any",
+              ["has", line.line],
+              ["has", line.displayName],
+            ]);
 
           // When fewer lines are enabled, there's less color conflict, so
           // higher opacity is better
