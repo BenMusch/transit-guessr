@@ -423,7 +423,7 @@ export const stations: MtaStation[] = [
       lines[MtaLineName.FIVE],
       lines[MtaLineName.TWO],
       lines[MtaLineName.THREE],
-      lines[MtaLineName.S]
+      lines[MtaLineName.S],
     ],
     name: "Franklin Ave/Botanic Garden",
     coordinates: [[-73.9580997367769, 40.67076515344894]],
@@ -2743,5 +2743,1702 @@ export const stations: MtaStation[] = [
     lines: [lines[MtaLineName.Q]],
     name: "96th St",
     coordinates: [[-73.9470660219183, 40.784236650177654]],
+  },
+];
+
+export const stationGuessData = [
+  {
+    station:
+      "Times Sq - 42nd St/Port Authority Bus Terminal (1,2,3,7,7Exp,A,C,E,N,Q,R,W,S)",
+    avgScore: 4818.7731481481442,
+  },
+  {
+    station: "Grand Central - 42nd St (4,5,6,6Exp,7,7Exp,S)",
+    avgScore: 4786.0593220338978,
+  },
+  {
+    station: "59th St - Columbus Circle (1,A,C,B,D)",
+    avgScore: 4768.9796747967466,
+  },
+  {
+    station: "Union Sq - 14th St (4,5,6,6Exp,N,Q,R,W,L)",
+    avgScore: 4719.4732142857147,
+  },
+  {
+    station: "47th-50th Sts - Rockefeller Ctr (B,D,F,M)",
+    avgScore: 4713.7289719626169,
+  },
+  {
+    station: "Lexington Ave - 59th St (4,5,6,6Exp,N,R,W)",
+    avgScore: 4695.925619834713,
+  },
+  {
+    station: "86th St (4,5,6,6Exp)",
+    avgScore: 4691.3060344827627,
+  },
+  {
+    station: "50th St (A,C,E)",
+    avgScore: 4681.0239043824677,
+  },
+  {
+    station: "W 4th St - Washington Sq (A,C,E,B,D,F,M)",
+    avgScore: 4660.4123711340235,
+  },
+  {
+    station: "42nd St - Bryant Park/5th Ave (7,7Exp,B,D,F,FExp,M)",
+    avgScore: 4659.7280334728039,
+  },
+  {
+    station: "14th St/6th Ave (1,2,3,F,FExp,M,L)",
+    avgScore: 4653.77551020408,
+  },
+  {
+    station: "Lexington Ave - 53rd St/51st St (6,6Exp,E,M)",
+    avgScore: 4653.1809954751116,
+  },
+  {
+    station: "34th St - Penn Station (1,2,3)",
+    avgScore: 4652.1026785714275,
+  },
+  {
+    station: "23rd St (A,C,E)",
+    avgScore: 4649.2355072463806,
+  },
+  {
+    station: "34th St - Penn Station (A,C,E)",
+    avgScore: 4646.9257812499964,
+  },
+  {
+    station: "Herald Sq - 34th St (B,D,F,FExp,M,N,Q,R,W)",
+    avgScore: 4640.7851239669408,
+  },
+  {
+    station: "23rd St (1,2)",
+    avgScore: 4635.6280000000024,
+  },
+  {
+    station: "8th St - NYU (N,Q,R,W)",
+    avgScore: 4621.3799126637578,
+  },
+  {
+    station: "66th St - Lincoln Ctr (1,2)",
+    avgScore: 4617.8359375000045,
+  },
+  {
+    station: "Lower East Side - 2nd Ave (F)",
+    avgScore: 4616.4922480620162,
+  },
+  {
+    station: "28th St (4,6,6Exp)",
+    avgScore: 4616.3438914027165,
+  },
+  {
+    station: "Broadway - Lafayette St/Bleeker St (4,6,6Exp,B,D,F,M)",
+    avgScore: 4606.1620370370329,
+  },
+  {
+    station: "Central Park North (110th St) (2,3)",
+    avgScore: 4602.8418803418781,
+  },
+  {
+    station: "57th St (N,Q,R,W)",
+    avgScore: 4599.6172839506207,
+  },
+  {
+    station: "125th St (4,5,6,6Exp)",
+    avgScore: 4598.7279151943467,
+  },
+  {
+    station: "Lexington Ave - 63rd St (F,Q)",
+    avgScore: 4595.0000000000027,
+  },
+  {
+    station: "23rd St (4,6,6Exp)",
+    avgScore: 4591.5546558704436,
+  },
+  {
+    station: "103rd St (1)",
+    avgScore: 4590.8391304347824,
+  },
+  {
+    station: "96th St (4,6,6Exp)",
+    avgScore: 4589.637554585147,
+  },
+  {
+    station: "34th St - Hudson Yards (7,7Exp)",
+    avgScore: 4587.0897959183685,
+  },
+  {
+    station: "96th St (1,2,3)",
+    avgScore: 4585.1673819742491,
+  },
+  {
+    station: "110th St (4,6,6Exp)",
+    avgScore: 4578.553846153849,
+  },
+  {
+    station: "Canal St (4,6,6Exp,J,Z,N,Q,R,W)",
+    avgScore: 4578.148471615722,
+  },
+  {
+    station: "103rd St (4,6,6Exp)",
+    avgScore: 4576.94761904762,
+  },
+  {
+    station:
+      "Chambers St - World Trade Center/Park Pl/Cortlandt St (2,3,A,C,E,R,W)",
+    avgScore: 4566.98312236287,
+  },
+  {
+    station: "79th St (1,2)",
+    avgScore: 4561.6454183266951,
+  },
+  {
+    station: "116th St - Columbia University (1)",
+    avgScore: 4558.3703703703695,
+  },
+  {
+    station: "Wall St (4,5)",
+    avgScore: 4557.9502074688808,
+  },
+  {
+    station: "96th St (A,C,B)",
+    avgScore: 4554.9757085020256,
+  },
+  {
+    station: "Wall St (2,3)",
+    avgScore: 4553.4375,
+  },
+  {
+    station: "Canal St (1,2)",
+    avgScore: 4549.6033755274257,
+  },
+  {
+    station: "77th St (4,6,6Exp)",
+    avgScore: 4547.2062780269071,
+  },
+  {
+    station: "South Ferry/Whitehall St (1,R,W)",
+    avgScore: 4544.920560747667,
+  },
+  {
+    station: "5th Ave - 59th St (N,R,W)",
+    avgScore: 4541.5922746781116,
+  },
+  {
+    station: "14th St/8th Ave (A,C,E,L)",
+    avgScore: 4540.1396396396367,
+  },
+  {
+    station: "116th St (4,6,6Exp)",
+    avgScore: 4539.3333333333321,
+  },
+  {
+    station: "86th St (1,2)",
+    avgScore: 4520.5900900900924,
+  },
+  {
+    station: "18th St (1,2)",
+    avgScore: 4519.85344827586,
+  },
+  {
+    station: "28th St (1,2)",
+    avgScore: 4511.1324200913214,
+  },
+  {
+    station: "68th St - Hunter College (4,6,6Exp)",
+    avgScore: 4510.0086580086572,
+  },
+  {
+    station: "125th St (A,C,B,D)",
+    avgScore: 4496.7411764705857,
+  },
+  {
+    station: "50th St (1,2)",
+    avgScore: 4484.2844036697243,
+  },
+  {
+    station: "81st St (A,C,B)",
+    avgScore: 4484.1627906976746,
+  },
+  {
+    station: "33rd St (4,6,6Exp)",
+    avgScore: 4478.3957446808508,
+  },
+  {
+    station: "Spring St (A,C,E)",
+    avgScore: 4472.2027649769589,
+  },
+  {
+    station: "116th St (2,3)",
+    avgScore: 4468.8376068376019,
+  },
+  {
+    station: "23rd St (N,Q,R,W)",
+    avgScore: 4465.3660714285716,
+  },
+  {
+    station: "Prince St (N,Q,R,W)",
+    avgScore: 4464.27188940092,
+  },
+  {
+    station: "86th St (A,C,B)",
+    avgScore: 4460.0567685589485,
+  },
+  {
+    station: "Cathedral Pkwy (110th St) (1)",
+    avgScore: 4454.2616033755294,
+  },
+  {
+    station: "72nd St (A,C,B)",
+    avgScore: 4453.7131782945762,
+  },
+  {
+    station: "116th St (A,C,B)",
+    avgScore: 4441.1286307053924,
+  },
+  {
+    station: "Brooklyn Bridge - City Hall/Chambers St (4,5,6,6Exp,J,Z)",
+    avgScore: 4436.796536796538,
+  },
+  {
+    station: "1st Ave (L)",
+    avgScore: 4432.7763713080167,
+  },
+  {
+    station: "Fulton St (2,3,4,5,A,C,J,Z)",
+    avgScore: 4413.7768240343366,
+  },
+  {
+    station: "125th St (2,3)",
+    avgScore: 4407.15652173913,
+  },
+  {
+    station: "5th Ave - 53rd St (E,M)",
+    avgScore: 4404.3392070484551,
+  },
+  {
+    station: "72nd St (1,2,3)",
+    avgScore: 4403.78636363636,
+  },
+  {
+    station: "Houston St (1,2)",
+    avgScore: 4400.8594377510017,
+  },
+  {
+    station: "28th St (N,Q,R,W)",
+    avgScore: 4400.033613445381,
+  },
+  {
+    station: "103rd St (A,C,B)",
+    avgScore: 4399.5081967213118,
+  },
+  {
+    station: "Roosevelt Island - Main St (F)",
+    avgScore: 4390.6653386454218,
+  },
+  {
+    station: "125th St (1)",
+    avgScore: 4387.6863636363587,
+  },
+  {
+    station: "Atlantic Av - Barclay\u0027s Center (4,5,2,3,B,D,N,Q,R,W)",
+    avgScore: 4384.18067226891,
+  },
+  {
+    station: "Chambers St (1,2,3)",
+    avgScore: 4378.83137254902,
+  },
+  {
+    station: "Prospect Park (B,S,Q)",
+    avgScore: 4370.1612903225832,
+  },
+  {
+    station: "3rd Ave (L)",
+    avgScore: 4370.0535714285743,
+  },
+  {
+    station: "Canal St - Holland Tunnel (A,C,E)",
+    avgScore: 4367.4190871369292,
+  },
+  {
+    station: "23rd St (F,M)",
+    avgScore: 4366.771186440681,
+  },
+  {
+    station: "49th St (N,Q,R,W)",
+    avgScore: 4355.6,
+  },
+  {
+    station: "135th St (A,C,B)",
+    avgScore: 4352.626609442058,
+  },
+  {
+    station: "Spring St (4,6,6Exp)",
+    avgScore: 4331.1120689655145,
+  },
+  {
+    station: "135th St (2,3)",
+    avgScore: 4328.77990430622,
+  },
+  {
+    station: "Cathedral Pkwy (110th St) (A,C,B)",
+    avgScore: 4328.4599156118111,
+  },
+  {
+    station: "Bowery (J,Z)",
+    avgScore: 4328.3199999999988,
+  },
+  {
+    station: "145th St (1)",
+    avgScore: 4299.30666666667,
+  },
+  {
+    station: "Christopher St - Sheridan Sq (1,2)",
+    avgScore: 4289.9120000000066,
+  },
+  {
+    station: "Harlem - 148 St (3)",
+    avgScore: 4289.7428571428545,
+  },
+  {
+    station: "Astor Pl (4,6,6Exp)",
+    avgScore: 4275.0992063492076,
+  },
+  {
+    station: "157th St (1)",
+    avgScore: 4263.51923076923,
+  },
+  {
+    station: "137th St - City College (1)",
+    avgScore: 4249.3921568627475,
+  },
+  {
+    station: "Delancey St - Essex St (J,Z,M,F)",
+    avgScore: 4242.4199134199171,
+  },
+  {
+    station: "Jay St - MetroTech (A,C,F,R)",
+    avgScore: 4240.2467532467526,
+  },
+  {
+    station: "Eastern Pkwy - Bklyn Museum (4,2,3)",
+    avgScore: 4237.6521739130376,
+  },
+  {
+    station: "72nd St (Q)",
+    avgScore: 4228.2794759825338,
+  },
+  {
+    station: "181st St (1)",
+    avgScore: 4222.624,
+  },
+  {
+    station: "57th St (F)",
+    avgScore: 4209.0944881889754,
+  },
+  {
+    station: "Court Sq - 23rd St (7,7Exp,E,M,G)",
+    avgScore: 4207.27188940092,
+  },
+  {
+    station: "155th St (A,C)",
+    avgScore: 4195.3913043478251,
+  },
+  {
+    station: "191st St (1)",
+    avgScore: 4189.490990990992,
+  },
+  {
+    station: "15th St - Prospect Park (G,F)",
+    avgScore: 4182.3105022831041,
+  },
+  {
+    station: "Borough Hall/Court St (2,3,4,5,R)",
+    avgScore: 4177.6213991769582,
+  },
+  {
+    station: "96th St (Q)",
+    avgScore: 4173.95278969957,
+  },
+  {
+    station: "145th St (A,C,B,D)",
+    avgScore: 4168.0572687224667,
+  },
+  {
+    station: "145th St (3)",
+    avgScore: 4137.2911392405076,
+  },
+  {
+    station: "190th St (A)",
+    avgScore: 4135.9876543209893,
+  },
+  {
+    station: "138th St - Grand Concourse (4,5)",
+    avgScore: 4120.4525862068986,
+  },
+  {
+    station: "149th St - Grand Concourse (5,4,2)",
+    avgScore: 4112.6018957346005,
+  },
+  {
+    station: "161st St - Yankee Stadium (B,D,4)",
+    avgScore: 4111.4533898305053,
+  },
+  {
+    station: "168th St (A,C,1)",
+    avgScore: 4110.3835616438364,
+  },
+  {
+    station: "163rd St - Amsterdam Av (A,C)",
+    avgScore: 4099.8,
+  },
+  {
+    station: "3rd Ave - 138th St (6,6Exp)",
+    avgScore: 4084.6713615023477,
+  },
+  {
+    station: "Grand St (B,D)",
+    avgScore: 4061.8583690987143,
+  },
+  {
+    station: "207th St (1)",
+    avgScore: 4054.753086419752,
+  },
+  {
+    station: "181st St (A)",
+    avgScore: 4049.7008547008541,
+  },
+  {
+    station: "Metropolitan Ave/Lorimer St (L,G)",
+    avgScore: 4049.1116071428569,
+  },
+  {
+    station: "86th St (Q)",
+    avgScore: 4043.4915966386566,
+  },
+  {
+    station: "Inwood - 207th St (A)",
+    avgScore: 4033.6763285024149,
+  },
+  {
+    station: "DeKalb Ave (B,D,N,Q,R)",
+    avgScore: 4019.9458333333332,
+  },
+  {
+    station: "Fulton St (G)",
+    avgScore: 4015.167512690356,
+  },
+  {
+    station: "Astoria - Ditmars Blvd (N,W)",
+    avgScore: 4014.4713656387694,
+  },
+  {
+    station: "Bedford Ave (L)",
+    avgScore: 3985.7444933920697,
+  },
+  {
+    station: "Queensboro Plz (7,7Exp,N,W)",
+    avgScore: 3985.6225680933844,
+  },
+  {
+    station: "Astoria Blvd (N,W)",
+    avgScore: 3974.8592233009713,
+  },
+  {
+    station: "Rector St (1)",
+    avgScore: 3972.2663755458516,
+  },
+  {
+    station: "167th St (4)",
+    avgScore: 3970.0138888888891,
+  },
+  {
+    station: "176th St (4)",
+    avgScore: 3964.2583732057415,
+  },
+  {
+    station: "215th St (1)",
+    avgScore: 3962.1232876712324,
+  },
+  {
+    station: "E 149th St (6)",
+    avgScore: 3947.6824644549752,
+  },
+  {
+    station: "Hoyt St (2,3)",
+    avgScore: 3944.3211382113846,
+  },
+  {
+    station: "Marble Hill - 225th St (1)",
+    avgScore: 3925.4023437499991,
+  },
+  {
+    station: "175th St (A)",
+    avgScore: 3914.0186915887862,
+  },
+  {
+    station: "170th St (4)",
+    avgScore: 3904.143540669857,
+  },
+  {
+    station: "Hoyt - Schermerhorn Sts (A,C,G)",
+    avgScore: 3903.6637931034479,
+  },
+  {
+    station: "Bowling Green (4,5)",
+    avgScore: 3886.7107843137264,
+  },
+  {
+    station: "3rd Ave - 149th St (5,2)",
+    avgScore: 3880.2251082251073,
+  },
+  {
+    station: "Greenpoint Ave (G)",
+    avgScore: 3875.395744680849,
+  },
+  {
+    station: "East Broadway (F)",
+    avgScore: 3874.9918032786873,
+  },
+  {
+    station: "Rector St (R,W)",
+    avgScore: 3864.0726495726512,
+  },
+  {
+    station: "E 143rd St - St Mary\u0027s St (6)",
+    avgScore: 3846.8434782608711,
+  },
+  {
+    station: "231st St (1)",
+    avgScore: 3839.168888888888,
+  },
+  {
+    station: "Myrtle Ave (J,Z,M)",
+    avgScore: 3831.97356828194,
+  },
+  {
+    station: "7th Ave (E,B,D)",
+    avgScore: 3822.9905213270149,
+  },
+  {
+    station: "Grand St (L)",
+    avgScore: 3822.6277056277045,
+  },
+  {
+    station: "155th St (B,D)",
+    avgScore: 3813.5517241379289,
+  },
+  {
+    station: "69th St (7)",
+    avgScore: 3812.0941176470592,
+  },
+  {
+    station: "21st St - Queensbridge (F)",
+    avgScore: 3801.7574468085104,
+  },
+  {
+    station: "Myrtle-Willoughby Aves (G)",
+    avgScore: 3773.5315315315315,
+  },
+  {
+    station: "Lorimer St (J,M)",
+    avgScore: 3768.3267326732675,
+  },
+  {
+    station: "82nd St - Jackson Hts (7)",
+    avgScore: 3766.6919431279634,
+  },
+  {
+    station: "Coney Island - Stillwell Av (D,F,N,Q)",
+    avgScore: 3765.9203187251,
+  },
+  {
+    station: "Bergen St (G,F)",
+    avgScore: 3764.7542372881348,
+  },
+  {
+    station: "Queens Plz (E,M,R)",
+    avgScore: 3763.2789699570822,
+  },
+  {
+    station: "Van Cortlandt Park - 242nd St (1)",
+    avgScore: 3757.9149797570835,
+  },
+  {
+    station: "Bedford - Nostrand Aves (G)",
+    avgScore: 3749.9631336405537,
+  },
+  {
+    station: "Grand Army Plaza (4,2,3)",
+    avgScore: 3748.2808510638292,
+  },
+  {
+    station: "Morgan Ave (L)",
+    avgScore: 3747.2909090909088,
+  },
+  {
+    station: "Classon Ave (G)",
+    avgScore: 3745.9285714285725,
+  },
+  {
+    station: "4th Av - 9th St (G,F,R)",
+    avgScore: 3741.8302752293589,
+  },
+  {
+    station: "Carroll St (G,F)",
+    avgScore: 3740.8970588235306,
+  },
+  {
+    station: "238th St (1)",
+    avgScore: 3737.3728813559314,
+  },
+  {
+    station: "Broadway (G)",
+    avgScore: 3737.1173913043485,
+  },
+  {
+    station: "Brighton Beach (B,Q)",
+    avgScore: 3736.903508771928,
+  },
+  {
+    station: "Franklin St (1,2)",
+    avgScore: 3731.0958333333338,
+  },
+  {
+    station: "Myrtle - Wyckoff Aves (L,M)",
+    avgScore: 3727.2000000000003,
+  },
+  {
+    station: "Prospect Ave (D,N,R)",
+    avgScore: 3725.4716981132078,
+  },
+  {
+    station: "Montrose Ave (L)",
+    avgScore: 3715.9626168224304,
+  },
+  {
+    station: "Graham Ave (L)",
+    avgScore: 3711.44,
+  },
+  {
+    station: "Woodhaven Blvd - Queens Mall (E,M,R)",
+    avgScore: 3707.8207547169823,
+  },
+  {
+    station: "Woodside - 61st St (7,7Exp)",
+    avgScore: 3705.2227272727264,
+  },
+  {
+    station: "Jackson Hts - Roosevelt Av/74th St - Broadway (7,E,F,M,R)",
+    avgScore: 3704.08071748879,
+  },
+  {
+    station: "Bushwick - Aberdeen (L)",
+    avgScore: 3695.6651376146779,
+  },
+  {
+    station: "DeKalb Ave (L)",
+    avgScore: 3690.184834123223,
+  },
+  {
+    station: "103rd St - Corona Plaza (7)",
+    avgScore: 3685.9205020920513,
+  },
+  {
+    station: "York St (F)",
+    avgScore: 3680.7058823529419,
+  },
+  {
+    station: "Smith - 9th Sts (G,F)",
+    avgScore: 3673.0840707964589,
+  },
+  {
+    station: "7th Ave (G,F)",
+    avgScore: 3669.3761904761909,
+  },
+  {
+    station: "High St (A,C)",
+    avgScore: 3652.1309523809518,
+  },
+  {
+    station: "Jefferson St (L)",
+    avgScore: 3640.4951923076924,
+  },
+  {
+    station: "167th St (B,D)",
+    avgScore: 3640.2187500000009,
+  },
+  {
+    station: "90th St - Elmhurst Av (7)",
+    avgScore: 3632.4097560975611,
+  },
+  {
+    station: "170th St (B,D)",
+    avgScore: 3629.2606635071074,
+  },
+  {
+    station: "Franklin Ave - Fulton St (C,S)",
+    avgScore: 3624.0742358078619,
+  },
+  {
+    station: "Clinton - Washington Aves (G)",
+    avgScore: 3621.2397959183686,
+  },
+  {
+    station: "Franklin Ave/Botanic Garden (4,5,2,3,S)",
+    avgScore: 3619.3969465648861,
+  },
+  {
+    station: "Nassau Ave (G)",
+    avgScore: 3609.9141630901281,
+  },
+  {
+    station: "Bergen St (4,2,3)",
+    avgScore: 3605.279569892476,
+  },
+  {
+    station: "46th St (7)",
+    avgScore: 3602.7034220532328,
+  },
+  {
+    station: "Crown Hts - Utica Ave (4,3)",
+    avgScore: 3601.5447470817112,
+  },
+  {
+    station: "33rd St (7)",
+    avgScore: 3591.7477064220179,
+  },
+  {
+    station: "Union St (D,N,R)",
+    avgScore: 3587.6186440677975,
+  },
+  {
+    station: "183rd St (4)",
+    avgScore: 3584.212598425197,
+  },
+  {
+    station: "Newkirk Ave (B,Q)",
+    avgScore: 3580.1772727272714,
+  },
+  {
+    station: "Wilson Ave (L)",
+    avgScore: 3576.2315270935969,
+  },
+  {
+    station: "Bronx Park East (5,2)",
+    avgScore: 3573.9150943396207,
+  },
+  {
+    station: "Broad St (J,Z)",
+    avgScore: 3573.4978354978352,
+  },
+  {
+    station: "Nevins St (4,5,2,3)",
+    avgScore: 3553.590308370045,
+  },
+  {
+    station: "Ft Hamilton Pkwy (G,F)",
+    avgScore: 3552.8125000000014,
+  },
+  {
+    station: "Nostrand Ave (A,C)",
+    avgScore: 3546.8949771689495,
+  },
+  {
+    station: "Clark St (2,3)",
+    avgScore: 3544.2488888888865,
+  },
+  {
+    station: "Halsey St (J)",
+    avgScore: 3536.0138888888882,
+  },
+  {
+    station: "40th St (7)",
+    avgScore: 3524.9999999999995,
+  },
+  {
+    station: "Brooklyn College - Flatbush Ave (5,2)",
+    avgScore: 3519.7198275862065,
+  },
+  {
+    station: "Ave H (Q)",
+    avgScore: 3507.9999999999991,
+  },
+  {
+    station: "Halsey St (L)",
+    avgScore: 3506.0954545454529,
+  },
+  {
+    station: "Mets - Willets Point (7,7Exp)",
+    avgScore: 3495.3648068669554,
+  },
+  {
+    station: "Steinway St (E,M,R)",
+    avgScore: 3489.48275862069,
+  },
+  {
+    station: "Broadway Junction (A,C,J,Z,L)",
+    avgScore: 3484.1848739495808,
+  },
+  {
+    station: "Parkside Ave (Q)",
+    avgScore: 3483.9952830188672,
+  },
+  {
+    station: "Kosciuszko St (J)",
+    avgScore: 3482.3749999999977,
+  },
+  {
+    station: "52nd St (7)",
+    avgScore: 3480.9783549783547,
+  },
+  {
+    station: "Middle Village - Metropolitan Ave (M)",
+    avgScore: 3473.7117117117114,
+  },
+  {
+    station: "Junction Blvd (7,7Exp)",
+    avgScore: 3465.8095238095229,
+  },
+  {
+    station: "Gates Ave (J,Z)",
+    avgScore: 3464.5280373831788,
+  },
+  {
+    station: "Cortlandt St (1)",
+    avgScore: 3452.4721030042942,
+  },
+  {
+    station: "174th St (5,2)",
+    avgScore: 3451.4937238493731,
+  },
+  {
+    station: "Marcy Ave (J,Z,M)",
+    avgScore: 3440.2323232323224,
+  },
+  {
+    station: "Alabama Ave (J)",
+    avgScore: 3433.6871794871809,
+  },
+  {
+    station: "Elmhurst Ave (E,M,R)",
+    avgScore: 3419.8865546218481,
+  },
+  {
+    station: "Forest Hills - 71st Av (E,F,M,R)",
+    avgScore: 3407.5777777777771,
+  },
+  {
+    station: "Church Ave (B,Q)",
+    avgScore: 3406.0593607305918,
+  },
+  {
+    station: "111th St (7)",
+    avgScore: 3402.3795918367368,
+  },
+  {
+    station: "Vernon Blvd - Jackson Ave (7,7Exp)",
+    avgScore: 3399.6713615023477,
+  },
+  {
+    station: "Nostrand Ave (4,3)",
+    avgScore: 3397.3476394849754,
+  },
+  {
+    station: "E 180th St (5,2)",
+    avgScore: 3383.828125,
+  },
+  {
+    station: "Knickerbocker Ave (M)",
+    avgScore: 3381.9624413145566,
+  },
+  {
+    station: "Central Ave (M)",
+    avgScore: 3381.3703703703686,
+  },
+  {
+    station: "Hunters Point Ave (7,7Exp)",
+    avgScore: 3377.3333333333321,
+  },
+  {
+    station: "174th-175th Sts (B,D)",
+    avgScore: 3369.8639999999991,
+  },
+  {
+    station: "Park Pl (S)",
+    avgScore: 3366.5299145299136,
+  },
+  {
+    station: "182nd-183rd Sts (B,D)",
+    avgScore: 3355.3801652892525,
+  },
+  {
+    station: "Atlantic Ave (L)",
+    avgScore: 3352.8502024291483,
+  },
+  {
+    station: "Bay Ridge Ave (R)",
+    avgScore: 3340.3879310344828,
+  },
+  {
+    station: "Cortelyou Rd (Q)",
+    avgScore: 3338.2871287128687,
+  },
+  {
+    station: "Bay Ridge - 95th St (R)",
+    avgScore: 3334.2086956521748,
+  },
+  {
+    station: "Seneca Ave (M)",
+    avgScore: 3331.2056074766369,
+  },
+  {
+    station: "Bay Pky (F)",
+    avgScore: 3329.9357798165133,
+  },
+  {
+    station: "Hewes St (J,M)",
+    avgScore: 3318.617777777778,
+  },
+  {
+    station: "36th St (E,M,R)",
+    avgScore: 3317.2096069869008,
+  },
+  {
+    station: "Sheepshead Bay (B,Q)",
+    avgScore: 3300.0979591836722,
+  },
+  {
+    station: "Ave J (Q)",
+    avgScore: 3295.5872340425531,
+  },
+  {
+    station: "21st St (G)",
+    avgScore: 3291.8543689320395,
+  },
+  {
+    station: "Flushing Ave (G)",
+    avgScore: 3288.6930232558166,
+  },
+  {
+    station: "Ave I (F)",
+    avgScore: 3275.8529411764712,
+  },
+  {
+    station: "Flushing - Main St (7,7Exp)",
+    avgScore: 3270.8893805309735,
+  },
+  {
+    station: "Cypress Hills (J)",
+    avgScore: 3264.7130044843025,
+  },
+  {
+    station: "39th Ave (N,W)",
+    avgScore: 3261.7117117117118,
+  },
+  {
+    station: "62nd St/New Utrecht Ave (D,N)",
+    avgScore: 3258.8606557377057,
+  },
+  {
+    station: "30th Ave (N,W)",
+    avgScore: 3252.2369668246447,
+  },
+  {
+    station: "Dyckman St (1)",
+    avgScore: 3252.1056910569114,
+  },
+  {
+    station: "46th St (E,M,R)",
+    avgScore: 3252.0232558139537,
+  },
+  {
+    station: "Broadway (N,W)",
+    avgScore: 3251.8714285714286,
+  },
+  {
+    station: "Norwood Ave (J,Z)",
+    avgScore: 3241.7991266375575,
+  },
+  {
+    station: "Van Siclen Ave (J,Z)",
+    avgScore: 3236.1542056074786,
+  },
+  {
+    station: "Sutter Ave (L)",
+    avgScore: 3234.7448559670784,
+  },
+  {
+    station: "Ave M (Q)",
+    avgScore: 3233.4514767932469,
+  },
+  {
+    station: "Ave N (F)",
+    avgScore: 3213.4009009009019,
+  },
+  {
+    station: "Chauncey St (J,Z)",
+    avgScore: 3210.4000000000024,
+  },
+  {
+    station: "Livonia Ave (L)",
+    avgScore: 3209.40566037736,
+  },
+  {
+    station: "Morrison Av - Soundview (6)",
+    avgScore: 3206.3593073593083,
+  },
+  {
+    station: "Utica Ave (A,C)",
+    avgScore: 3204.1964285714284,
+  },
+  {
+    station: "Kings Hwy (B,Q)",
+    avgScore: 3203.2723004694831,
+  },
+  {
+    station: "New Lots Ave (L)",
+    avgScore: 3203.151658767772,
+  },
+  {
+    station: "Clinton - Washington Aves (A,C)",
+    avgScore: 3195.9365853658542,
+  },
+  {
+    station: "Church Ave (G,F)",
+    avgScore: 3193.7511961722475,
+  },
+  {
+    station: "Bay Pky (N)",
+    avgScore: 3192.5756302521013,
+  },
+  {
+    station: "Beverly Rd (Q)",
+    avgScore: 3192.0047619047618,
+  },
+  {
+    station: "233rd St (5,2)",
+    avgScore: 3183.1024390243897,
+  },
+  {
+    station: "7th Ave (B,Q)",
+    avgScore: 3177.6800000000007,
+  },
+  {
+    station: "225th St (5,2)",
+    avgScore: 3175.4955752212391,
+  },
+  {
+    station: "West Farms Sq - E Tremont Av (5,2)",
+    avgScore: 3173.8309859154942,
+  },
+  {
+    station: "Lafayette Ave (A,C)",
+    avgScore: 3173.2923728813576,
+  },
+  {
+    station: "Northern Blvd (E,M,R)",
+    avgScore: 3164.2238095238085,
+  },
+  {
+    station: "219th St (5,2)",
+    avgScore: 3162.7904761904761,
+  },
+  {
+    station: "65th St (E,M,R)",
+    avgScore: 3161.952153110049,
+  },
+  {
+    station: "Bay Pky (D)",
+    avgScore: 3159.113402061856,
+  },
+  {
+    station: "Forest Ave (M)",
+    avgScore: 3158.6749999999984,
+  },
+  {
+    station: "Fordham Rd (4)",
+    avgScore: 3139.6929824561403,
+  },
+  {
+    station: "Ave U (Q)",
+    avgScore: 3135.9748953974895,
+  },
+  {
+    station: "Jamaica Ctr - Parsons / Archer (E,J,Z)",
+    avgScore: 3135.5466666666671,
+  },
+  {
+    station: "85th St - Forest Pky (J)",
+    avgScore: 3133.3587443946208,
+  },
+  {
+    station: "Cleveland St (J)",
+    avgScore: 3130.8719211822672,
+  },
+  {
+    station: "63rd Dr - Rego Park (E,M,R)",
+    avgScore: 3126.7666666666664,
+  },
+  {
+    station: "Ave U (F)",
+    avgScore: 3121.2344497607664,
+  },
+  {
+    station: "Fordham Rd (B,D)",
+    avgScore: 3118.3244444444445,
+  },
+  {
+    station: "Woodhaven Blvd (J,Z)",
+    avgScore: 3107.7889908256875,
+  },
+  {
+    station: "Hunts Point Ave (6,6Exp)",
+    avgScore: 3107.7109004739332,
+  },
+  {
+    station: "36th Ave (N,W)",
+    avgScore: 3106.1565656565658,
+  },
+  {
+    station: "Wakefield - 241st St (2)",
+    avgScore: 3089.4556451612889,
+  },
+  {
+    station: "Fresh Pond Rd (M)",
+    avgScore: 3089.1730769230749,
+  },
+  {
+    station: "Whitlock Ave (6)",
+    avgScore: 3086.0909090909081,
+  },
+  {
+    station: "Jamaica - Van Wyck (E)",
+    avgScore: 3084.8372093023249,
+  },
+  {
+    station: "Kings Hwy (N)",
+    avgScore: 3076.3251231527088,
+  },
+  {
+    station: "Crescent St (J,Z)",
+    avgScore: 3067.7370689655177,
+  },
+  {
+    station: "Ralph Ave (A,C)",
+    avgScore: 3065.3004694835681,
+  },
+  {
+    station: "Pelham Pkwy (5)",
+    avgScore: 3056.2787610619462,
+  },
+  {
+    station: "Rockaway Park - Beach 116 St (A,S)",
+    avgScore: 3050.1119999999996,
+  },
+  {
+    station: "Ditmas Ave (F)",
+    avgScore: 3048.1674876847292,
+  },
+  {
+    station: "Pelham Bay Park (6,6Exp)",
+    avgScore: 3037.275109170308,
+  },
+  {
+    station: "25th St (D,N,R)",
+    avgScore: 3036.8783783783779,
+  },
+  {
+    station: "Ave U (N)",
+    avgScore: 3022.3070175438606,
+  },
+  {
+    station: "W 8th St - NY Aquarium (F,Q)",
+    avgScore: 3020.3019607843148,
+  },
+  {
+    station: "Ocean Pkwy (Q)",
+    avgScore: 3018.4753363228692,
+  },
+  {
+    station: "Canarsie - Rockaway Pkwy (L)",
+    avgScore: 3009.9180327868844,
+  },
+  {
+    station: "Sutphin Blvd - Archer Av (E,J,Z)",
+    avgScore: 3005.3055555555552,
+  },
+  {
+    station: "Howard Beach - JFK Airport (A)",
+    avgScore: 2999.5140186915874,
+  },
+  {
+    station: "Grand Ave - Newtown (E,M,R)",
+    avgScore: 2993.553097345135,
+  },
+  {
+    station: "Ft Hamilton Pkwy (D)",
+    avgScore: 2988.91959798995,
+  },
+  {
+    station: "Parkchester (6,6Exp)",
+    avgScore: 2983.529702970297,
+  },
+  {
+    station: "Longwood Ave (6)",
+    avgScore: 2979.4713656387653,
+  },
+  {
+    station: "Ave X (F)",
+    avgScore: 2979.4326530612257,
+  },
+  {
+    station: "36th St (D,N,R)",
+    avgScore: 2975.6650246305421,
+  },
+  {
+    station: "75th St - Eldert Ln (J,Z)",
+    avgScore: 2974.9356435643581,
+  },
+  {
+    station: "Norwood - 205th St (D)",
+    avgScore: 2974.41592920354,
+  },
+  {
+    station: "Ave P (F)",
+    avgScore: 2960.6071428571436,
+  },
+  {
+    station: "Westchester Sq - E Tremont Ave (6,6Exp)",
+    avgScore: 2958.3004484304925,
+  },
+  {
+    station: "Nereid Ave (238 St) (5,2)",
+    avgScore: 2951.3271889400912,
+  },
+  {
+    station: "Zerega Ave (6,6Exp)",
+    avgScore: 2945.3146551724149,
+  },
+  {
+    station: "9th Ave (D)",
+    avgScore: 2939.7370689655158,
+  },
+  {
+    station: "Church Ave (5,2)",
+    avgScore: 2936.4596774193569,
+  },
+  {
+    station: "Mt Eden Ave (4)",
+    avgScore: 2930.5431472081209,
+  },
+  {
+    station: "Kew Gardens - Union Tpke (E,F)",
+    avgScore: 2928.9574468085107,
+  },
+  {
+    station: "18th Ave (F)",
+    avgScore: 2916.0292682926824,
+  },
+  {
+    station: "Kings Hwy (F)",
+    avgScore: 2908.3846153846171,
+  },
+  {
+    station: "Ft Hamilton Pkwy (N)",
+    avgScore: 2907.7392996108965,
+  },
+  {
+    station: "Pelham Pkwy (5,2)",
+    avgScore: 2903.0343347639487,
+  },
+  {
+    station: "Flushing Ave (J,M)",
+    avgScore: 2893.2535211267618,
+  },
+  {
+    station: "Beach 98th St (A,S)",
+    avgScore: 2887.7348837209315,
+  },
+  {
+    station: "Elder Ave (6)",
+    avgScore: 2881.8055555555538,
+  },
+  {
+    station: "St Lawrence Ave (6)",
+    avgScore: 2879.6633663366338,
+  },
+  {
+    station: "Kingston - Throop Aves (A,C)",
+    avgScore: 2871.82485875706,
+  },
+  {
+    station: "Beach 67th St (A)",
+    avgScore: 2858.0854700854707,
+  },
+  {
+    station: "President St (5,2)",
+    avgScore: 2856.2814070351774,
+  },
+  {
+    station: "Burnside Ave (4)",
+    avgScore: 2851.5405405405409,
+  },
+  {
+    station: "Kingsbridge Rd (4)",
+    avgScore: 2851.3201970443347,
+  },
+  {
+    station: "Jamaica - 179th St (F)",
+    avgScore: 2851.2600896860981,
+  },
+  {
+    station: "67th Ave (E,M,R)",
+    avgScore: 2848.3911111111106,
+  },
+  {
+    station: "Liberty Ave (A,C)",
+    avgScore: 2847.6291079812218,
+  },
+  {
+    station: "Brook Ave (6)",
+    avgScore: 2846.2803738317734,
+  },
+  {
+    station: "Gun Hill Rd (5)",
+    avgScore: 2845.9473684210529,
+  },
+  {
+    station: "Mosholu Pkwy (4)",
+    avgScore: 2840.5679999999998,
+  },
+  {
+    station: "Morris Park (5)",
+    avgScore: 2802.4834710743794,
+  },
+  {
+    station: "Castle Hill Ave (6,6Exp)",
+    avgScore: 2785.0676328502409,
+  },
+  {
+    station: "104th-102nd Sts (J,Z)",
+    avgScore: 2778.8009259259261,
+  },
+  {
+    station: "Woodlawn (4)",
+    avgScore: 2771.8702928870284,
+  },
+  {
+    station: "Rockaway Ave (4,3)",
+    avgScore: 2769.8119266055037,
+  },
+  {
+    station: "Beach 105th St (A,S)",
+    avgScore: 2759.2217194570148,
+  },
+  {
+    station: "Far Rockaway - Mott Ave (A)",
+    avgScore: 2743.3975903614455,
+  },
+  {
+    station: "Kingston Ave (4,3)",
+    avgScore: 2740.0731707317073,
+  },
+  {
+    station: "Eastchester - Dyre Ave (5)",
+    avgScore: 2737.2968036529674,
+  },
+  {
+    station: "75th Ave (E,F)",
+    avgScore: 2735.6515837104066,
+  },
+  {
+    station: "Bay 50th St (D)",
+    avgScore: 2733.9852941176468,
+  },
+  {
+    station: "Neck Rd (Q)",
+    avgScore: 2723.4891774891789,
+  },
+  {
+    station: "Beach 60th St (A)",
+    avgScore: 2719.0184331797223,
+  },
+  {
+    station: "20th Ave (N)",
+    avgScore: 2705.1249999999991,
+  },
+  {
+    station: "Beach 90th St (A,S)",
+    avgScore: 2701.406113537118,
+  },
+  {
+    station: "Neptune Ave (F)",
+    avgScore: 2688.3443396226417,
+  },
+  {
+    station: "Bedford Park Blvd - Lehman College (4)",
+    avgScore: 2681.72350230415,
+  },
+  {
+    station: "Euclid Ave (A,C)",
+    avgScore: 2669.8268398268415,
+  },
+  {
+    station: "Aqueduct Racetrack (A)",
+    avgScore: 2665.8857142857123,
+  },
+  {
+    station: "Sterling St (5,2)",
+    avgScore: 2644.180995475112,
+  },
+  {
+    station: "Ozone Park - Lefferts Blvd (A)",
+    avgScore: 2639.9102564102568,
+  },
+  {
+    station: "Beach 44th St (A)",
+    avgScore: 2632.3254716981128,
+  },
+  {
+    station: "Briarwood - Van Wyck Blvd (E,F)",
+    avgScore: 2621.4977578475332,
+  },
+  {
+    station: "111th St (J)",
+    avgScore: 2620.6026785714294,
+  },
+  {
+    station: "Van Siclen Ave (A,C)",
+    avgScore: 2614.7376237623762,
+  },
+  {
+    station: "Winthrop St (5,2)",
+    avgScore: 2588.2614678899067,
+  },
+  {
+    station: "Dyckman St (A)",
+    avgScore: 2586.8288288288281,
+  },
+  {
+    station: "121st St (J,Z)",
+    avgScore: 2571.9132420091328,
+  },
+  {
+    station: "Broad Channel (A,S)",
+    avgScore: 2569.4607843137255,
+  },
+  {
+    station: "Middletown Rd (6,6Exp)",
+    avgScore: 2567.27966101695,
+  },
+  {
+    station: "Beach 25th St (A)",
+    avgScore: 2552.6804979253097,
+  },
+  {
+    station: "Cypress Ave (6)",
+    avgScore: 2548.7543859649113,
+  },
+  {
+    station: "Gravesend - 86th St (N)",
+    avgScore: 2545.7881773399004,
+  },
+  {
+    station: "Grant Ave (A)",
+    avgScore: 2540.4588744588746,
+  },
+  {
+    station: "Gun Hill Rd (5,2)",
+    avgScore: 2535.8379629629653,
+  },
+  {
+    station: "Buhre Ave (6,6Exp)",
+    avgScore: 2520.9786324786323,
+  },
+  {
+    station: "Shepherd Ave (A,C)",
+    avgScore: 2517.4306930693078,
+  },
+  {
+    station: "20th Ave (D)",
+    avgScore: 2517.1256544502626,
+  },
+  {
+    station: "18th Ave (D)",
+    avgScore: 2517.1005917159782,
+  },
+  {
+    station: "45th St (N,R)",
+    avgScore: 2515.7307692307672,
+  },
+  {
+    station: "E 105th St (L)",
+    avgScore: 2507.1386138613848,
+  },
+  {
+    station: "8th Ave (N)",
+    avgScore: 2486.1488372093013,
+  },
+  {
+    station: "25th Ave (D)",
+    avgScore: 2485.7280701754394,
+  },
+  {
+    station: "Baychester Ave (5)",
+    avgScore: 2477.6086956521754,
+  },
+  {
+    station: "Saratoga Ave (4,3)",
+    avgScore: 2458.4881516587698,
+  },
+  {
+    station: "Intervale Ave (5,2)",
+    avgScore: 2428.6186046511621,
+  },
+  {
+    station: "Aqueduct - North Conduit Av (A)",
+    avgScore: 2420.8926829268275,
+  },
+  {
+    station: "New Lots Ave (4,3)",
+    avgScore: 2408.0042918454938,
+  },
+  {
+    station: "Beach 36th St (A)",
+    avgScore: 2365.7020202020208,
+  },
+  {
+    station: "18th Ave (N)",
+    avgScore: 2356.2206572769942,
+  },
+  {
+    station: "Newkirk Ave (5,2)",
+    avgScore: 2328.3453608247437,
+  },
+  {
+    station: "Burke Ave (5,2)",
+    avgScore: 2316.2047619047635,
+  },
+  {
+    station: "Kingsbridge Rd (B,D)",
+    avgScore: 2275.3024390243918,
+  },
+  {
+    station: "86th St (R)",
+    avgScore: 2262.0814479638007,
+  },
+  {
+    station: "Allerton Ave (5,2)",
+    avgScore: 2248.176470588236,
+  },
+  {
+    station: "55th St (D)",
+    avgScore: 2237.7625000000012,
+  },
+  {
+    station: "Pennsylvania Ave (4,3)",
+    avgScore: 2236.3349282296649,
+  },
+  {
+    station: "77th St (R)",
+    avgScore: 2191.9543378995436,
+  },
+  {
+    station: "Freeman St (5,2)",
+    avgScore: 2179.6788990825703,
+  },
+  {
+    station: "53rd St (N,R)",
+    avgScore: 2170.564655172413,
+  },
+  {
+    station: "Tremont Ave (B,D)",
+    avgScore: 2162.3618090452255,
+  },
+  {
+    station: "Sutter Ave - Rutland Road (4,3)",
+    avgScore: 2159.6173913043481,
+  },
+  {
+    station: "50th St (D)",
+    avgScore: 2148.1923076923063,
+  },
+  {
+    station: "Parsons Blvd (F)",
+    avgScore: 2133.7303921568632,
+  },
+  {
+    station: "Beverly Rd (5,2)",
+    avgScore: 2113.0312500000005,
+  },
+  {
+    station: "71st St (D)",
+    avgScore: 2078.2738589211608,
+  },
+  {
+    station: "Jackson Ave (5,2)",
+    avgScore: 2072.3571428571431,
+  },
+  {
+    station: "59th St (N,R)",
+    avgScore: 2066.1422764227632,
+  },
+  {
+    station: "Bedford Park Blvd (B,D)",
+    avgScore: 2060.6431535269712,
+  },
+  {
+    station: "Junius St (4,3)",
+    avgScore: 2054.0717488789242,
+  },
+  {
+    station: "Rockaway Blvd (A)",
+    avgScore: 2040.6517857142851,
+  },
+  {
+    station: "Sutphin Blvd (F)",
+    avgScore: 2040.533653846154,
+  },
+  {
+    station: "111th St (A)",
+    avgScore: 2024.7358490566046,
+  },
+  {
+    station: "Simpson St (5,2)",
+    avgScore: 1996.9901960784321,
+  },
+  {
+    station: "79th St (D)",
+    avgScore: 1961.4465116279082,
+  },
+  {
+    station: "Rockaway Ave (A,C)",
+    avgScore: 1957.9810426540284,
+  },
+  {
+    station: "Van Siclen Ave (4,3)",
+    avgScore: 1946.3298429319364,
+  },
+  {
+    station: "104th St (A)",
+    avgScore: 1888.7737556561092,
+  },
+  {
+    station: "80th St (A)",
+    avgScore: 1820.8903508771921,
+  },
+  {
+    station: "169th St (F)",
+    avgScore: 1819.5353535353534,
+  },
+  {
+    station: "88th St (A)",
+    avgScore: 1740.338028169014,
+  },
+  {
+    station: "Prospect Ave (5,2)",
+    avgScore: 976.4365482233502,
   },
 ];

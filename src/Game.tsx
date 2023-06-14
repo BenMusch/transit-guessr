@@ -306,10 +306,10 @@ function Instructions(props: { config: PlayableConfig }) {
       <div className="instructions-content">
         <h3>Instructions</h3>
         <p>
-          Click on the map to guess where the displayed {props.config.name} stop
-          is located. There will be 5 rounds. Each round has a maximum score of
-          5000 points, which are awarded based on how close your guess is to the
-          actual stop location.
+          Click on the map to guess where the displayed{" "}
+          {props.config.operatorName} stop is located. There will be 5 rounds.
+          Each round has a maximum score of 5000 points, which are awarded based
+          on how close your guess is to the actual stop location.
         </p>
         <div className="buttons buttons-hide">
           <button
@@ -363,7 +363,7 @@ function GameImpl(props: { config: PlayableConfig }) {
               setGame(newGame);
 
               tryToSaveFirebaseDoc(FirebaseCollection.GUESSES, {
-                operator: config.name,
+                operator: config.operatorName,
                 score: guessScore,
                 station: config.uniqueNameForStation(station as any),
                 loc: guessLoc,
@@ -377,7 +377,7 @@ function GameImpl(props: { config: PlayableConfig }) {
               addHighScore(score);
               tryToSaveFirebaseDoc(FirebaseCollection.SCORES, {
                 score: score,
-                operator: config.name,
+                operator: config.operatorName,
               });
               setGameOver(true);
             }}
@@ -407,6 +407,16 @@ function GameImpl(props: { config: PlayableConfig }) {
 }
 
 function GameComponent(props: { config: PlayableConfig }) {
+  console.log(
+    props.config.stations
+      .flatMap((station) => {
+        return station.lines.map(
+          (line) => `('${station.name}', '${line.line}')`
+        );
+      })
+      .join(",\n")
+  );
+
   return (
     <MapProvider>
       <GameImpl config={props.config} />

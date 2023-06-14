@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+const process = require("node:process");
+const fs = require("node:fs");
+
+function main() {
+  const infilePath = process.argv[2];
+  const outfilePath = process.argv[3];
+
+  const infileData = JSON.parse(fs.readFileSync(infilePath));
+
+  const geojsonData = {
+    type: "FeatureCollection",
+    features: [],
+  };
+
+  for (const data of infileData) {
+    const properties = {
+      station_name: data.station,
+      score: parseFloat(data.score),
+    };
+    for (const line of data.lines) {
+      properties[line] = true;
+    }
+
+    const guessFeature = {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [parseFloat(data.lng), parseFloat(data.lat)],
+      },
+      properties,
+    };
+
+    geojsonData.features.push(guessFeature);
+  }
+
+  fs.writeFileSync(outfilePath, JSON.stringify(geojsonData));
+}
+
+main();

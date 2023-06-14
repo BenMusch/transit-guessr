@@ -19,6 +19,12 @@ function StationGuessAnalysis(props: {
   const { config, station, avgScore, first, last, onNext, onPrev, onBack } =
     props;
 
+  const geojsonFilter = [
+    "==",
+    config.uniqueNameForStation(station),
+    ["get", "station_name"],
+  ];
+
   return (
     <>
       <header className="analysis-nav">
@@ -52,23 +58,18 @@ function StationGuessAnalysis(props: {
       {config.renderStationHeading(station)}
       <WrappedMap
         id="analysis"
+        geojsonFilter={geojsonFilter}
         initialViewState={config.initialMapState}
-        guessesSourceFile={`/geojson/${config
-          .uniqueNameForStation(station)
-          .replace(/[^\w\d]/g, "")}.geojson`}
+        guessesSourceFile={`/${config.operator}/guesses.geojson`}
         stationMarker={station.coordinates[0]!}
       />
     </>
   );
 }
 
-type GuessDataExport = { station: string; avgScore: number }[];
-
-function Analysis(props: {
-  config: AnalyzableConfig;
-  guessData: GuessDataExport;
-}) {
-  const { config, guessData } = props;
+function Analysis(props: { config: AnalyzableConfig }) {
+  const { config } = props;
+  const guessData = config.stationGuessData!;
   const { selectedIndex } = useParams();
   const navigate = useNavigate();
 
@@ -78,17 +79,16 @@ function Analysis(props: {
       station,
     ])
   );
-  console.log(stationsByFirebaseName);
 
   if (selectedIndex === null || selectedIndex === undefined) {
     return (
       <div className="main-container">
         <div className="inner-container inner-container-large">
           <div className="analysis-prelude">
-            <h1>NYCGuessr Data</h1>
+            <h1>{config.appName} Data</h1>
             <span>
-              View all of the guesses made in <Link to="/">nycguessr</Link> by
-              their station and score.
+              View all of the guesses made in{" "}
+              <Link to="/">{config.appName}</Link> by their station and score.
               <br />
               Haven't played yet? <Link to="/">Check it out now!</Link>
               <br />
@@ -127,7 +127,7 @@ function Analysis(props: {
                           navigate(`/data/${i}`);
                         }}
                       >
-                        {config.renderLines(station.lines, { small: true })}
+                        {config.renderLinesForDataView(station.lines)}
                       </td>
                       <td
                         onClick={() => {

@@ -5,7 +5,6 @@ export enum MbtaTrunkLine {
   BLUE = "blue",
   GREEN = "green",
   ORANGE = "orange",
-  SILVER = "silver",
 }
 
 export enum MbtaLineName {
@@ -18,11 +17,6 @@ export enum MbtaLineName {
   GREEN_D = "greenD",
   GREEN_E = "greenE",
   ORANGE = "orange",
-  SILVER_1 = "silver1",
-  SILVER_2 = "silver2",
-  SILVER_3 = "silver3",
-  SILVER_4 = "silver4",
-  SILVER_5 = "silver5",
 }
 
 export type MbtaLine = ILine<MbtaTrunkLine, MbtaLineName>;

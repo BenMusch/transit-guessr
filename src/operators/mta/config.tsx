@@ -1,14 +1,16 @@
-import { OperatorConfiguration } from "../types";
+import { OperatorConfiguration, Operator } from "../types";
 import { MtaTrunkLine, MtaLine, MtaLineName, MtaStation } from "./types";
-import { stations, lines, linesByTrunkLine } from "./data";
+import { stations, lines, linesByTrunkLine, stationGuessData } from "./data";
 import { MtaStationHeader } from "../../operator_components/mta/MtaStationHeader";
 import { MtaLineBadge } from "../../operator_components/mta/MtaLineBadge";
 import { MtaLinesRow } from "../../operator_components/mta/MtaLinesRow";
 
 const config: OperatorConfiguration<MtaTrunkLine, MtaLineName> = {
   stations,
-  name: "MTA",
+  operator: Operator.MTA,
+  operatorName: "MTA",
   domain: "nycguessr.com",
+  appName: "NYCGuessr",
   hasAnalysisPage: true,
   zeroPointDistanceInMeters: 20000,
   lines: Object.values(lines),
@@ -18,6 +20,7 @@ const config: OperatorConfiguration<MtaTrunkLine, MtaLineName> = {
     latitude: 40.73065,
     zoom: 9.25,
   },
+  stationGuessData,
   getColor: (t: MtaTrunkLine) => {
     return {
       [MtaTrunkLine.EIGHTH_AVENUE_IND]: "#0039a6",
@@ -52,11 +55,11 @@ const config: OperatorConfiguration<MtaTrunkLine, MtaLineName> = {
   renderStationHeading: (station: MtaStation) => {
     return <MtaStationHeader station={station} />;
   },
-  renderLine: (l, props) => {
-    return <MtaLineBadge line={l} {...props} />;
+  renderLineForAnalysisMapView: (l, props) => {
+    return <MtaLineBadge medium={true} greyscale={props.greyscale} line={l} />;
   },
-  renderLines: (l, props) => {
-    return <MtaLinesRow lines={l} small={props.small} />;
+  renderLinesForDataView: (ls) => {
+    return <MtaLinesRow lines={ls} small={true} />;
   },
 };
 

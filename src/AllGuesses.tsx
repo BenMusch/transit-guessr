@@ -25,7 +25,7 @@ function LineBadgeControl(props: {
   const { line, enabled, onChange, config } = props;
   return (
     <div className="line-badge-control" onClick={onChange}>
-      {config.renderLine(line, { medium: true, greyscale: !enabled })}
+      {config.renderLineForAnalysisMapView(line, { greyscale: !enabled })}
     </div>
   );
 }
@@ -65,9 +65,9 @@ function LineBadgeControlRow(props: {
           })}
       </div>
       <div className="line-badge-toggles">
-        <span onClick={onHideRow}>None</span>
+        {lines.length > 1 && <span onClick={onHideRow}>None</span>}
         <span onClick={onOnlyRow}>Only</span>
-        <span onClick={onAllRow}>All</span>
+        {lines.length > 1 && <span onClick={onAllRow}>All</span>}
       </div>
     </div>
   );
@@ -79,7 +79,11 @@ function TransitLinesOverlay(props: {
 }) {
   const { enabledLines, config } = props;
   return (
-    <Source id="routes" type="geojson" data="/geojson/routes.geojson">
+    <Source
+      id="routes"
+      type="geojson"
+      data={`/${config.operator}/routes.geojson`}
+    >
       {Object.entries(config.linesByTrunkLine).map(([trunkLine, lines]) => {
         // dumb way to get the color for the trunk line since it's embedded on
         // the
@@ -198,18 +202,22 @@ function GuessMap(props: {
 
   return (
     <Map
-      initialViewState={INITIAL_MAP_STATE}
+      initialViewState={config.initialMapState}
       maxZoom={12}
       style={{ height: 800, width: 800 }}
       mapStyle={mapStyle as MapboxStyle}
     >
-      <Source type="geojson" data="/geojson/guesses.geojson">
+      <Source type="geojson" data={`/${config.operator}/guesses.geojson`}>
         {Object.entries(config.linesByTrunkLine).map(([trunkLine, lines]) => {
           const filters = lines
             .filter(
               (line) => !line.line.includes("Express") && enabledLines.has(line)
             )
-            .map((line) => ["has", `${line.displayName}`]);
+            .map((line) => [
+              "any",
+              ["has", line.line],
+              ["has", line.displayName],
+            ]);
 
           // When fewer lines are enabled, there's less color conflict, so
           // higher opacity is better
@@ -274,10 +282,10 @@ export default function AllGuesses(props: { config: AnalyzableConfig }) {
 
         <div className="controls-container">
           <div className="controls-header">
-            <h1>NYCGuessr Map</h1>
+            <h1>{config.appName} Map</h1>
             <span>
-              The NYC Subway map according to your guesses in{" "}
-              <Link to="/">nycguessr</Link>.
+              The {config.operatorName} map according to your guesses in{" "}
+              <Link to="/">config.appName</Link>.
               <br />
               Haven't played yet? <Link to="/">Check it out now!</Link>
               <br />

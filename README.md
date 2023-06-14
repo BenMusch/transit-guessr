@@ -1,4 +1,4 @@
-# NYC Guessr
+# Transit Guessr
 
 <center><img width="400px" src="public/screenshot.png"/></center>
 
