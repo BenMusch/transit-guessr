@@ -69,11 +69,9 @@ function StationGuessAnalysis(props: {
 
 type GuessDataExport = { station: string; avgScore: number }[];
 
-function Analysis(props: {
-  config: AnalyzableConfig;
-  guessData: GuessDataExport;
-}) {
-  const { config, guessData } = props;
+function Analysis(props: { config: AnalyzableConfig }) {
+  const { config } = props;
+  const guessData = config.stationGuessData!;
   const { selectedIndex } = useParams();
   const navigate = useNavigate();
 
@@ -83,7 +81,6 @@ function Analysis(props: {
       station,
     ])
   );
-  console.log(stationsByFirebaseName);
 
   if (selectedIndex === null || selectedIndex === undefined) {
     return (

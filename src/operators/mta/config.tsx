@@ -1,6 +1,6 @@
 import { OperatorConfiguration } from "../types";
 import { MtaTrunkLine, MtaLine, MtaLineName, MtaStation } from "./types";
-import { stations, lines, linesByTrunkLine } from "./data";
+import { stations, lines, linesByTrunkLine, stationGuessData } from "./data";
 import { MtaStationHeader } from "../../operator_components/mta/MtaStationHeader";
 import { MtaLineBadge } from "../../operator_components/mta/MtaLineBadge";
 import { MtaLinesRow } from "../../operator_components/mta/MtaLinesRow";
@@ -18,6 +18,7 @@ const config: OperatorConfiguration<MtaTrunkLine, MtaLineName> = {
     latitude: 40.73065,
     zoom: 9.25,
   },
+  stationGuessData,
   getColor: (t: MtaTrunkLine) => {
     return {
       [MtaTrunkLine.EIGHTH_AVENUE_IND]: "#0039a6",

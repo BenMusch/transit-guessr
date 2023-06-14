@@ -407,6 +407,16 @@ function GameImpl(props: { config: PlayableConfig }) {
 }
 
 function GameComponent(props: { config: PlayableConfig }) {
+  console.log(
+    props.config.stations
+      .flatMap((station) => {
+        return station.lines.map(
+          (line) => `('${station.name}', '${line.line}')`
+        );
+      })
+      .join(",\n")
+  );
+
   return (
     <MapProvider>
       <GameImpl config={props.config} />

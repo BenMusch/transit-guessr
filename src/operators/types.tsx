@@ -53,6 +53,7 @@ export interface OperatorConfiguration<
   stations: IStation<TrunkLine, LineNameT>[];
   lines: ILine<TrunkLine, LineNameT>[];
   linesByTrunkLine: { [key in TrunkLine]: ILine<TrunkLine, LineNameT>[] };
+  stationGuessData: { station: string, avgScore: number }[] | undefined;
   /**
    * Trunk lines usually have a specific color associated with them
    */

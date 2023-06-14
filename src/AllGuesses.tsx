@@ -198,18 +198,21 @@ function GuessMap(props: {
 
   return (
     <Map
-      initialViewState={INITIAL_MAP_STATE}
+      initialViewState={config.initialMapState}
       maxZoom={12}
       style={{ height: 800, width: 800 }}
       mapStyle={mapStyle as MapboxStyle}
     >
-      <Source type="geojson" data="/geojson/guesses.geojson">
+      <Source
+        type="geojson"
+        data={`/${config.name.toLowerCase()}/guesses.geojson`}
+      >
         {Object.entries(config.linesByTrunkLine).map(([trunkLine, lines]) => {
           const filters = lines
             .filter(
               (line) => !line.line.includes("Express") && enabledLines.has(line)
             )
-            .map((line) => ["has", `${line.displayName}`]);
+            .map((line) => ["has", `${line.line}`]);
 
           // When fewer lines are enabled, there's less color conflict, so
           // higher opacity is better

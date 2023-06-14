@@ -7,7 +7,6 @@ import * as Sentry from "@sentry/react";
 import { Routes, BrowserRouter, Route } from "react-router-dom";
 import type { AnalyzableConfig } from "./operators/config";
 import config from "./operators/config";
-import { STATION_GUESS_DATA } from "./data/guesses";
 import type { FirebaseOptions } from "firebase/app";
 
 declare global {
@@ -48,23 +47,13 @@ function App() {
         {configToPlay.hasAnalysisPage && (
           <Route
             path="data"
-            element={
-              <Analysis
-                config={configToPlay as AnalyzableConfig}
-                guessData={STATION_GUESS_DATA}
-              />
-            }
+            element={<Analysis config={configToPlay as AnalyzableConfig} />}
           />
         )}
         {configToPlay.hasAnalysisPage && (
           <Route
             path="data/:selectedIndex"
-            element={
-              <Analysis
-                config={configToPlay as AnalyzableConfig}
-                guessData={STATION_GUESS_DATA}
-              />
-            }
+            element={<Analysis config={configToPlay as AnalyzableConfig} />}
           />
         )}
         <Route index element={<Game config={configToPlay} />} />

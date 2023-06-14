@@ -1,7 +1,7 @@
 import { OperatorConfiguration } from "../types";
 import { MbtaTrunkLine, MbtaLineName } from "./types";
 import type { MbtaStation, MbtaLine } from "./types";
-import { stations, lines, linesByTrunkLine } from "./data";
+import { stationGuessData, stations, lines, linesByTrunkLine } from "./data";
 import { MbtaStationHeader } from "../../operator_components/mbta/MbtaStationHeader";
 
 class MbtaConfig implements OperatorConfiguration<MbtaTrunkLine, MbtaLineName> {
@@ -11,12 +11,13 @@ class MbtaConfig implements OperatorConfiguration<MbtaTrunkLine, MbtaLineName> {
   zeroPointDistanceInMeters = 15000;
   lines = Object.values(lines);
   linesByTrunkLine = linesByTrunkLine as { [k in MbtaTrunkLine]: MbtaLine[] };
-  hasAnalysisPage = false;
+  hasAnalysisPage = true;
   initialMapState = {
     longitude: -71.0593,
     latitude: 42.35,
     zoom: 10,
   };
+  stationGuessData = stationGuessData;
 
   getColor(t: MbtaTrunkLine) {
     switch (t) {
@@ -50,12 +51,12 @@ class MbtaConfig implements OperatorConfiguration<MbtaTrunkLine, MbtaLineName> {
     props: { greyscale?: boolean; medium?: boolean; small?: boolean }
   ) {
     // TODO: Implement for analysis pages
-    return "Line!";
+    return l.line;
   }
 
-  renderLines(l: MbtaLine[], props: { small?: boolean }) {
+  renderLines(ls: MbtaLine[], props: { small?: boolean }) {
     // TODO: Implement for analysis pages
-    return "Line!";
+    return ls.map((l) => l.line).join(", ");
   }
 }
 
