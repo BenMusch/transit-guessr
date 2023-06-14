@@ -19,6 +19,12 @@ function StationGuessAnalysis(props: {
   const { config, station, avgScore, first, last, onNext, onPrev, onBack } =
     props;
 
+  const geojsonFilter = [
+    "==",
+    config.uniqueNameForStation(station),
+    ["get", "station_name"],
+  ];
+
   return (
     <>
       <header className="analysis-nav">
@@ -52,10 +58,9 @@ function StationGuessAnalysis(props: {
       {config.renderStationHeading(station)}
       <WrappedMap
         id="analysis"
+        geojsonFilter={geojsonFilter}
         initialViewState={config.initialMapState}
-        guessesSourceFile={`/geojson/${config
-          .uniqueNameForStation(station)
-          .replace(/[^\w\d]/g, "")}.geojson`}
+        guessesSourceFile={`/${config.name.toLowerCase()}/guesses.geojson`}
         stationMarker={station.coordinates[0]!}
       />
     </>

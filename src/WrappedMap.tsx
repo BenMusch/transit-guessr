@@ -4,15 +4,20 @@ import { Map, Marker, Source, Layer } from "react-map-gl";
 import type { MapboxStyle } from "react-map-gl";
 import mapStyle from "./map_style";
 
-function GuessDistributionOverlay(props: { sourceFile: string }) {
-  const { sourceFile } = props;
+function GuessDistributionOverlay(props: {
+  sourceFile: string;
+  geojsonFilter?: any[];
+}) {
+  const { sourceFile, geojsonFilter } = props;
+
+  const filters = geojsonFilter ?? ["has", "score"];
 
   return (
     <Source type="geojson" data={sourceFile}>
       <Layer
         id="clusters"
         type="circle"
-        filter={["has", "score"]}
+        filter={filters}
         paint={{
           "circle-color": [
             "rgb",
@@ -32,6 +37,7 @@ export function WrappedMap(props: {
   id: string;
   guessMarker?: Coordinate | null;
   guessesSourceFile?: string | null;
+  geojsonFilter?: any[];
   guessScore?: number | null;
   errorMsg?: string | null;
   stationMarker?: Coordinate | null;
@@ -40,6 +46,7 @@ export function WrappedMap(props: {
 }) {
   const {
     guessesSourceFile,
+    geojsonFilter,
     id,
     guessMarker,
     stationMarker,
@@ -74,7 +81,10 @@ export function WrappedMap(props: {
       {guessScore && <div className="score-overlay">Score: {guessScore}</div>}
       {errorMsg && <div className="error-overlay">Error: {errorMsg}</div>}
       {guessesSourceFile && (
-        <GuessDistributionOverlay sourceFile={guessesSourceFile} />
+        <GuessDistributionOverlay
+          geojsonFilter={geojsonFilter}
+          sourceFile={guessesSourceFile}
+        />
       )}
     </Map>
   );
