@@ -87,8 +87,8 @@ function Analysis(props: { config: AnalyzableConfig }) {
           <div className="analysis-prelude">
             <h1>{config.appName} Data</h1>
             <span>
-              View all of the guesses made in <Link to="/">nycguessr</Link> by
-              their station and score.
+              View all of the guesses made in{" "}
+              <Link to="/">{config.appName}</Link> by their station and score.
               <br />
               Haven't played yet? <Link to="/">Check it out now!</Link>
               <br />
