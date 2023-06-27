@@ -92,7 +92,7 @@ function TransitLinesOverlay(props: {
             (line) => !line.line.includes("Express") && enabledLines.has(line)
           )
           .map((line) => {
-            return ["in", `${line.displayName}`, ["get", "name"]];
+            return ["==", `${line.displayName}`, ["get", "name"]];
           });
         const filters = [
           "all",
@@ -285,7 +285,7 @@ export default function AllGuesses(props: { config: AnalyzableConfig }) {
             <h1>{config.appName} Map</h1>
             <span>
               The {config.operatorName} map according to your guesses in{" "}
-              <Link to="/">config.appName</Link>.
+              <Link to="/">{config.appName}</Link>.
               <br />
               Haven't played yet? <Link to="/">Check it out now!</Link>
               <br />

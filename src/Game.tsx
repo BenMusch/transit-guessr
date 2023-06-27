@@ -12,6 +12,8 @@ import { FirebaseCollection, tryToSaveFirebaseDoc } from "./firebase";
 const HIGH_SCORES_KEY = "highScores";
 const SEEN_INSTRUCTIONS_KEY = "seenInstructions";
 
+let localStorageFailed = false;
+
 function shareableGame(
   game: Game,
   score: number,
@@ -52,6 +54,7 @@ function getHighScores(): number[] {
     );
     return highScores.map((score: string) => parseInt(score));
   } catch {
+    localStorageFailed = true;
     console.error("high score load error");
     return [];
   }
@@ -60,18 +63,30 @@ function getHighScores(): number[] {
 function addHighScore(score: number): void {
   let curScores = [...getHighScores(), score];
   let sortedScores = curScores.sort((a, b) => b - a);
-  localStorage.setItem(
-    HIGH_SCORES_KEY,
-    JSON.stringify(sortedScores.slice(0, 5))
-  );
+  try {
+    localStorage.setItem(
+      HIGH_SCORES_KEY,
+      JSON.stringify(sortedScores.slice(0, 5))
+    );
+  } catch {
+    localStorageFailed = true;
+  }
 }
 
 function markInstructionsSeen() {
-  localStorage.setItem(SEEN_INSTRUCTIONS_KEY, "1");
+  try {
+    localStorage.setItem(SEEN_INSTRUCTIONS_KEY, "1");
+  } catch {
+    localStorageFailed = true;
+  }
 }
 
 function hasSeenInstruction() {
-  return localStorage.getItem(SEEN_INSTRUCTIONS_KEY) !== null;
+  try {
+    return localStorage.getItem(SEEN_INSTRUCTIONS_KEY) !== null;
+  } catch {
+    localStorageFailed = true;
+  }
 }
 
 function GameplayMap(props: {
@@ -197,6 +212,12 @@ function GameReview(props: {
             </div>
           );
         })}
+        {localStorageFailed && (
+          <span>
+            Cannot load/save high scores in the embedded version of the game.
+            Try visiting the website directly
+          </span>
+        )}
       </div>
     </>
   );
