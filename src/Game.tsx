@@ -149,7 +149,7 @@ function GameReview(props: {
         <h2 className="final-score">Score: {score}</h2>
       </div>
       <h2 className="new-high-score">
-        {highScores.length == 0 || score >= highScores[0]
+        {highScores.length === 0 || score >= highScores[0]
           ? "New high score!"
           : `Best score: ${highScores[0]}`}
       </h2>
