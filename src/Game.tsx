@@ -151,7 +151,7 @@ function GameReview(props: {
       <h2 className="new-high-score">
         {highScores.length === 0 || score >= highScores[0]
           ? "New high score!"
-          : `Best score: ${highScores[0]}`}
+          : ``}
       </h2>
       <div className="buttons">
         <button
