@@ -263,6 +263,13 @@ button.analysis-nav-link:disabled {
   font-size: 2em;
 }
 
+.new-high-score {
+  text-align: center;
+  font-family: "Arial Black", "Helvetica", sans-serif;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
 .high-scores {
   background-color: rgb(15 23 42);
   padding: 1em;
