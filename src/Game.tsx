@@ -148,11 +148,9 @@ function GameReview(props: {
       <div className="final-score-container">
         <h2 className="final-score">Score: {score}</h2>
       </div>
-      <h2 className="new-high-score">
-        {highScores.length === 0 || score >= highScores[0]
-          ? "New high score!"
-          : ``}
-      </h2>
+      {highScores.length === 0 || score >= highScores[0] ? (
+        <h2 className="new-high-score">New high score!</h2>
+      ) : null}
       <div className="buttons">
         <button
           onClick={() => {
