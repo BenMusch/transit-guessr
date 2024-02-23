@@ -28,20 +28,17 @@ function shareableGame(
       config.zeroPointDistanceInMeters
     ).score;
 
-    const numStars = Math.ceil(stationScore / 1000);
+    const scoreBrackets = [0, 1000, 2500, 4000, 4750];
+    const numStars = _.sortedLastIndex(scoreBrackets, stationScore);
     let stationScoreEmojis =
       _.repeat("⭐️", numStars) + _.repeat("◽️", 5 - numStars);
-
-    if (stationScore > 4800) {
-      stationScoreEmojis = "🌟🌟🌟🌟🌟";
-    }
 
     return `${stationScoreEmojis} ${config.shortNameForStation(
       station as any
     )}`;
   });
   return `
-${score.toLocaleString()} / 25,000
+${`My score: ${score.toLocaleString()} / 25,000`}
 ${guessStrs.join("\n")}
 ${config.domain}
     `.trim();
@@ -151,6 +148,9 @@ function GameReview(props: {
       <div className="final-score-container">
         <h2 className="final-score">Score: {score}</h2>
       </div>
+      {highScores.length === 0 || score >= highScores[0] ? (
+        <h2 className="new-high-score">New high score!</h2>
+      ) : null}
       <div className="buttons">
         <button
           onClick={() => {
