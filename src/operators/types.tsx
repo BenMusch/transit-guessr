@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 export enum Operator {
   MTA = "mta",
   MBTA = "mbta",
+  CTA = "cta",
 }
 
 // long/lat pair
