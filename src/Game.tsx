@@ -238,6 +238,8 @@ function ActiveGame(props: {
   const [guess, setGuess] = useState<Coordinate | null>(null);
   const [confirmed, setConfirmed] = useState(false);
 
+  console.log(game)
+
   return (
     <>
       <header className="stats">
