@@ -17,7 +17,7 @@ let localStorageFailed = false;
 function shareableGame(
   game: Game,
   score: number,
-  config: PlayableConfig
+  config: PlayableConfig,
 ): string {
   const guessStrs = [0, 1, 2, 3, 4].map((turn) => {
     const guess = game.guesses[turn];
@@ -25,7 +25,7 @@ function shareableGame(
     const stationScore = calculateScore(
       guess!,
       station,
-      config.zeroPointDistanceInMeters
+      config.zeroPointDistanceInMeters,
     ).score;
 
     const scoreBrackets = [0, 1000, 2500, 4000, 4750];
@@ -34,7 +34,7 @@ function shareableGame(
       _.repeat("⭐️", numStars) + _.repeat("◽️", 5 - numStars);
 
     return `${stationScoreEmojis} ${config.shortNameForStation(
-      station as any
+      station as any,
     )}`;
   });
   return `
@@ -47,7 +47,7 @@ ${config.domain}
 function getHighScores(): number[] {
   try {
     const highScores = JSON.parse(
-      localStorage.getItem(HIGH_SCORES_KEY) ?? "[]"
+      localStorage.getItem(HIGH_SCORES_KEY) ?? "[]",
     );
     return highScores.map((score: string) => parseInt(score));
   } catch {
@@ -63,7 +63,7 @@ function addHighScore(score: number): void {
   try {
     localStorage.setItem(
       HIGH_SCORES_KEY,
-      JSON.stringify(sortedScores.slice(0, 5))
+      JSON.stringify(sortedScores.slice(0, 5)),
     );
   } catch {
     localStorageFailed = true;
@@ -129,7 +129,7 @@ function GameReview(props: {
   const guessScore = calculateScore(
     guess!,
     station,
-    config.zeroPointDistanceInMeters
+    config.zeroPointDistanceInMeters,
   );
   const mapRef = useMap();
   const resetView = () => {
@@ -238,7 +238,7 @@ function ActiveGame(props: {
   const [guess, setGuess] = useState<Coordinate | null>(null);
   const [confirmed, setConfirmed] = useState(false);
 
-  console.log(game)
+  console.log(game);
 
   return (
     <>
@@ -280,9 +280,9 @@ function ActiveGame(props: {
                 calculateScore(
                   guess!,
                   station,
-                  config.zeroPointDistanceInMeters
+                  config.zeroPointDistanceInMeters,
                 ).score,
-                guess!
+                guess!,
               );
               setConfirmed(true);
             }}
@@ -434,10 +434,10 @@ function GameComponent(props: { config: PlayableConfig }) {
     props.config.stations
       .flatMap((station) => {
         return station.lines.map(
-          (line) => `('${station.name}', '${line.line}')`
+          (line) => `('${station.name}', '${line.line}')`,
         );
       })
-      .join(",\n")
+      .join(",\n"),
   );
 
   return (

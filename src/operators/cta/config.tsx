@@ -63,6 +63,6 @@ class CtaConfig implements OperatorConfiguration<CtaTrunkLine, CtaLineName> {
   }
 }
 
-
-const config: OperatorConfiguration<CtaTrunkLine, CtaLineName> = new CtaConfig();
+const config: OperatorConfiguration<CtaTrunkLine, CtaLineName> =
+  new CtaConfig();
 export default config;

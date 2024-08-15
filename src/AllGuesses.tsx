@@ -89,7 +89,7 @@ function TransitLinesOverlay(props: {
         // the
         const lineFilters = lines
           .filter(
-            (line) => !line.line.includes("Express") && enabledLines.has(line)
+            (line) => !line.line.includes("Express") && enabledLines.has(line),
           )
           .map((line) => {
             return ["==", `${line.displayName}`, ["get", "name"]];
@@ -211,7 +211,8 @@ function GuessMap(props: {
         {Object.entries(config.linesByTrunkLine).map(([trunkLine, lines]) => {
           const filters = lines
             .filter(
-              (line) => !line.line.includes("Express") && enabledLines.has(line)
+              (line) =>
+                !line.line.includes("Express") && enabledLines.has(line),
             )
             .map((line) => [
               "any",
@@ -232,7 +233,7 @@ function GuessMap(props: {
               filter={["any", ...filters]}
               paint={{
                 "circle-color": config.getColor(
-                  trunkLine as AnalyzableTrunkLine
+                  trunkLine as AnalyzableTrunkLine,
                 ),
                 "circle-radius": [
                   "interpolate",
@@ -326,7 +327,7 @@ export default function AllGuesses(props: { config: AnalyzableConfig }) {
                     }}
                   />
                 );
-              }
+              },
             )}
           </div>
           <div className="show-lines-control">

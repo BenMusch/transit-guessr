@@ -46,7 +46,7 @@ export const lines = {
 
 type MbtaTrunkLineMapping = { [k in MbtaTrunkLine]: MbtaLine[] };
 export const linesByTrunkLine: MbtaTrunkLineMapping = Object.values(
-  lines
+  lines,
 ).reduce((acc: MbtaTrunkLineMapping, cur: MbtaLine) => {
   if (acc[cur.trunkLine] === undefined) {
     acc[cur.trunkLine] = [];
@@ -1233,7 +1233,7 @@ console.log(
   JSON.stringify(
     Object.values(lines).map((line) => {
       const thisLineStations = stations.filter(
-        (station) => station.lines.indexOf(line) >= 0
+        (station) => station.lines.indexOf(line) >= 0,
       );
       const coords = thisLineStations
         .map((st) => st.coordinates[0]!)
@@ -1248,6 +1248,6 @@ console.log(
           name: line.displayName,
         },
       };
-    })
-  )
+    }),
+  ),
 );

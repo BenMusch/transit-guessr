@@ -44,31 +44,15 @@ export const lines = {
 };
 
 export const linesByTrunkLine: { [k in CtaTrunkLine]: CtaLine[] } = {
-  [CtaTrunkLine.BLUE]: [
-    lines[CtaTrunkLine.BLUE]
-  ],
-  [CtaTrunkLine.BROWN]: [
-    lines[CtaTrunkLine.BROWN]
-  ],
-  [CtaTrunkLine.GREEN]: [
-    lines[CtaTrunkLine.GREEN]
-  ],
-  [CtaTrunkLine.ORANGE]: [
-    lines[CtaTrunkLine.ORANGE]
-  ],
-  [CtaTrunkLine.PINK]: [
-    lines[CtaTrunkLine.PINK]
-  ],
-  [CtaTrunkLine.PURPLE]: [
-    lines[CtaTrunkLine.PURPLE]
-  ],
-  [CtaTrunkLine.RED]: [
-    lines[CtaTrunkLine.RED]
-  ],
-  [CtaTrunkLine.YELLOW]: [
-    lines[CtaTrunkLine.YELLOW]
-  ],
-}
+  [CtaTrunkLine.BLUE]: [lines[CtaTrunkLine.BLUE]],
+  [CtaTrunkLine.BROWN]: [lines[CtaTrunkLine.BROWN]],
+  [CtaTrunkLine.GREEN]: [lines[CtaTrunkLine.GREEN]],
+  [CtaTrunkLine.ORANGE]: [lines[CtaTrunkLine.ORANGE]],
+  [CtaTrunkLine.PINK]: [lines[CtaTrunkLine.PINK]],
+  [CtaTrunkLine.PURPLE]: [lines[CtaTrunkLine.PURPLE]],
+  [CtaTrunkLine.RED]: [lines[CtaTrunkLine.RED]],
+  [CtaTrunkLine.YELLOW]: [lines[CtaTrunkLine.YELLOW]],
+};
 
 export const stations: CtaStation[] = [
   {
@@ -133,7 +117,7 @@ export const stations: CtaStation[] = [
       lines[CtaLineName.RED],
       lines[CtaLineName.YELLOW],
       lines[CtaLineName.PURPLE],
-    ]
+    ],
   },
   {
     coordinates: [[-87.6690978871949, 42.0158840559435]],
@@ -162,7 +146,7 @@ export const stations: CtaStation[] = [
       lines[CtaLineName.BROWN],
       lines[CtaLineName.ORANGE],
       lines[CtaLineName.PINK],
-      lines[CtaLineName.PURPLE], 
+      lines[CtaLineName.PURPLE],
     ],
   },
   {
@@ -178,10 +162,7 @@ export const stations: CtaStation[] = [
   {
     coordinates: [[-87.6265956348053, 41.8674128115991]],
     name: "Roosevelt",
-    lines: [
-      lines[CtaLineName.ORANGE],
-      lines[CtaLineName.GREEN],
-    ],
+    lines: [lines[CtaLineName.ORANGE], lines[CtaLineName.GREEN]],
   },
   {
     coordinates: [[-87.6314180458674, 41.9039281707863]],
@@ -241,10 +222,7 @@ export const stations: CtaStation[] = [
   {
     coordinates: [[-87.6531366193255, 41.9327393626827]],
     name: "Diversey",
-    lines: [
-      lines[CtaLineName.BROWN],
-      lines[CtaLineName.PURPLE],
-    ]
+    lines: [lines[CtaLineName.BROWN], lines[CtaLineName.PURPLE]],
   },
   {
     coordinates: [[-87.6749615140804, 41.9545310037213]],
@@ -289,16 +267,13 @@ export const stations: CtaStation[] = [
       lines[CtaLineName.ORANGE],
       lines[CtaLineName.PINK],
       lines[CtaLineName.PURPLE],
-      lines[CtaLineName.GREEN], 
-    ] 
+      lines[CtaLineName.GREEN],
+    ],
   },
   {
     coordinates: [[-87.6339791124125, 41.8889757890646]],
     name: "Merchandise Mart",
-    lines: [
-      lines[CtaLineName.BROWN],
-      lines[CtaLineName.PURPLE],
-    ] 
+    lines: [lines[CtaLineName.BROWN], lines[CtaLineName.PURPLE]],
   },
   {
     coordinates: [[-87.6281821037464, 41.8966790697197]],
@@ -343,10 +318,7 @@ export const stations: CtaStation[] = [
   {
     coordinates: [[-87.652650066547, 41.9182244273074]],
     name: "Armitage",
-    lines: [
-      lines[CtaLineName.BROWN],
-      lines[CtaLineName.PURPLE], 
-    ]
+    lines: [lines[CtaLineName.BROWN], lines[CtaLineName.PURPLE]],
   },
   {
     coordinates: [[-87.6585357313285, 41.9734611912188]],
@@ -362,11 +334,10 @@ export const stations: CtaStation[] = [
     coordinates: [[-87.6338592813957, 41.8827028726792]],
     name: "Washington/Wells",
     lines: [
-      
       lines[CtaLineName.BROWN],
       lines[CtaLineName.ORANGE],
       lines[CtaLineName.PINK],
-      lines[CtaLineName.PURPLE], 
+      lines[CtaLineName.PURPLE],
     ],
   },
   {
@@ -383,7 +354,7 @@ export const stations: CtaStation[] = [
       lines[CtaLineName.PINK],
       lines[CtaLineName.PURPLE],
       lines[CtaLineName.GREEN],
-    ]
+    ],
   },
   {
     coordinates: [[-87.6274848664284, 41.8740470971052]],
@@ -443,10 +414,7 @@ export const stations: CtaStation[] = [
   {
     coordinates: [[-87.6521337492022, 41.8855846423837]],
     name: "Morgan",
-    lines: [
-      lines[CtaLineName.GREEN],
-      lines[CtaLineName.PINK],
-    ],
+    lines: [lines[CtaLineName.GREEN], lines[CtaLineName.PINK]],
   },
   {
     coordinates: [[-87.6528715990472, 41.9250592289658]],
@@ -454,16 +422,13 @@ export const stations: CtaStation[] = [
     lines: [
       lines[CtaLineName.RED],
       lines[CtaLineName.BROWN],
-      lines[CtaLineName.PURPLE]
-    ]  
+      lines[CtaLineName.PURPLE],
+    ],
   },
   {
     coordinates: [[-87.6532722125531, 41.9360404649145]],
     name: "Wellington",
-    lines: [
-      lines[CtaLineName.BROWN],
-      lines[CtaLineName.PURPLE],
-    ]
+    lines: [lines[CtaLineName.BROWN], lines[CtaLineName.PURPLE]],
   },
   {
     coordinates: [[-87.6190415217967, 41.8164710665178]],
@@ -488,16 +453,13 @@ export const stations: CtaStation[] = [
       lines[CtaLineName.ORANGE],
       lines[CtaLineName.PINK],
       lines[CtaLineName.PURPLE],
-      lines[CtaLineName.GREEN], 
-    ]
+      lines[CtaLineName.GREEN],
+    ],
   },
   {
     coordinates: [[-87.6359524105505, 41.8967820282575]],
     name: "Chicago",
-    lines: [
-      lines[CtaLineName.BROWN], 
-      lines[CtaLineName.PURPLE]
-    ],
+    lines: [lines[CtaLineName.BROWN], lines[CtaLineName.PURPLE]],
   },
   {
     coordinates: [[-87.9018542401251, 41.9788845945215]],
@@ -556,7 +518,7 @@ export const stations: CtaStation[] = [
       lines[CtaLineName.RED],
       lines[CtaLineName.BROWN],
       lines[CtaLineName.PURPLE],
-    ] 
+    ],
   },
   {
     coordinates: [[-87.6751711621703, 41.9617595767203]],
@@ -566,10 +528,7 @@ export const stations: CtaStation[] = [
   {
     coordinates: [[-87.6577398122228, 41.9642620267585]],
     name: "Wilson",
-    lines: [
-      lines[CtaLineName.PURPLE],
-      lines[CtaLineName.RED], 
-    ],
+    lines: [lines[CtaLineName.PURPLE], lines[CtaLineName.RED]],
   },
   {
     coordinates: [[-87.6258872185329, 41.8316858675362]],
@@ -579,10 +538,7 @@ export const stations: CtaStation[] = [
   {
     coordinates: [[-87.6417770582394, 41.8857112779315]],
     name: "Clinton",
-    lines: [
-      lines[CtaLineName.GREEN],
-      lines[CtaLineName.PINK]
-    ] 
+    lines: [lines[CtaLineName.GREEN], lines[CtaLineName.PINK]],
   },
   {
     coordinates: [[-87.6308917692326, 41.885744841126]],
@@ -594,7 +550,7 @@ export const stations: CtaStation[] = [
       lines[CtaLineName.PURPLE],
       lines[CtaLineName.GREEN],
       lines[CtaLineName.BLUE],
-    ]
+    ],
   },
   {
     coordinates: [[-87.8593935296364, 41.9835151466621]],
@@ -664,10 +620,7 @@ export const stations: CtaStation[] = [
   {
     coordinates: [[-87.6393079203776, 41.9104170389223]],
     name: "Sedgwick",
-    lines: [
-      lines[CtaLineName.BROWN],
-      lines[CtaLineName.PURPLE],
-    ] 
+    lines: [lines[CtaLineName.BROWN], lines[CtaLineName.PURPLE]],
   },
   {
     coordinates: [[-87.8173235836912, 41.8742651538007]],
@@ -756,7 +709,7 @@ export const stations: CtaStation[] = [
       lines[CtaLineName.BROWN],
       lines[CtaLineName.ORANGE],
       lines[CtaLineName.PINK],
-      lines[CtaLineName.PURPLE]
+      lines[CtaLineName.PURPLE],
     ],
   },
   {
@@ -832,10 +785,7 @@ export const stations: CtaStation[] = [
   {
     coordinates: [[-87.666956698087, 41.8853192483664]],
     name: "Ashland",
-    lines: [
-      lines[CtaLineName.GREEN],
-      lines[CtaLineName.PINK],
-    ],
+    lines: [lines[CtaLineName.GREEN], lines[CtaLineName.PINK]],
   },
   {
     coordinates: [[-87.6491830256379, 41.9106624386776]],
@@ -881,5 +831,5 @@ export const stations: CtaStation[] = [
     coordinates: [[-87.6276018467328, 41.8781606107067]],
     name: "Jackson",
     lines: [lines[CtaLineName.RED]],
-  }
-]
+  },
+];

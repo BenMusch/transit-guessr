@@ -77,7 +77,7 @@ function Analysis(props: { config: AnalyzableConfig }) {
     config.stations.map((station) => [
       config.uniqueNameForStation(station),
       station,
-    ])
+    ]),
   );
 
   if (selectedIndex === null || selectedIndex === undefined) {

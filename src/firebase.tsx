@@ -11,7 +11,7 @@ export enum FirebaseCollection {
 
 export function tryToSaveFirebaseDoc(
   collectionName: FirebaseCollection,
-  doc: unknown
+  doc: unknown,
 ) {
   try {
     if (!firebaseApp && window.firebaseConfig) {

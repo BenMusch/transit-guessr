@@ -23,7 +23,7 @@ export interface IStation<TrunkLine extends string, LineNameT extends string> {
 
 export interface OperatorConfiguration<
   TrunkLine extends string,
-  LineNameT extends string
+  LineNameT extends string,
 > {
   /**
    * Location and zoom for the initial location of the operator's map
@@ -91,6 +91,6 @@ export interface OperatorConfiguration<
    */
   renderLineForAnalysisMapView: (
     l: ILine<TrunkLine, LineNameT>,
-    p: { greyscale?: boolean }
+    p: { greyscale?: boolean },
   ) => ReactNode;
 }

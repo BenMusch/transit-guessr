@@ -3,11 +3,14 @@ import mtaConfig from "./mta/config";
 import mbtaConfig from "./mbta/config";
 import ctaConfig from "./cta/config";
 
-export type PlayableConfig = typeof mtaConfig | typeof mbtaConfig | typeof ctaConfig;
+export type PlayableConfig =
+  | typeof mtaConfig
+  | typeof mbtaConfig
+  | typeof ctaConfig;
 export type PlayableStation =
-  | typeof ctaConfig["stations"][number]
-  | typeof mtaConfig["stations"][number]
-  | typeof mbtaConfig["stations"][number];
+  | (typeof ctaConfig)["stations"][number]
+  | (typeof mtaConfig)["stations"][number]
+  | (typeof mbtaConfig)["stations"][number];
 
 // TODO: types ????
 export type AnalyzableConfig = typeof mtaConfig;

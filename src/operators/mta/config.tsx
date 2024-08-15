@@ -45,7 +45,7 @@ const config: OperatorConfiguration<MtaTrunkLine, MtaLineName> = {
     const stationNameSuffix = lines
       .map(
         (line: MtaLine) =>
-          `${line.displayName}${line.line.includes("Express") ? "Exp" : ""}`
+          `${line.displayName}${line.line.includes("Express") ? "Exp" : ""}`,
       )
       .join(",");
 

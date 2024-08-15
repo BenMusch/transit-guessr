@@ -27,7 +27,7 @@ function distanceInMeters(a: Coordinate, b: Coordinate) {
 export function calculateScore(
   guess: Coordinate,
   station: PlayableStation,
-  zeroPointDistanceInMeters: number
+  zeroPointDistanceInMeters: number,
 ): { score: number; point: Coordinate } {
   let point: Coordinate | null = null;
   let score: number = 0;
@@ -39,7 +39,7 @@ export function calculateScore(
     // normalize to be 5,000 max score
     let curScore = Math.round(
       (5000 / zeroPointDistanceInMeters ** 2) *
-        Math.max(zeroPointDistanceInMeters - distance, 0) ** 2
+        Math.max(zeroPointDistanceInMeters - distance, 0) ** 2,
     );
 
     if (curScore >= score) {
