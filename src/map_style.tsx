@@ -27,13 +27,25 @@ export default {
       interactive: true,
     },
     {
+      id: "road",
+      type: "line",
+      source: "mapbox",
+      "source-layer": "road",
+      paint: {
+        "line-width": 2,
+        "line-color": "#334155",
+      },
+      filter: ["==", "class", "motorway"],
+      interactive: true,
+    },
+    {
       id: "landuse_park",
       type: "fill",
       source: "mapbox",
       "source-layer": "landuse",
       filter: ["==", "class", "park"],
       paint: {
-        "fill-color": "#334155",
+        "fill-color": "#1e293b",
       },
       interactive: true,
     },
