@@ -1,3 +1,4 @@
+import { CtaStationHeader } from "../../operator_components/cta/CtaStationHeader";
 import { Operator, OperatorConfiguration } from "../types";
 import { lines as linesData, stations as stationsData } from "./data";
 import { CtaLine, CtaLineName, CtaStation, CtaTrunkLine } from "./types";
@@ -15,7 +16,7 @@ class CtaConfig implements OperatorConfiguration<CtaTrunkLine, CtaLineName> {
   initialMapState = {
     longitude: -87.6298,
     latitude: 41.8781,
-    zoom: 10,
+    zoom: 9,
   };
   stationGuessData = [];
 
@@ -49,8 +50,8 @@ class CtaConfig implements OperatorConfiguration<CtaTrunkLine, CtaLineName> {
     return s.name;
   }
 
-  renderStationHeading(s: CtaStation) {
-    return s.name;
+  renderStationHeading(station: CtaStation) {
+    return <CtaStationHeader station={station} config={this} />;
   }
 
   renderLineForAnalysisMapView(l: CtaLine, props: { greyscale?: boolean }) {

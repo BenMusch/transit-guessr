@@ -1,0 +1,40 @@
+.station-heading.cta {
+  background-color:  #0f172a;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  border-radius: 0.1em;
+  height: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  border: .15em solid #0f172a;
+}
+
+.station-name.cta {
+  padding-top: .3em;
+  color: #f1f5f9;
+  font-family: "Helvetica", "Arial", sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.75em;
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+.station-heading-side {
+    height: 100%;
+}
+.station-heading-center {
+}
+
+.station-heading-cta-line {
+    display: block;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-bottom: none;
+}
+
+.station-heading-cta-line:last-child {
+    border-bottom: none;
+}
