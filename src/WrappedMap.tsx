@@ -103,7 +103,7 @@ export function WrappedMap(props: {
       onClick={(e) => {
         onClick && onClick([e.lngLat.lng, e.lngLat.lat]);
       }}
-      style={{ width: 500, height: 400 }}
+      style={{ maxWidth: 500, height: 400 }}
       mapStyle={mapStyle as MapboxStyle}
     >
       {!guessScore && zoomLinks}
