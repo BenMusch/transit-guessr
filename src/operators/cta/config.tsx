@@ -9,16 +9,28 @@ class CtaConfig implements OperatorConfiguration<CtaTrunkLine, CtaLineName> {
   stations = stationsData;
   domain = "chicagoguessr.com";
   appName = "ChicagoGuessr";
-  zeroPointDistanceInMeters = 15000;
+  zeroPointDistanceInMeters = 20000;
   lines = Object.values(linesData);
   linesByTrunkLine = {} as { [k in CtaTrunkLine]: CtaLine[] };
   hasAnalysisPage = false;
   initialMapState = {
-    longitude: -87.6298,
-    latitude: 41.8781,
-    zoom: 9,
+    longitude: -87.69,
+    latitude: 41.8987,
+    zoom: 9.2,
   };
   stationGuessData = [];
+  zoomConfigurations = [
+    {
+      ...this.initialMapState,
+      label: "🗺️ Zoom to Full Map️",
+    },
+    {
+      latitude: 41.881729,
+      longitude: -87.627991,
+      zoom: 13,
+      label: "🔁 Zoom to Loop",
+    },
+  ];
 
   getColor(t: CtaTrunkLine) {
     switch (t) {

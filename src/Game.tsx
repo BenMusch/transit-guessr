@@ -25,7 +25,8 @@ function shareableGame(
     const stationScore = calculateScore(
       guess!,
       station,
-      config.zeroPointDistanceInMeters,
+      station.zeroPointDistanceInMetersOverride ??
+        config.zeroPointDistanceInMeters,
     ).score;
 
     const scoreBrackets = [0, 1000, 2500, 4000, 4750];
@@ -103,6 +104,7 @@ function GameplayMap(props: {
   return (
     <WrappedMap
       id="gameplayMap"
+      zoomControls={config.zoomConfigurations}
       initialViewState={initialViewState}
       onClick={onClick}
       guessMarker={guess}
@@ -237,8 +239,6 @@ function ActiveGame(props: {
 
   const [guess, setGuess] = useState<Coordinate | null>(null);
   const [confirmed, setConfirmed] = useState(false);
-
-  console.log(game);
 
   return (
     <>
@@ -430,16 +430,6 @@ function GameImpl(props: { config: PlayableConfig }) {
 }
 
 function GameComponent(props: { config: PlayableConfig }) {
-  console.log(
-    props.config.stations
-      .flatMap((station) => {
-        return station.lines.map(
-          (line) => `('${station.name}', '${line.line}')`,
-        );
-      })
-      .join(",\n"),
-  );
-
   return (
     <MapProvider>
       <GameImpl config={props.config} />

@@ -38,6 +38,17 @@ export default {
       interactive: true,
     },
     {
+      id: "landuse_national_park",
+      type: "fill",
+      source: "mapbox",
+      "source-layer": "landuse_overlay",
+      filter: ["==", "class", "national_park"],
+      paint: {
+        "fill-color": "#334155",
+      },
+      interactive: true,
+    },
+    {
       id: "water",
       type: "fill",
       source: "mapbox",

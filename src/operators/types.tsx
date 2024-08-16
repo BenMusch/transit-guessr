@@ -19,6 +19,8 @@ export interface IStation<TrunkLine extends string, LineNameT extends string> {
   name: string;
   lines: ILine<TrunkLine, LineNameT>[];
   coordinates: Coordinate[];
+  disambiguation?: string | null;
+  zeroPointDistanceInMetersOverride?: number;
 }
 
 export interface OperatorConfiguration<
@@ -33,6 +35,13 @@ export interface OperatorConfiguration<
     latitude: number;
     zoom: number;
   };
+
+  zoomConfigurations?: {
+    longitude: number;
+    latitude: number;
+    zoom: number;
+    label: string;
+  }[];
 
   operator: Operator;
 

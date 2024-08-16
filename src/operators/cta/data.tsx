@@ -183,6 +183,7 @@ export const stations: CtaStation[] = [
     coordinates: [[-87.8069666741512, 41.8734978948597]],
     name: "Harlem",
     lines: [lines[CtaLineName.BLUE]],
+    disambiguation: "Forest Park Branch",
   },
   {
     coordinates: [[-87.7836668289516, 41.8871672448627]],
@@ -206,7 +207,7 @@ export const stations: CtaStation[] = [
   },
   {
     coordinates: [[-87.6638505984343, 41.7789612403492]],
-    name: "Ashland",
+    name: "Ashland/63rd",
     lines: [lines[CtaLineName.GREEN]],
   },
   {
@@ -246,7 +247,7 @@ export const stations: CtaStation[] = [
   },
   {
     coordinates: [[-87.6244204781868, 41.7223838114069]],
-    name: "95/Dan Ryan",
+    name: "95th/Dan Ryan",
     lines: [lines[CtaLineName.RED]],
   },
   {
@@ -312,7 +313,7 @@ export const stations: CtaStation[] = [
   },
   {
     coordinates: [[-87.673951642288, 41.8756432795085]],
-    name: "Medical District",
+    name: "Illinois Medical District",
     lines: [lines[CtaLineName.BLUE]],
   },
   {
@@ -397,9 +398,15 @@ export const stations: CtaStation[] = [
     lines: [lines[CtaLineName.BLUE]],
   },
   {
+    coordinates: [[-87.676944, 41.885]],
+    name: "Damen",
+    lines: [lines[CtaLineName.GREEN]],
+  },
+  {
     coordinates: [[-87.6873701519635, 41.9161652860628]],
     name: "Western",
     lines: [lines[CtaLineName.BLUE]],
+    disambiguation: "O'Hare Branch",
   },
   {
     coordinates: [[-87.6795437027357, 42.0334635879271]],
@@ -446,6 +453,11 @@ export const stations: CtaStation[] = [
     lines: [lines[CtaLineName.RED]],
   },
   {
+    name: "Harlem/Lake",
+    lines: [lines[CtaLineName.GREEN]],
+    coordinates: [[-87.80486, 41.88706]],
+  },
+  {
     coordinates: [[-87.6261945339908, 41.8832278676329]],
     name: "Washington/Wabash",
     lines: [
@@ -483,7 +495,7 @@ export const stations: CtaStation[] = [
   },
   {
     coordinates: [[-87.7165286089476, 41.8849122297051]],
-    name: "Conservatory",
+    name: "Conservatory–Central Park Drive",
     lines: [lines[CtaLineName.GREEN]],
   },
   {
@@ -604,7 +616,8 @@ export const stations: CtaStation[] = [
   },
   {
     coordinates: [[-87.628214893786, 41.8769161939259]],
-    name: "Library",
+    name: "Harold Washington Library",
+    disambiguation: "State/Van Buren",
     lines: [
       lines[CtaLineName.BROWN],
       lines[CtaLineName.ORANGE],
@@ -704,7 +717,7 @@ export const stations: CtaStation[] = [
   },
   {
     coordinates: [[-87.6337457270016, 41.8787311369957]],
-    name: "Quincy/Wells",
+    name: "Quincy",
     lines: [
       lines[CtaLineName.BROWN],
       lines[CtaLineName.ORANGE],
@@ -766,6 +779,7 @@ export const stations: CtaStation[] = [
     coordinates: [[-87.6884402778711, 41.8755374238929]],
     name: "Western",
     lines: [lines[CtaLineName.BLUE]],
+    disambiguation: "Forest Park Branch",
   },
   {
     coordinates: [[-87.6907353058871, 42.073160645837]],
