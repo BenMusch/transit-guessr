@@ -175,6 +175,38 @@ button:disabled {
   color: #ffffff70;
 }
 
+.buttons.buttons-sm button {
+  padding: 0.25em;
+  font-size: 0.5em;
+  text-transform: none;
+  width: 50%;
+}
+
+.zoom-links {
+  position: relative;
+  margin: 0.25em;
+}
+
+.zoom-links li {
+  display: block;
+  float: left;
+  margin-right: 0.25em;
+}
+
+.zoom-links button {
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+  border-radius: 0.1em;
+  color: #e2e8f0;
+  margin-top: 0.25em;
+  padding: 0.25em;
+}
+.zoom-links button:hover {
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: #f8fafc;
+}
+
 .stats,
 .analysis-nav {
   margin-top: 0.5em;

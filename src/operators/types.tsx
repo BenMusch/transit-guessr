@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { NumberLiteralType } from "typescript";
 
 export enum Operator {
   MTA = "mta",
@@ -19,6 +20,7 @@ export interface IStation<TrunkLine extends string, LineNameT extends string> {
   name: string;
   lines: ILine<TrunkLine, LineNameT>[];
   coordinates: Coordinate[];
+  disambiguation?: string | null;
 }
 
 export interface OperatorConfiguration<
@@ -33,6 +35,13 @@ export interface OperatorConfiguration<
     latitude: number;
     zoom: number;
   };
+
+  zoomConfigurations?: {
+    longitude: number;
+    latitude: number;
+    zoom: number;
+    label: string;
+  }[];
 
   operator: Operator;
 

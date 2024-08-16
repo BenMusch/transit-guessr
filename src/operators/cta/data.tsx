@@ -183,6 +183,7 @@ export const stations: CtaStation[] = [
     coordinates: [[-87.8069666741512, 41.8734978948597]],
     name: "Harlem",
     lines: [lines[CtaLineName.BLUE]],
+    disambiguation: "Forest Park Branch",
   },
   {
     coordinates: [[-87.7836668289516, 41.8871672448627]],
@@ -400,6 +401,7 @@ export const stations: CtaStation[] = [
     coordinates: [[-87.6873701519635, 41.9161652860628]],
     name: "Western",
     lines: [lines[CtaLineName.BLUE]],
+    disambiguation: "O'Hare Branch",
   },
   {
     coordinates: [[-87.6795437027357, 42.0334635879271]],
@@ -721,6 +723,7 @@ export const stations: CtaStation[] = [
     coordinates: [[-87.8089007480191, 41.982331231851]],
     name: "Harlem",
     lines: [lines[CtaLineName.BLUE]],
+    disambiguation: "O'Hare Branch",
   },
   {
     coordinates: [[-87.774141048747, 41.8873006318581]],
@@ -766,6 +769,7 @@ export const stations: CtaStation[] = [
     coordinates: [[-87.6884402778711, 41.8755374238929]],
     name: "Western",
     lines: [lines[CtaLineName.BLUE]],
+    disambiguation: "Forest Park Branch",
   },
   {
     coordinates: [[-87.6907353058871, 42.073160645837]],

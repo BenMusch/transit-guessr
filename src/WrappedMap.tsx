@@ -1,8 +1,9 @@
 import React from "react";
 import type { Coordinate } from "./operators/types";
-import { Map, Marker, Source, Layer } from "react-map-gl";
+import { Map, Marker, Source, Layer, useMap } from "react-map-gl";
 import type { MapboxStyle } from "react-map-gl";
 import mapStyle from "./map_style";
+import { CameraOptions } from "mapbox-gl";
 
 function GuessDistributionOverlay(props: {
   sourceFile: string;
@@ -41,6 +42,12 @@ export function WrappedMap(props: {
   guessScore?: number | null;
   errorMsg?: string | null;
   stationMarker?: Coordinate | null;
+  zoomControls?: {
+    zoom: number;
+    longitude: number;
+    latitude: number;
+    label: string;
+  }[];
   onClick?: (c: Coordinate) => void;
   initialViewState: { zoom: number; longitude: number; latitude: number };
 }) {
@@ -56,11 +63,42 @@ export function WrappedMap(props: {
     initialViewState,
   } = props;
 
+  // this is in-elegant and we should find a way to control *this* map
+  const mapRef = useMap();
+
+  let zoomLinks = null;
+  console.log(props.zoomControls);
+  if (props.zoomControls) {
+    zoomLinks = (
+      <ul className="zoom-links">
+        {props.zoomControls.map((zoomConfig) => {
+          return (
+            <li>
+              <button
+                onClick={() => {
+                  const stateToJumpTo: CameraOptions = {
+                    center: [zoomConfig.longitude, zoomConfig.latitude],
+                    zoom: zoomConfig.zoom,
+                    pitch: 0,
+                  };
+                  mapRef?.reviewMap?.jumpTo(stateToJumpTo);
+                  mapRef?.gameplayMap?.jumpTo(stateToJumpTo);
+                }}
+              >
+                {zoomConfig.label}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }
+
   return (
     <Map
       id={id}
       initialViewState={initialViewState}
-      maxZoom={12}
+      maxZoom={14}
       minZoom={8.5}
       onClick={(e) => {
         onClick && onClick([e.lngLat.lng, e.lngLat.lat]);
@@ -68,6 +106,7 @@ export function WrappedMap(props: {
       style={{ width: 500, height: 400 }}
       mapStyle={mapStyle as MapboxStyle}
     >
+      {zoomLinks}
       {guessMarker && (
         <Marker longitude={guessMarker[0]} latitude={guessMarker[1]} />
       )}

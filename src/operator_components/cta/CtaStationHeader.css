@@ -3,7 +3,7 @@
   margin-top: 0.5em;
   margin-bottom: 1em;
   border-radius: 0.1em;
-  min-height: 3rem;
+  min-height: 3.5rem;
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
   border: .15em solid #0f172a;
@@ -16,24 +16,38 @@
   text-transform: uppercase;
   text-align: center;
   font-weight: bold;
-  font-size: 1.75em;
+  font-size: 2em;
   margin-top: 0.1em;
   margin-bottom: 0.1em;
 }
 
-.station-heading-cta-line {
+.station-name-ambiguous-container.cta {
+  padding-top: .5em;
+  color: #f1f5f9;
+  font-family: "Helvetica", "Arial", sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+.station-name-ambiguous.cta {
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-bottom: 0.1em;
+}
+
+.station-name-disambiguation.cta {
+  font-weight: bold;
+  font-size: 0.75em;
+}
+
+.station-heading-cta-line, .station-heading-cta-line-border {
     display: block;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
 }
 
 .station-heading-side-inner {
   height: 100%;
   display: grid;
   grid-template-columns: 1fr;
-}
-
-.station-heading-cta-line:last-child {
-    border-bottom: none;
 }
