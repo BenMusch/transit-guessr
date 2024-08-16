@@ -59,7 +59,7 @@ class CtaConfig implements OperatorConfiguration<CtaTrunkLine, CtaLineName> {
 
   // T-29359 Implement this correctly
   uniqueNameForStation(s: CtaStation) {
-    return s.name;
+    return s.name + '_' + (s.disambiguation ?? '') + '_' + s.lines.map(l => l.displayName).join(',');
   }
 
   renderStationHeading(station: CtaStation) {
