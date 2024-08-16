@@ -106,7 +106,7 @@ export function WrappedMap(props: {
       style={{ width: 500, height: 400 }}
       mapStyle={mapStyle as MapboxStyle}
     >
-      {zoomLinks}
+      {!guessScore && zoomLinks}
       {guessMarker && (
         <Marker longitude={guessMarker[0]} latitude={guessMarker[1]} />
       )}

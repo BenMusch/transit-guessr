@@ -9,7 +9,7 @@ class CtaConfig implements OperatorConfiguration<CtaTrunkLine, CtaLineName> {
   stations = stationsData;
   domain = "chicagoguessr.com";
   appName = "ChicagoGuessr";
-  zeroPointDistanceInMeters = 15000;
+  zeroPointDistanceInMeters = 20000;
   lines = Object.values(linesData);
   linesByTrunkLine = {} as { [k in CtaTrunkLine]: CtaLine[] };
   hasAnalysisPage = false;

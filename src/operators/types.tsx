@@ -21,6 +21,7 @@ export interface IStation<TrunkLine extends string, LineNameT extends string> {
   lines: ILine<TrunkLine, LineNameT>[];
   coordinates: Coordinate[];
   disambiguation?: string | null;
+  zeroPointDistanceInMetersOverride?: number;
 }
 
 export interface OperatorConfiguration<
