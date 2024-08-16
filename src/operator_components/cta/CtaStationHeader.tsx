@@ -47,7 +47,7 @@ export function CtaStationHeader(props: {
 }) {
   const { station, config } = props;
   let whiteLine: JSX.Element | null = null;
-  const lines = _.sortBy(station.lines, sortOrder);
+  const lines = station.lines.sort((a, b) => sortOrder(a.trunkLine) - sortOrder(b.trunkLine));
   const borderHeightPercentage = borderPercentage(lines.length);
   const colorHeightPercentage = 100 - borderHeightPercentage;
   const disambiguation = station.disambiguation ?? null;
