@@ -25,7 +25,8 @@ function shareableGame(
     const stationScore = calculateScore(
       guess!,
       station,
-      station.zeroPointDistanceInMetersOverride ?? config.zeroPointDistanceInMeters,
+      station.zeroPointDistanceInMetersOverride ??
+        config.zeroPointDistanceInMeters,
     ).score;
 
     const scoreBrackets = [0, 1000, 2500, 4000, 4750];
