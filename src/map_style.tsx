@@ -27,25 +27,35 @@ export default {
       interactive: true,
     },
     {
-      id: "road",
-      type: "line",
-      source: "mapbox",
-      "source-layer": "road",
-      paint: {
-        "line-width": 2,
-        "line-color": "#334155",
-      },
-      filter: ["==", "class", "motorway"],
-      interactive: true,
-    },
-    {
       id: "landuse_park",
       type: "fill",
       source: "mapbox",
       "source-layer": "landuse",
       filter: ["==", "class", "park"],
       paint: {
-        "fill-color": "#1e293b",
+        "fill-color": "#334155",
+      },
+      interactive: true,
+    },
+    {
+      id: "landuse_grass",
+      type: "fill",
+      source: "mapbox",
+      "source-layer": "landuse",
+      filter: ["==", "class", "grass"],
+      paint: {
+        "fill-color": "#334155",
+      },
+      interactive: true,
+    },
+    {
+      id: "landuse_national_park",
+      type: "fill",
+      source: "mapbox",
+      "source-layer": "landuse_overlay",
+      filter: ["==", "class", "national_park"],
+      paint: {
+        "fill-color": "#334155",
       },
       interactive: true,
     },
