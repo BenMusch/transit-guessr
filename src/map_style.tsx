@@ -38,17 +38,6 @@ export default {
       interactive: true,
     },
     {
-      id: "landuse_grass",
-      type: "fill",
-      source: "mapbox",
-      "source-layer": "landuse",
-      filter: ["==", "class", "grass"],
-      paint: {
-        "fill-color": "#334155",
-      },
-      interactive: true,
-    },
-    {
       id: "landuse_national_park",
       type: "fill",
       source: "mapbox",

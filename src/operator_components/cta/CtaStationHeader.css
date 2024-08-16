@@ -3,7 +3,7 @@
   margin-top: 0.5em;
   margin-bottom: 1em;
   border-radius: 0.1em;
-  height: 3rem;
+  min-height: 3rem;
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
   border: .15em solid #0f172a;
@@ -21,18 +21,17 @@
   margin-bottom: 0.1em;
 }
 
-.station-heading-side {
-    height: 100%;
-}
-.station-heading-center {
-}
-
 .station-heading-cta-line {
     display: block;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    border-bottom: none;
+}
+
+.station-heading-side-inner {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
 .station-heading-cta-line:last-child {

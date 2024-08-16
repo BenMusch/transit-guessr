@@ -14,9 +14,9 @@ class CtaConfig implements OperatorConfiguration<CtaTrunkLine, CtaLineName> {
   linesByTrunkLine = {} as { [k in CtaTrunkLine]: CtaLine[] };
   hasAnalysisPage = false;
   initialMapState = {
-    longitude: -87.6298,
-    latitude: 41.8781,
-    zoom: 9,
+    longitude: -87.6900,
+    latitude: 41.8987,
+    zoom: 9.2,
   };
   stationGuessData = [];
 
