@@ -6,6 +6,7 @@ import {
 } from "../../operators/cta/types";
 import type { OperatorConfiguration } from "../../operators/types";
 import "./CtaStationHeader.css";
+import _ from "lodash";
 
 function sortOrder(line: CtaTrunkLine) {
   switch (line) {
@@ -46,7 +47,7 @@ export function CtaStationHeader(props: {
 }) {
   const { station, config } = props;
   let whiteLine: JSX.Element | null = null;
-  const lines = station.lines;
+  const lines = _.sortBy(station.lines, sortOrder);
   const borderHeightPercentage = borderPercentage(lines.length);
   const colorHeightPercentage = 100 - borderHeightPercentage;
   const disambiguation = station.disambiguation ?? null;
