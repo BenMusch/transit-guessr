@@ -6,7 +6,6 @@ import {
 } from "../../operators/cta/types";
 import type { OperatorConfiguration } from "../../operators/types";
 import "./CtaStationHeader.css";
-import _ from "lodash";
 
 function sortOrder(line: CtaTrunkLine) {
   switch (line) {
