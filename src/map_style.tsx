@@ -49,6 +49,17 @@ export default {
       interactive: true,
     },
     {
+      id: "cemetery",
+      type: "fill",
+      source: "mapbox",
+      "source-layer": "landuse",
+      filter: ["==", "class", "cemetery"],
+      paint: {
+        "fill-color": "#415164",
+      },
+      interactive: true,
+    },
+    {
       id: "industrial",
       type: "fill",
       source: "mapbox",
