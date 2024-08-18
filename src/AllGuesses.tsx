@@ -78,8 +78,6 @@ function TransitLinesOverlay(props: {
   enabledLines: Set<AnalyzableLine>;
 }) {
   const { enabledLines, config } = props;
-  return null
-  /*
   return (
     <Source
       id="routes"
@@ -188,7 +186,6 @@ function TransitLinesOverlay(props: {
       })}
     </Source>
   );
-  */
 }
 
 function GuessMap(props: {
@@ -213,6 +210,7 @@ function GuessMap(props: {
     >
       <Source type="geojson" data={`/${config.operator}/guesses.geojson`}>
         {Object.entries(config.linesByTrunkLine).map(([trunkLine, lines]) => {
+          console.log(trunkLine)
           const filters = lines
             .filter(
               (line) =>

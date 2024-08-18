@@ -11,7 +11,16 @@ class CtaConfig implements OperatorConfiguration<CtaTrunkLine, CtaLineName> {
   appName = "ChicagoGuessr";
   zeroPointDistanceInMeters = 20000;
   lines = Object.values(linesData);
-  linesByTrunkLine = {} as { [k in CtaTrunkLine]: CtaLine[] };
+  linesByTrunkLine = {
+    [CtaTrunkLine.BLUE]: [linesData[CtaLineName.BLUE]],
+    [CtaTrunkLine.BROWN]: [linesData[CtaLineName.BROWN]],
+    [CtaTrunkLine.GREEN]: [linesData[CtaLineName.GREEN]],
+    [CtaTrunkLine.ORANGE]: [linesData[CtaLineName.ORANGE]],
+    [CtaTrunkLine.PINK]: [linesData[CtaLineName.PINK]],
+    [CtaTrunkLine.PURPLE]: [linesData[CtaLineName.PURPLE]],
+    [CtaTrunkLine.RED]: [linesData[CtaLineName.RED]],
+    [CtaTrunkLine.YELLOW]: [linesData[CtaLineName.YELLOW]],
+  } as { [k in CtaTrunkLine]: CtaLine[] };
   hasAnalysisPage = true;
   initialMapState = {
     longitude: -87.69,
