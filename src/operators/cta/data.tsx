@@ -644,7 +644,6 @@ export const stations: CtaStation[] = [
     coordinates: [[-87.8031817889155, 41.8868561489306]],
     name: "Harlem",
     lines: [lines[CtaLineName.GREEN]],
-    disambiguation: "O'Hare Branch"
   },
   {
     coordinates: [[-87.7054337263969, 41.8541384319667]],
@@ -735,6 +734,7 @@ export const stations: CtaStation[] = [
     coordinates: [[-87.8089007480191, 41.982331231851]],
     name: "Harlem",
     lines: [lines[CtaLineName.BLUE]],
+    disambiguation: "O'Hare Branch"
   },
   {
     coordinates: [[-87.774141048747, 41.8873006318581]],
