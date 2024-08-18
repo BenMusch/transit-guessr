@@ -78,6 +78,8 @@ function TransitLinesOverlay(props: {
   enabledLines: Set<AnalyzableLine>;
 }) {
   const { enabledLines, config } = props;
+  return null
+  /*
   return (
     <Source
       id="routes"
@@ -186,6 +188,7 @@ function TransitLinesOverlay(props: {
       })}
     </Source>
   );
+  */
 }
 
 function GuessMap(props: {
@@ -199,6 +202,7 @@ function GuessMap(props: {
   for (const line of enabledLines) {
     enabledTrunkLines.add(line.trunkLine);
   }
+  console.log(enabledTrunkLines);
 
   return (
     <Map

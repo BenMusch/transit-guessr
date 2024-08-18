@@ -41,19 +41,19 @@ function App() {
         {configToPlay.hasAnalysisPage && (
           <Route
             path="map"
-            element={<AllGuesses config={configToPlay as AnalyzableConfig} />}
+            element={<AllGuesses config={configToPlay as unknown as AnalyzableConfig} />}
           />
         )}
         {configToPlay.hasAnalysisPage && (
           <Route
             path="data"
-            element={<Analysis config={configToPlay as AnalyzableConfig} />}
+            element={<Analysis config={configToPlay as unknown as AnalyzableConfig} />}
           />
         )}
         {configToPlay.hasAnalysisPage && (
           <Route
             path="data/:selectedIndex"
-            element={<Analysis config={configToPlay as AnalyzableConfig} />}
+            element={<Analysis config={configToPlay as unknown as AnalyzableConfig} />}
           />
         )}
         <Route index element={<Game config={configToPlay} />} />

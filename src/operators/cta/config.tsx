@@ -12,7 +12,7 @@ class CtaConfig implements OperatorConfiguration<CtaTrunkLine, CtaLineName> {
   zeroPointDistanceInMeters = 20000;
   lines = Object.values(linesData);
   linesByTrunkLine = {} as { [k in CtaTrunkLine]: CtaLine[] };
-  hasAnalysisPage = false;
+  hasAnalysisPage = true;
   initialMapState = {
     longitude: -87.69,
     latitude: 41.8987,
